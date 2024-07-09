@@ -1,0 +1,1965 @@
+#LyX 1.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 218
+\textclass article
+\language english
+\inputencoding latin1
+\fontscheme default
+\graphics default
+\paperfontsize 12
+\spacing single 
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 0
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+
+\layout Title
+
+NNAMP
+\layout Title
+
+A computer code for NN scattering amplitudes
+\layout Standard
+
+\layout Author
+
+R.
+ Crespo and A.M.
+ Moro
+\layout Address
+
+Departamento de F
+\backslash 
+'{i}sica, Instituto Superior T
+\backslash 
+'ecnico, 1049-001 Lisboa, Portugal
+\layout Address
+
+Email:raquel@wotan.ist.utl.pt, moro@mary.ist.utl.pt
+\layout Standard
+
+
+\begin_inset LatexCommand \tableofcontents{}
+
+\end_inset 
+
+
+\layout Section
+
+Introduction
+\layout Standard
+
+NNAMP is a computer code to evaluate on- and off-shell free nucleon-nucleon
+ (NN) scattering amplitudes in the momentum space configuration from a realistic
+ NN interaction such as Paris 
+\begin_inset LatexCommand \cite{Paris80}
+
+\end_inset 
+
+ or Bonn 
+\begin_inset LatexCommand \cite{Bonn87}
+
+\end_inset 
+
+.
+ This code, consists of an extension of existing f77 codes 
+\begin_inset LatexCommand \cite{Red87a,Red87b,Red87c}
+
+\end_inset 
+
+ to include all components of the NN scattering amplitude in the Wolfenstein
+ parametrization 
+\begin_inset LatexCommand \cite{Wol52}
+
+\end_inset 
+
+ and in the tensor representation 
+\begin_inset LatexCommand \cite{Cres01}
+
+\end_inset 
+
+.
+\layout Standard
+
+The code is constructed in fortran 90, to exploit the capabilities of this
+ language.
+ In particular, common blocks can be replaced by modules and parameter statement
+s eliminated.
+ It is also possible an allocation of dynamic memory.
+\layout Standard
+
+The inputs of the original programs have been gathered into a common input
+ which uses the more intuitive namelist style.
+\layout Section
+
+Formalism
+\layout Standard
+
+We assume plane wave states 
+\begin_inset Formula \( |\vec{k}\rangle  \)
+\end_inset 
+
+ normalized such that
+\layout Standard
+
+
+\begin_inset Formula \begin{equation}
+|\vec{k}\rangle =\sqrt{\frac{2}{\pi }}\sum _{JLSM}i^{L}|k(LS)JM\rangle Y_{JL}^{M+}(\hat{k}),
+\end{equation}
+
+\end_inset 
+
+with normalization
+\layout Standard
+
+
+\begin_inset Formula \begin{equation}
+\langle k'(LS)JM|k(LS)JM\rangle =\frac{\pi }{2}\frac{\delta (k-k')}{k^{2}},
+\end{equation}
+
+\end_inset 
+
+and where in configuration space
+\layout Standard
+
+
+\begin_inset Formula \begin{equation}
+\label{kpartwave}
+\langle \vec{r}|k(LS)JM\rangle =j_{L}(kr)Y_{JL}^{M}(\hat{r}),
+\end{equation}
+
+\end_inset 
+
+ with 
+\begin_inset Formula \( j_{L}(kr) \)
+\end_inset 
+
+the spherical Bessel function.
+ The free NN scattering amplitude 
+\begin_inset Formula \( M(\omega ,\vec{k}',\vec{k}) \)
+\end_inset 
+
+, describing the scattering from two-nucleon states with relative momenta
+ 
+\begin_inset Formula \( \vec{k} \)
+\end_inset 
+
+ and 
+\begin_inset Formula \( \vec{k}' \)
+\end_inset 
+
+ for relative energy 
+\begin_inset Formula \( \omega  \)
+\end_inset 
+
+ in their centre of mass (cm) frame, is related to the anti-symmetrised
+ transition matrix elements by 
+\begin_inset Formula \begin{eqnarray}
+M(\omega ,\vec{k}',\vec{k})=\langle \vec{k}'|M(\omega )|\vec{k}\rangle =-\frac{4\pi ^{2}\mu }{\hbar ^{2}}\langle \vec{k}'|t^{f}_{01}(\omega )|\vec{k}\rangle , & \label{scattA} 
+\end{eqnarray}
+
+\end_inset 
+
+ where 
+\begin_inset Formula \( \mu  \)
+\end_inset 
+
+ the NN reduced mass.
+ These amplitudes are operators in both the NN spin and isospin spaces.
+\layout Standard
+
+The Wolfenstein decomposition of the NN amplitude for the scattering of
+ an incident (0) and struck (1) nucleon has been used extensively.
+ It writes the most general form of the amplitude, consistent with time-reversal
+, parity, and rotational invariance, as 
+\begin_inset Formula \begin{eqnarray}
+M(\omega ,\vec{k}',\vec{k}) & = & {\mathcal{A}}+{\mathcal{B}}(\vec{\sigma }_{0}\cdot \hat{n})(\vec{\sigma }_{1}\cdot \hat{n})+{\mathcal{C}}(\vec{\sigma }_{0}+\vec{\sigma }_{1})\cdot \hat{n}\nonumber \\
+ & + & {\mathcal{D}}(\vec{\sigma }_{0}\cdot \hat{m})(\vec{\sigma }_{1}\cdot \hat{m})+{\mathcal{E}}(\vec{\sigma }_{0}\cdot \hat{\ell }\, )(\vec{\sigma }_{1}\cdot \hat{\ell }\, )\nonumber \\
+ & + & {\mathcal{F}}[(\vec{\sigma }_{0}\cdot \hat{\ell }\, )(\vec{\sigma }_{1}\cdot \hat{m})+(\vec{\sigma }_{1}\cdot \hat{m})(\vec{\sigma }_{0}\cdot \hat{\ell }\, )]\label{KMT} 
+\end{eqnarray}
+
+\end_inset 
+
+ where the orthogonal set of unit vectors 
+\begin_inset Formula \( \hat{n}=(\vec{k}\times \vec{k}')/|\vec{k}\times \vec{k}'| \)
+\end_inset 
+
+, 
+\begin_inset Formula \( \hat{\ell }=(\vec{k}'+\vec{k})/|\vec{k}'+\vec{k}| \)
+\end_inset 
+
+, and 
+\begin_inset Formula \( \hat{m}=\hat{\ell }\times \hat{n} \)
+\end_inset 
+
+ are defined by the NN scattering plane 
+\begin_inset LatexCommand \cite{Wol52}
+
+\end_inset 
+
+.
+ The coefficient amplitudes 
+\begin_inset Formula \( {\mathcal{A}},\ldots {\mathcal{F}} \)
+\end_inset 
+
+ can also be expressed as complex functions of the energy 
+\begin_inset Formula \( \omega =\hbar ^{2}k^{2}_{0}/2\mu  \)
+\end_inset 
+
+, the momentum transfer 
+\begin_inset Formula \( \vec{q}=(\vec{k}'-\vec{k}) \)
+\end_inset 
+
+ and the total momentum 
+\begin_inset Formula \( \vec{\mathcal{Q}}=(\vec{k}'+\vec{k})/2 \)
+\end_inset 
+
+ of the NN pair in their cm frame.
+ 
+\layout Standard
+
+They remain operators in isotopic spin space, so for instance 
+\begin_inset Formula \begin{eqnarray}
+{\mathcal{A}}(\omega ,\vec{q},\vec{\mathcal{Q}}) & = & {\mathcal{A}}_{0}+{\mathcal{A}}_{\tau }(\vec{\tau }_{0}\cdot \vec{\tau }_{1})\nonumber \\
+ & = & {\mathcal{A}}^{T=0}P_{0}+{\mathcal{A}}^{T=1}P_{1},\label{tautau} 
+\end{eqnarray}
+
+\end_inset 
+
+ 
+\layout Standard
+
+The tensor representation 
+\begin_inset LatexCommand \cite{Cres01}
+
+\end_inset 
+
+ is a a convenient general method to express the NN transition amplitude
+ as a linear combination for the spherical components of the spin operators
+ of the two interacting particles.
+ This is a more treatable representation to be used in multiple scattering
+ formalisms which required a full treatment of the spin of the NN transition
+ amplitude.
+ In this representation, the scattering amplitude is written in terms of
+ the tensor of rank 
+\begin_inset Formula \( \kappa  \)
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Formula \begin{eqnarray}
+{\mathcal{T}}_{\kappa q}(a,b)=\sum _{\alpha \beta }(a\alpha b\beta |\kappa q)\tau _{a\alpha }(s_{0})\tau _{b\beta }(s_{1}).\label{bigT} 
+\end{eqnarray}
+
+\end_inset 
+
+ as, 
+\begin_inset Formula \begin{eqnarray}
+\langle \vec{k}'|M|\vec{k}\rangle =\sum _{\kappa qab}M^{(ab)}_{\kappa q}(\vec{k}',\vec{k}){\mathcal{T}}^{\dagger }_{\kappa q}(a,b), & 
+\end{eqnarray}
+
+\end_inset 
+
+ where 
+\begin_inset Formula \( \tau _{a\alpha }(s_{0}) \)
+\end_inset 
+
+ is the irreducible tensor operator for the projectile particle (0) with
+ spin 
+\begin_inset Formula \( s_{0} \)
+\end_inset 
+
+ (
+\begin_inset Formula \( a=0,\ldots 2s_{0} \)
+\end_inset 
+
+); 
+\begin_inset Formula \( \tau _{b\beta }(s_{1}) \)
+\end_inset 
+
+ is the irreducible tensor operator for the struck particle (1) with spin
+ 
+\begin_inset Formula \( s_{1} \)
+\end_inset 
+
+ (
+\begin_inset Formula \( b=0,\ldots 2s_{1} \)
+\end_inset 
+
+).
+ Explicitly, since 
+\begin_inset Formula \( \scriptstyle s_{0}=s_{1}={\frac{1}{2}} \)
+\end_inset 
+
+, 
+\begin_inset Formula \begin{eqnarray}
+\scriptstyle \tau _{00}({\frac{1}{2}})=1,\tau _{1\beta }({\frac{1}{2}})=\sigma _{\beta }(1),
+\end{eqnarray}
+
+\end_inset 
+
+ with 
+\begin_inset Formula \( \sigma _{\beta }(1) \)
+\end_inset 
+
+ the spherical components of 
+\begin_inset Formula \( \vec{\sigma }_{1} \)
+\end_inset 
+
+ with respect to the chosen 
+\begin_inset Formula \( z \)
+\end_inset 
+
+-axis.
+ 
+\layout Standard
+
+In both cases, the Wolfenstein and the tensor representation, the scattering
+ amplitudes are calculated from the partial wave decomposition of the scattering
+ amplitude, as summarized for completeness in the Appendix.
+ 
+\layout Standard
+
+The partial wave expansion of the T-matrix in momentum space is evaluated,
+ following the procedure detailed in 
+\begin_inset LatexCommand \cite{Red87a}
+
+\end_inset 
+
+: for a given NN interaction, the T-matrix is calcultated by solving the
+ Lippman-Schwinger equation.
+ In order to deal with the principal value in the intermediate states propagatio
+n, the R-matrix is introduced
+\layout Standard
+
+
+\begin_inset Formula \begin{equation}
+R_{L'L}^{JST}(k',k)=V^{JST}_{L'L}(k',k)+\frac{2}{\pi }\sum _{L''}\int ^{\infty }_{0}dk''k''^{2}V_{L'L''}^{JST}(k',k'')G_{0}^{P}(k'')R_{L''L}^{JST}(k'',k)
+\end{equation}
+
+\end_inset 
+
+where 
+\begin_inset Formula \( V^{JST}_{L'L}(k',k) \)
+\end_inset 
+
+ is the matrix elements of the NN potential and 
+\begin_inset Formula \( G_{0}^{P} \)
+\end_inset 
+
+ the principal value of the Green's function.
+ The principal value is evaluated using the Sloan method 
+\begin_inset LatexCommand \cite{Sloan68}
+
+\end_inset 
+
+ which consists of using a symmetric quadrature in the neighbourhood of
+ the pole.
+ The infinite upper limit of the integral is handled by using a cutoff momentum,
+ which is outside the region where the dominant contributions occur, and
+ a Gauss-Laguerre rule for the integration region beyond that cutoff.
+\layout Standard
+
+The partial decomposition of the transition amplitude can then be related
+ to the R matrix elements by the Heitler equation:
+\layout Standard
+
+
+\begin_inset Formula \begin{equation}
+t_{L'L}^{JST}(k',k)=R_{L'L}^{JST}(k',k)-2i\mu k_{0}\sum _{l''l'''}R_{L'L''}^{JST}(k',k_{0})[1+2i\mu k''R^{JST}(k_{0},k_{0})]_{L''L'''}^{-1}R_{l'''l}^{jst}(k_{0},k)
+\end{equation}
+
+\end_inset 
+
+ where 
+\begin_inset Formula \( k_{0} \)
+\end_inset 
+
+ is the NN on- shell momentum.
+\layout Section
+
+About the code
+\layout Subsection
+
+Source files:
+\layout Itemize
+
+
+\series bold 
+main.f90
+\series default 
+: main program, reads the input file and calls to the different subroutines.
+\layout Itemize
+
+
+\series bold 
+klsp.f90
+\series default 
+: program to build the R-matrix for uncoupled states.
+ 
+\layout Itemize
+
+
+\series bold 
+ktall.f90
+\series default 
+: program to build the T-matrix, by solving the Heitler equation.
+\layout Itemize
+
+
+\series bold 
+ampon.f90
+\series default 
+: program to evaluate 
+\emph on 
+on-shell
+\emph default 
+ amplitudes in the Wolfenstein representation.
+\layout Itemize
+
+
+\series bold 
+ampall.f90
+\series default 
+: program to evaluate 
+\emph on 
+off-shell
+\emph default 
+ amplitudes in the Wolfenstein representation.
+\layout Itemize
+
+
+\series bold 
+mon.f90
+\series default 
+: program to evaluate 
+\emph on 
+on-shell
+\emph default 
+ amplitudes in the tensor representation.
+\layout Itemize
+
+
+\series bold 
+moff.f90
+\series default 
+: program to evaluate 
+\emph on 
+off-shell
+\emph default 
+ amplitudes in the tensor representation.
+\layout Itemize
+
+
+\series bold 
+utils.f90
+\series default 
+: subroutines of general use, shared by several source files.
+\layout Itemize
+
+
+\series bold 
+modules.f90
+\series default 
+: common modules.
+\layout Itemize
+
+
+\series bold 
+modbonn.f90
+\series default 
+: modules associated to the construction of the Bonn potential.
+\layout Subsection
+
+Compilation
+\layout Standard
+
+Together with the previous source files, the package contain a 
+\emph on 
+Makefile
+\emph default 
+ file.
+ Before compilation, this Makefile has to be edited and modified to provide
+ the name of the f90 compiler and (possibly) compilation options.
+ Up to now, the program has been tested using the 
+\emph on 
+Fujitsu f90
+\emph default 
+ 
+\emph on 
+compiler
+\emph default 
+ and the 
+\emph on 
+Portand f90 compiler
+\emph default 
+ (
+\emph on 
+pgf90
+\emph default 
+) for Unix (Linux) machines.
+ Then, just type 
+\emph on 
+make 
+\emph default 
+on the command line
+\emph on 
+ 
+\emph default 
+to start compilation.
+
+\emph on 
+ 
+\emph default 
+If no errors are generated, an executable 
+\emph on 
+ampall
+\emph default 
+ should be created.
+ 
+\layout Section
+
+Description of namelists input variables
+\layout Subsection*
+
+SYSTEM namelist: 
+\layout Standard
+
+The energy and NN realistic potential
+\layout Itemize
+
+
+\series bold 
+tcm
+\series default 
+ (real): c.m.
+ scattering energy.
+\layout Itemize
+
+
+\series bold 
+nnpot
+\series default 
+ (string): type of NN interaction.
+ Currently 'Paris' or 'Bonn'.
+\layout Itemize
+
+
+\series bold 
+jmax
+\series default 
+ (integer): if specified the set of partial waves 
+\begin_inset Formula \( L,S,J \)
+\end_inset 
+
+ will be built automatically.
+ Otherwise, a set of &pw/ namelists are required to explicitly input the
+ desired partial waves.
+ 
+\layout Subsection*
+
+KMAT namelist
+\layout Standard
+
+Variables necessary to evaluate the integral over the transferred momentum,
+ 
+\begin_inset Formula \( q \)
+\end_inset 
+
+, for constructing the R-matrix.
+ The integration is done by dividing the integration interval into four
+ pieces, with (see Fig
+\latex latex 
+.
+\backslash 
+
+\latex default 
+ 
+\begin_inset LatexCommand \ref{Fig:redish}
+
+\end_inset 
+
+)
+\layout Itemize
+
+
+\series bold 
+hw
+\series default 
+: half-width of (symetric) interval around the on-shell value (default 0.5).
+\layout Itemize
+
+
+\series bold 
+b01,
+\series default 
+ 
+\series bold 
+b34
+\series default 
+: lower and upper limits.
+\layout Itemize
+
+
+\series bold 
+n1,n2
+\series default 
+,
+\series bold 
+n3, n4
+\series default 
+: number of quadrature points in each one of the regions.
+\layout Itemize
+
+
+\series bold 
+s
+\series default 
+: scale factor for Gauss-Laguerre quadrature (default 1).
+\layout Itemize
+
+
+\series bold 
+qlo
+\series default 
+: lowest momentum (default 0).
+\layout Itemize
+
+
+\series bold 
+qhi
+\series default 
+: highest momentum (default 1000).
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 312 118
+file redish.eps
+flags 9
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{Fig:redish}
+
+\end_inset 
+
+Integration intervals for the evaluation of the R-matrix
+\end_float 
+\layout Subsection*
+
+OUT namelist
+\layout Standard
+
+Magnitudes to be printed out.
+\layout Itemize
+
+
+\series bold 
+dels
+\series default 
+: phase shifts.
+\layout Itemize
+
+
+\series bold 
+aeoff
+\series default 
+: off-shell amplitudes in the Wolfestein parametrization.
+\layout Itemize
+
+
+\series bold 
+aeon
+\series default 
+: on-shell amplitudes in the Wolfestein parametrization.
+ 
+\newline 
+
+\newline 
+
+\begin_inset  Tabular
+<lyxtabular version="2" rows="8" columns="3">
+<features rotate="false" islongtable="false" endhead="0" endfirsthead="0" endfoot="0" endlastfoot="0">
+<column alignment="center" valignment="top" leftline="true" rightline="true" width="" special="">
+<column alignment="center" valignment="top" leftline="false" rightline="false" width="" special="">
+<column alignment="center" valignment="top" leftline="true" rightline="true" width="" special="">
+<row topline="true" bottomline="false" newpage="false">
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+aeoff
+\end_inset 
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Writen amplitude
+\end_inset 
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Unit
+\end_inset 
+</cell>
+</row>
+<row topline="false" bottomline="true" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Value
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Writen amplitudes
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Unit
+\end_inset 
+</cell>
+</row>
+<row topline="true" bottomline="false" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+0
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+-
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+-
+\end_inset 
+</cell>
+</row>
+<row topline="true" bottomline="false" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+1
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Isoscalar
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+22
+\end_inset 
+</cell>
+</row>
+<row topline="false" bottomline="false" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Isovector
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+23
+\end_inset 
+</cell>
+</row>
+<row topline="true" bottomline="false" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+2
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+T=0
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+34
+\end_inset 
+</cell>
+</row>
+<row topline="false" bottomline="false" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+T=1
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+33
+\end_inset 
+</cell>
+</row>
+<row topline="true" bottomline="true" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+3
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+pn
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+32
+\end_inset 
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset 
+
+\SpecialChar ~
+\SpecialChar ~
+\SpecialChar ~
+\SpecialChar ~
+
+\begin_inset  Tabular
+<lyxtabular version="2" rows="8" columns="3">
+<features rotate="false" islongtable="false" endhead="0" endfirsthead="0" endfoot="0" endlastfoot="0">
+<column alignment="center" valignment="top" leftline="true" rightline="false" width="" special="">
+<column alignment="center" valignment="top" leftline="true" rightline="false" width="" special="">
+<column alignment="center" valignment="top" leftline="true" rightline="true" width="" special="">
+<row topline="true" bottomline="false" newpage="false">
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+aeon
+\end_inset 
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Writen amplitude
+\end_inset 
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Unit
+\end_inset 
+</cell>
+</row>
+<row topline="true" bottomline="true" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Value
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Writen amplitudes
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Unit
+\end_inset 
+</cell>
+</row>
+<row topline="true" bottomline="false" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+0
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+-
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+-
+\end_inset 
+</cell>
+</row>
+<row topline="true" bottomline="false" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+1
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Isoscalar
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+220
+\end_inset 
+</cell>
+</row>
+<row topline="false" bottomline="false" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Isovector
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+230
+\end_inset 
+</cell>
+</row>
+<row topline="true" bottomline="false" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+2
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+T=0
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+340
+\end_inset 
+</cell>
+</row>
+<row topline="false" bottomline="false" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+T=1
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+330
+\end_inset 
+</cell>
+</row>
+<row topline="true" bottomline="true" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+3
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+pn
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+320
+\end_inset 
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset 
+
+ 
+\newline 
+
+\newline 
+Al these files have the format: 
+\newline 
+
+\newline 
+
+\begin_inset  Tabular
+<lyxtabular version="2" rows="1" columns="9">
+<features rotate="false" islongtable="false" endhead="0" endfirsthead="0" endfoot="0" endlastfoot="0">
+<column alignment="center" valignment="top" leftline="false" rightline="false" width="" special="">
+<column alignment="center" valignment="top" leftline="false" rightline="false" width="" special="">
+<column alignment="center" valignment="top" leftline="false" rightline="false" width="" special="">
+<column alignment="center" valignment="top" leftline="false" rightline="false" width="" special="">
+<column alignment="center" valignment="top" leftline="false" rightline="false" width="" special="">
+<column alignment="center" valignment="top" leftline="false" rightline="false" width="" special="">
+<column alignment="center" valignment="top" leftline="false" rightline="false" width="" special="">
+<column alignment="center" valignment="top" leftline="false" rightline="false" width="" special="">
+<column alignment="center" valignment="top" leftline="false" rightline="false" width="" special="">
+<row topline="false" bottomline="false" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+q
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Q
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Re(
+\begin_inset Formula \( \cal {A} \)
+\end_inset 
+
+)
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Img(
+\begin_inset Formula \( \cal {A} \)
+\end_inset 
+
+)
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Re(
+\begin_inset Formula \( \cal {B} \)
+\end_inset 
+
+)
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Img(
+\begin_inset Formula \( \cal {B} \)
+\end_inset 
+
+)
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\SpecialChar \ldots{}
+
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Re(
+\begin_inset Formula \( \cal {F} \)
+\end_inset 
+
+)
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Img(
+\begin_inset Formula \( \cal {F} \)
+\end_inset 
+
+)
+\end_inset 
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset 
+
+
+\series bold 
+ 
+\layout Itemize
+
+
+\series bold 
+moff
+\series default 
+: off-shell amplitudes in tensor representation.
+ Using the notation of 
+\begin_inset LatexCommand \cite{Cres01}
+
+\end_inset 
+
+, the following six independent amplitudes are written: 
+\begin_inset Formula \( M_{00}^{(00)} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( M_{11}^{(01)} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( M_{00}^{(11)} \)
+\end_inset 
+
+ 
+\begin_inset Formula \( M_{20}^{(11)} \)
+\end_inset 
+
+, 
+\begin_inset Formula \( M_{21}^{(11)} \)
+\end_inset 
+
+ and 
+\begin_inset Formula \( M_{22}^{(11)} \)
+\end_inset 
+
+ .
+ The names of the output files are built as:
+\begin_inset Formula \[
+M^{ab}_{kq}\, \rightarrow \, \mathrm{mabkq}.\mathrm{off}\]
+
+\end_inset 
+
+The possible values of the variable 
+\emph on 
+moff
+\emph default 
+ are: 
+\newline 
+
+\newline 
+
+\begin_inset  Tabular
+<lyxtabular version="2" rows="6" columns="3">
+<features rotate="false" islongtable="false" endhead="0" endfirsthead="0" endfoot="0" endlastfoot="0">
+<column alignment="center" valignment="top" leftline="true" rightline="false" width="" special="">
+<column alignment="center" valignment="top" leftline="true" rightline="false" width="" special="">
+<column alignment="center" valignment="top" leftline="false" rightline="true" width="" special="">
+<row topline="true" bottomline="true" newpage="false">
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+moff
+\end_inset 
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row topline="true" bottomline="false" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Value
+\end_inset 
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Written amplitude
+\end_inset 
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row topline="true" bottomline="false" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+0
+\end_inset 
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+No output
+\end_inset 
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row topline="true" bottomline="false" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+1
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Isoscalar 
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Isovector
+\end_inset 
+</cell>
+</row>
+<row topline="true" bottomline="false" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+2
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+T=0 
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+T=1
+\end_inset 
+</cell>
+</row>
+<row topline="true" bottomline="true" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+3
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+pp  
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+pn
+\end_inset 
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset 
+
+
+\newline 
+
+\newline 
+For each of the components, real and imaginary parts are written in consecutive
+ columns.
+\layout Itemize
+
+
+\series bold 
+mon
+\series default 
+: on-shell amplitudes in tensor representation.
+ The filenames are the same, but using the extension 
+\emph on 
+.on
+\layout Subsection*
+
+PW namelist
+\layout Standard
+
+Partial waves.
+ 
+\layout Itemize
+
+
+\series bold 
+is
+\series default 
+: total spin of the NN system (0,1), S.
+ 
+\layout Itemize
+
+
+\series bold 
+ll
+\series default 
+: total orbital angular momentum, L.
+\layout Itemize
+
+
+\series bold 
+jj
+\series default 
+: total angular momentum, J.
+\layout Subsection*
+
+AMP namelist: 
+\layout Standard
+
+Extra variables necessary to build the momentum space grid.
+\layout Itemize
+
+
+\series bold 
+ifkq
+\series default 
+: definition of the momentum transfered 
+\begin_inset Formula \( q \)
+\end_inset 
+
+ and total momentum 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+.
+\layout Standard
+\align center 
+
+\begin_inset  Tabular
+<lyxtabular version="2" rows="2" columns="3">
+<features rotate="false" islongtable="false" endhead="0" endfirsthead="0" endfoot="0" endlastfoot="0">
+<column alignment="center" valignment="top" leftline="true" rightline="true" width="" special="">
+<column alignment="center" valignment="top" leftline="false" rightline="false" width="" special="">
+<column alignment="center" valignment="top" leftline="false" rightline="true" width="" special="">
+<row topline="true" bottomline="true" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+ifkq=0
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+
+\begin_inset Formula \( \vec{q}=\frac{\vec{k}'-\vec{k}}{\sqrt{2}} \)
+\end_inset 
+
+ 
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+
+\begin_inset Formula \( \vec{Q}=\frac{\vec{k}'+\vec{k}}{\sqrt{2}} \)
+\end_inset 
+
+
+\end_inset 
+</cell>
+</row>
+<row topline="false" bottomline="true" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+ifkq=1
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+
+\begin_inset Formula \( \vec{q}=\vec{k}'-\vec{k} \)
+\end_inset 
+
+
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+
+\begin_inset Formula \( \vec{Q}=\frac{\vec{k}'+\vec{k}}{2} \)
+\end_inset 
+
+
+\end_inset 
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset 
+
+
+\layout Itemize
+
+
+\series bold 
+xkmax
+\series default 
+=step in 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+.
+\layout Itemize
+
+
+\series bold 
+xqmax
+\series default 
+=step in 
+\begin_inset Formula \( q \)
+\end_inset 
+
+.
+\layout Itemize
+
+
+\series bold 
+dk
+\series default 
+: step in 
+\begin_inset Formula \( Q \)
+\end_inset 
+
+ (default 0.1).
+ 
+\layout Itemize
+
+
+\series bold 
+dq
+\series default 
+: step in 
+\begin_inset Formula \( q \)
+\end_inset 
+
+ (default 0.1) .
+\layout Itemize
+
+
+\series bold 
+theta
+\series default 
+: angle between 
+\begin_inset Formula \( \vec{q} \)
+\end_inset 
+
+ and 
+\begin_inset Formula \( \vec{Q} \)
+\end_inset 
+
+, in degrees (default 90).
+\layout Itemize
+
+
+\series bold 
+nth
+\series default 
+: number of angles to calculate on-shell values (default 46).
+ 
+\layout Section
+
+Test example
+\layout Standard
+
+The namelist input style provides a very intuitive description of the input
+ file by itself.
+ 
+\layout Subsection*
+
+Example of input file
+\layout Standard
+
+
+\begin_inset Include \verbatiminput{nnamp.dat}
+
+\end_inset 
+
+
+\layout Standard
+
+&system tcm=67.5 nnpot='paris' /
+\layout Standard
+
+The first namelist (
+\series bold 
+&system/
+\series default 
+) sets the center of mass energy of the colliding nucleons and the kind
+ of NN potential.
+ In this example the variable 
+\series bold 
+jmax 
+\series default 
+is not specified and so it is understood that partial waves are to be given
+ explicitly in this input file.
+ 
+\newline 
+
+\layout Standard
+
+&out dels=1 aeon=0 aeoff=0 mon=2 moff=2 /
+\layout Standard
+
+The namelist
+\series bold 
+ out
+\series default 
+ specifies the information that is going to be calculated and printed out
+ by the program.
+ In this example the phase shifts (
+\series bold 
+dels=1
+\series default 
+) and the T=0 and T=1 components of the on- and off-shell NN amplitude in
+ tensor representation.
+\newline 
+
+\layout Standard
+
+&kmat hw=0.5 b01=0.
+ b34=30.
+ ,n1=5 n2=6 n3=15 n4=6, s=1.0, qlo=0., qhi=1000.
+ /
+\layout Standard
+
+Then, namelist 
+\series bold 
+&kmat/
+\series default 
+ it is provided the parameters required to calculate the R-matrix.
+ In particular, the boundaries of the regions defined in the integration
+ (
+\series bold 
+b01
+\series default 
+, 
+\series bold 
+b34
+\series default 
+ and 
+\series bold 
+hw
+\series default 
+) as shown in Fig
+\latex latex 
+.
+\backslash 
+
+\latex default 
+ 
+\begin_inset LatexCommand \ref{Fig:redish}
+
+\end_inset 
+
+.
+ Also the number of quadrature points is given (n1,n2,n3,n4).
+ 
+\newline 
+
+\layout Standard
+
+&pw is=0 ll=0 jj=0 /
+\layout Standard
+
+&pw is=1 ll=1 jj=0 /
+\layout Standard
+
+&pw is=0 ll=1 jj=1 /
+\layout Standard
+
+&pw is=1 ll=1 jj=1 /
+\layout Standard
+
+&pw is=1 ll=0 jj=1 /
+\layout Standard
+
+&pw is=0 ll=2 jj=2 /
+\layout Standard
+
+&pw is=1 ll=2 jj=2 /
+\layout Standard
+
+&pw is=1 ll=1 jj=2 /
+\layout Standard
+
+&pw is=0 ll=3 jj=3 /
+\layout Standard
+
+&pw is=1 ll=3 jj=3 /
+\layout Standard
+
+&pw is=1 ll=2 jj=3 /
+\layout Standard
+
+&pw is=0 ll=4 jj=4 /
+\layout Standard
+
+&pw is=1 ll=4 jj=4 /
+\layout Standard
+
+&pw is=1 ll=3 jj=4 /
+\layout Standard
+
+&pw is=0 ll=5 jj=5 /
+\layout Standard
+
+&pw is=1 ll=5 jj=5 /
+\layout Standard
+
+&pw is=1 ll=4 jj=5 /
+\layout Standard
+
+&pw is=0 ll=6 jj=6 /
+\layout Standard
+
+&pw is=1 ll=6 jj=6 /
+\layout Standard
+
+&pw is=-1 ll=0 jj=0 / 
+\layout Standard
+
+Then a set of namelist &pw/ are read in order to provide the partial waves
+ considered.
+\layout Standard
+
+\SpecialChar ~
+
+\layout Standard
+
+&amp ifkq=1 xkmax=2.0 xqmax=3.5 dk=0.2 dq=0.2 theta=45.
+ nth=90, 
+\layout Standard
+
+itype=2 icase=2 /
+\layout Standard
+
+Finally, the 
+\series bold 
+&amp/
+\series default 
+ namelist gives the required parameters for the evaluation of the T-matrix
+ starting from the R-matrix.
+\layout Subsection*
+\pagebreak_top 
+Example of output file dels.dat
+\layout Standard
+
+
+\begin_inset Include \verbatiminput{dels.dat}
+
+\end_inset 
+
+
+\layout Bibliography
+\bibitem {Wol52}
+
+L.
+ Wolfenstein and J.
+ Ashkin, Phys.
+ Rev.
+ 85 (1952) 947.
+\layout Bibliography
+\bibitem {Cres01}
+
+R.C.
+ Crespo and A.M.
+ Moro, Tensor representation of the nucleon-nucleon amplitude (submitted
+ to Phys.
+ Rev.
+ C).
+\layout Bibliography
+\bibitem {Red87a}
+
+Redish, E.F.
+ and Stricker-Bauer, K., Phys.
+ Rev.
+ C35 (1987) 1183.
+\layout Bibliography
+\bibitem {Red87c}
+
+E.F.
+ Redish and K.
+ Stricker-Bauer, numerical program that evaluates the on- and off- shell
+ Wolfenstein amplitudes, 
+\begin_inset Formula \( {\mathcal{A}} \)
+\end_inset 
+
+ and 
+\begin_inset Formula \( {\mathcal{C}} \)
+\end_inset 
+
+ from the angular momentum amplitudes, fortran 77 version, (1987), unpublished.
+ 
+\layout Bibliography
+\bibitem {Red87b}
+
+Redish, E.F.
+ and Stricker-Bauer, K., Phys.
+ Rev.
+ C36 (1987) 513.
+\layout Bibliography
+\bibitem {Sloan68}
+
+I.H.
+ Sloan, J.
+ Com.
+ Phys.
+ 3 (1968) 332.
+\layout Bibliography
+\bibitem {Paris80}
+
+M.
+ Lacombe, B.
+ Loiseau, J.M.
+ Richard, R.
+ Vinh Mau, J.
+ C
+\backslash 
+~ot
+\backslash 
+'e, P.
+ Pires, and R.
+ de Tourreil Phys.
+ Rev.
+ C 21 (1980) 861.
+\layout Bibliography
+\bibitem {Bonn87}
+
+R.
+ Machleidt, K.
+ Holinde and Ch.
+ Elster, Phys.
+ Rep.
+ 149 (1987)1.
+\the_end

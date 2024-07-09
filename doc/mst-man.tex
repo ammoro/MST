@@ -1,0 +1,423 @@
+%% LyX 1.3 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[12pt,english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% Bold symbol macro for standard LaTeX users
+\newcommand{\boldsymbol}[1]{\mbox{\boldmath $#1$}}
+
+%% Because html converters don't know tabularnewline
+\providecommand{\tabularnewline}{\\}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+ \newcommand{\lyxaddress}[1]{
+   \par {\raggedright #1 
+   \vspace{1.4em}
+   \noindent\par}
+ }
+
+\usepackage{babel}
+\makeatother
+\begin{document}
+
+\title{MSTamp: A computer code to evaluate the multiple scattering expansion
+of the total transition amplitude for nucleon-nucleus scattering}
+
+
+\author{R. Crespo and A. M. Moro}
+
+\maketitle
+
+\lyxaddress{\begin{center}Departamento de F\'isica, Instituto Superior T\'ecnico,
+1049-001 Lisboa, Portugal\end{center}}
+
+Email: raquel@wotan.ist.utl.pt, moro@mary.ist.utl.pt
+
+\tableofcontents{}
+
+
+\section{Formalism}
+
+
+\subsection{The nuclear structure}
+
+We describe in this section the scattering of a nucleus assumed to
+be well described by a core and two valence particles (C+v$_{1}$+v$_{2}$)
+originally in a $|\Psi_{i}\rangle$, state to a final $|\Psi_{f}\rangle$
+state, by means of its interaction with a proton, with initial momentum
+$\vec{k}_{i}$ and spin $S\sigma$ ($S=1/2$) and final momentum $\vec{k}_{f}$
+and spin $S\sigma'$ in the nucleon-nucleus center-of-mass frame.
+We describe the initial (final) state with angular momentum of the
+valence pair $J^{\pi}(i)$ $\left(J^{\pi}(f)\right)$ and energy $E_{i}$
+($E_{f}$) as $\phi_{i}=|J^{\pi}(i),E_{i}\rangle$ $\left(\phi_{f}=|J^{\pi}(f),E_{f}\rangle\right)$,
+neglecting the spin of the core. The wave function is then written
+as \begin{equation}
+\Psi_{n}(\vec{r},\vec{R},R_{c})=\left[\phi_{n}(\vec{r},\vec{R})\otimes\Phi(\vec{\xi}_{c})\right]\end{equation}
+where $\Phi(\vec{\xi}_{c})$ is the core internal wave function and
+$\phi_{n}(\vec{r},\vec{R})$ the two body wave function of the valence
+system relative to the core, for the state n(=i,f),
+
+\begin{equation}
+\phi_{n}(\vec{r},\vec{R})=\sum_{\ell\lambda LS}F_{\ell\lambda LSJ_{n}}(r,R)\left[\left[Y_{\ell}(\hat{r})\otimes Y_{\lambda}(\hat{R})\right]_{L}\otimes\left[\chi_{S_{2}}\otimes\chi_{S_{3}}\right]_{S}\right]^{J_{n}M_{n}}\label{eq:wfnn}\end{equation}
+In this equation $\lambda$ is the orbital angular momentum between
+the core and the center of mass of the valence pair and $\ell$ the
+relative angular momentum of the pair. 
+
+
+\subsection{The transition amplitudes}
+
+We consider then the scattering of a nucleon from a system assumed
+to be well described by $\mathcal{N}$ subsystems. The total transition
+amplitude T can be written as a multiple scattering expansion in the
+transition amplitudes $\hat{t}_{\mathcal{I}}$ for proton scattering
+from each projectile sub-system $\mathcal{I}$\cite{Crespo99a  ,Crespo01,Crespo02}
+
+\begin{equation}
+T=\sum_{\mathcal{I}}\hat{t}_{\mathcal{I}}+\sum_{\mathcal{I}}\hat{t}_{\mathcal{I}}G_{0}\sum_{\mathcal{J}\neq\mathcal{I}}\hat{t}_{\mathcal{J}}+\cdots\end{equation}
+where the propagator $G_{0}=(E^{+}-\mathcal{K})^{(-1)}$, within the
+impulse approximation, contains the kinetic energy operator of the
+projectile and all the target subsystems. Here E is the kinetic energy
+in the overall center of mass frame. In the case of a p scattering
+from a 3-body composite system (C+v$_{1}$+v$_{2}$) the single scattering
+approximation is
+
+\[
+T=T_{C}+T_{v_{1}}+T_{v_{2}}\]
+
+
+
+\subsubsection{The single scattering approximation}
+
+
+\paragraph{Scattering from the valence system}
+
+We assume in here that the valence systems are nucleons. The nucleon-nucleon
+scattering can be described by the tensor representation \cite{Crespo02a}.
+This is a a convenient general method to express the NN transition
+amplitude as a linear combination for the spherical components of
+the spin operators of the two interacting particles. In this representation,
+the scattering amplitude is written in terms of the tensor of rank
+$\kappa$
+
+\begin{eqnarray}
+\mathcal{T}_{\kappa q}(a,b)=\sum_{\alpha\beta}(a\alpha b\beta|\kappa q)\tau_{a\alpha}(s_{0})\tau_{b\beta}(s_{1}).\label{bigT}\end{eqnarray}
+ as, \begin{eqnarray}
+\langle\vec{k}'|t|\vec{k}\rangle=\sum_{\kappa qab}t_{\kappa q}^{(ab)}(\vec{k}',\vec{k})\mathcal{T}_{\kappa q}^{\dagger}(a,b),\end{eqnarray}
+ where $\tau_{a\alpha}(s_{0})$ is the irreducible tensor operator
+for the projectile particle (0) with spin $s_{0}$ ($a=0,\ldots2s_{0}$);
+$\tau_{b\beta}(s_{1})$ is the irreducible tensor operator for the
+struck particle (1) with spin $s_{1}$ ($b=0,\ldots2s_{1}$). Explicitly,
+since $s_{0}=s_{1}=\frac{1}{2}$, $\tau_{00}({\frac{1}{2}})=1$ and
+$\tau_{1\beta}({\frac{1}{2}})=\sigma_{\beta}(1)$, with $\sigma_{\beta}(1)$
+the spherical components of $\vec{\sigma}_{1}$ with respect to the
+chosen $z$-axis. It follows that the scattering from the valence
+can be written as:
+
+\begin{equation}
+\langle\vec{k}_{f}S\sigma';\Psi_{n'}|\hat{t}_{[v_{1}]}|\vec{k}_{i}S\sigma;\Psi_{n}\rangle=\sum_{b\beta}\hat{t}_{[b\beta];[v_{1}]}^{\sigma'\sigma}(\omega_{v}\vec{\Delta})\rho_{[b\beta]}^{fi}\left(\frac{m_{v_{2}}}{M_{v}}\vec{\Delta},\frac{M_{C}}{M}\vec{\Delta}\right)\label{eq:sscatv}\end{equation}
+where the quantity $\hat{t}_{[b\beta];[v_{1}]}^{\sigma'\sigma}$ is
+given in terms of the tensor components of the nucleon-nucleon transition
+amplitude as 
+
+\begin{eqnarray*}
+\hat{t}_{[b\beta];[v_{1}]}^{\sigma'\sigma} & = & \sum_{\kappa qa\alpha}(-)^{q}\frac{\hat{S}_{v_{2}}}{\hat{b}}\langle S||\tau_{a}(\frac{1}{2};p)||S\rangle\langle S_{v_{1}}||\tau_{b}(\frac{1}{2};v1)||S_{v_{1}}\rangle\\
+ & \times & t_{\kappa q}^{(ab)}(\omega\,\vec{\Delta})(S\sigma a\alpha|S\sigma')(a\alpha b\beta|S\sigma')\end{eqnarray*}
+The density formfactor is
+
+\begin{eqnarray*}
+\rho_{[b\beta]}^{fi}\left(\frac{m_{v_{2}}}{M_{v}}\vec{\Delta},\frac{M_{C}}{M}\vec{\Delta}\right) & = & \sum\hat{\rho}_{[bdc]}\left(\frac{m_{v_{2}}}{M_{v}}\Delta,\frac{M_{C}}{M}\Delta\right)\\
+ & \times & \varphi_{2}(b\beta d\delta|c\gamma)(J_{f}M_{f}d\delta|J_{i}M_{i})\sqrt{4\pi}Y_{c\gamma}(\hat{\Delta})\end{eqnarray*}
+with
+
+\begin{eqnarray*}
+\hat{\rho}_{[bdc]}\left(\frac{m_{v_{2}}}{M_{v}}\Delta,\frac{M_{C}}{M}\Delta\right) & = & \sum\left(i^{\ell}\right)^{*}\left(i^{\ell'}\right)^{*}\varphi_{1}\frac{\hat{\ell}^{2}\hat{\ell}'^{2}\hat{d}^{2}\hat{b}\hat{S}\hat{S}'\hat{L}\hat{L}'\hat{\ell}_{1}\hat{\lambda}\hat{J}_{\tiny{f}}}{\hat{c}}\\
+ & \times & (\ell0\ell_{1}0|\ell_{1}'0)(\ell0\ell'0|\mathcal{L}0)(\ell'0\lambda0|\lambda'0)W(SS_{2}S'S_{2};S_{3}b)\\
+ & \times & \left\{ \begin{array}{ccc}
+b & d & c\\
+S' & J_{f} & L'\\
+J & J_{i} & L\end{array}\right\} \left\{ \begin{array}{ccc}
+\ell & \ell' & c\\
+\ell_{1} & \lambda & L\\
+\ell_{1}' & \lambda' & L'\end{array}\right\} \\
+ & \times & \int r^{2}drR^{2}dRF_{\tiny{\ell_{1}'\lambda'L'S'J_{f}}}(r,R)F_{\tiny{\ell_{1}\lambda LSJ_{i}}}(r,R)\\
+ & \times & j_{\ell}\left(\frac{m_{\nu_{2}}}{M_{\nu}}\Delta r\right)j_{\ell'}\left(\frac{M_{C}}{M}\Delta R\right)\end{eqnarray*}
+with $\varphi_{1}$and $\varphi_{2}$ phase factors.
+
+
+\paragraph{Scattering from the core}
+
+We proceed by evaluating the single scattering term from the core,
+and assume only a central interaction in this case. The transition
+amplitude is then given as
+
+\begin{equation}
+\langle\vec{k}_{f}S\sigma';\Psi_{f}|\hat{t}_{[C]}|\vec{k}_{i}S\sigma;\Psi_{i}\rangle=\langle S\sigma';\Phi_{c}|\hat{t}_{[00];[C]}(\omega_{pC}\vec{\Delta})|\Phi_{c};S\sigma\rangle\rho_{[00]}^{fi}\left(0,\frac{M_{v}}{M}\vec{\Delta}\right)\end{equation}
+where $M_{v}=m_{v1}+m_{v2}$ and $M=M_{v}+M_{C}$. The form factor
+$\rho_{[00]}^{fi}$ is evaluated from the 2-body halo transition density
+distribution
+
+\begin{equation}
+\rho_{[00]}^{fi}(\vec{\Delta}_{1,}\vec{\Delta}_{2})=\int d\vec{Q}_{1}d\vec{Q}_{2}\phi_{f}(\vec{Q}_{1},\vec{Q}_{2})\phi_{i}(\vec{Q}_{1}+\vec{\Delta}_{1,}\vec{Q}_{2}+\vec{\Delta}_{2}).\label{eq:rho00}\end{equation}
+In eq.(\ref{eq:rho00}) $\phi_{n}(\vec{Q}_{1},\vec{Q}_{2})$ is the
+fourier transform of the wave function of the twobody valence system
+relative to the core. In terms of the wave function, eq.(\ref{eq:wfnn})
+we get
+
+\begin{equation}
+\rho_{[00]}^{fi}\left(0,\frac{M_{v}}{M}\vec{\Delta}\right)=\hat{\rho}_{[\mathcal{L}]}\left(0,\frac{M_{v}}{M}\vec{\Delta}\right)(J_{f}M_{i}\mathcal{LM}|J_{i}M_{i})\sqrt{4\pi}Y_{\mathcal{LM}}(\hat{\Delta})\end{equation}
+with
+
+\begin{eqnarray*}
+\hat{\rho}_{[\mathcal{L}]}\left(0,\frac{M_{v}}{M}\vec{\Delta}\right) & = & \sum i^{\mathcal{L}^{*}}[\hat{J}^{f}\widehat{\mathcal{L}}\hat{L}\hat{L}'\varphi]W(LJ_{i}L'J_{f}S\mathcal{L})W(\mathcal{L}L'\ell\;\lambda'L)(\mathcal{L}0\lambda0|\lambda'0)\\
+ & \times & \int r^{2}drR^{2}dRF_{\ell\lambda'L'SJ_{f}}(r,R)F_{\ell\lambda LSJ_{i}}j_{\mathcal{L}}\left(\frac{M_{v}}{M}\Delta R\right)\end{eqnarray*}
+where $\varphi$ is a phase factor. 
+
+
+\subsubsection{The reaction observables}
+
+In order to evaluate the scattering observables we write the transition
+amplitude in the following way: For the scattering from the core:
+
+\begin{eqnarray*}
+\langle\vec{k}_{f}S\sigma';\Psi_{f}|\hat{t}_{[C]}|\vec{k}_{i}S\sigma;\Psi_{i}\rangle & = & \widehat{\mathcal{L}}\left[\langle S\sigma';\Phi_{c}|\hat{t}_{[00];[pC]}(\omega_{C}\vec{\Delta})|\Phi_{c};S\sigma\rangle\hat{\rho}_{[\mathcal{L}]}\left(0,\frac{M_{v}}{M}\vec{\Delta}\right)\right]\\
+ & \times & (J_{f}M_{f}\mathcal{LM}|J_{i}M_{i})\mathcal{D}_{\mathcal{M}0}^{\mathcal{L}*}(\hat{\Delta})\end{eqnarray*}
+and for the scattering of the valence particle:
+
+\begin{eqnarray*}
+\langle\vec{k}_{f}S\sigma';\Psi_{f}|\hat{t}_{[v1]}|\vec{k}_{i}S\sigma;\Psi_{i}\rangle & = & \hat{c}\hat{\rho}_{[bdc]}\left(\frac{m_{v_{2}}}{M_{v}}\Delta,\frac{M_{C}}{M}\Delta\right)\hat{t}_{[b\beta];[v]}^{\sigma'\sigma}\\
+ & \times & (b\beta d\delta|c\gamma)(J_{f}M_{f}d\delta|J_{i}M_{i})\mathcal{D}_{\gamma0}^{c*}(\hat{\Delta})\end{eqnarray*}
+
+
+For each final state the differential cross section can be readily
+evaluated from these expressions by calculating the square and cross
+products.
+
+
+\section{Namelist description}
+
+
+\subsection*{MST namelist:}
+
+\begin{itemize}
+\item \textbf{qmax: }
+\item \textbf{tlab}: projectile energy in laboratory frame.
+\item \textbf{thmin, thmax, dth}: angular range and step for calculated
+cross sections.
+\item \textbf{dry: }\\
+\textbf{dry=F}: Skip reading 3B wf \textbf{}
+\end{itemize}
+
+\subsection*{QUAD1 namelist:}
+
+\begin{itemize}
+\item \textbf{qmaxr}: 
+\item \textbf{quin}: 
+\item \textbf{mquadi}: 
+\item \textbf{mquado:}
+\end{itemize}
+
+\subsection*{QUAD2 namelist:}
+
+\begin{itemize}
+\item \textbf{qmaxrd}:
+\item \textbf{quind}: 
+\item \textbf{mquadid:}
+\item \textbf{mquadod}: 
+\end{itemize}
+
+\subsection*{QUAD3 namelist:}
+
+\begin{itemize}
+\item \textbf{rmaxr} : 
+\item \textbf{rin} :
+\item \textbf{mrquadi} : 
+\item \textbf{mrquado} : 
+\end{itemize}
+
+\subsection*{PROJ namelist:}
+
+\begin{itemize}
+\item \textbf{massp}: projectile mass
+\item \textbf{zp}: projectile charge
+\item \textbf{jp}: spin of projectile
+\end{itemize}
+
+\subsection*{TARG namelist:}
+
+\begin{itemize}
+\item \textbf{masst}: target mass
+\item \textbf{zt}: target charge 
+\item \textbf{ncl}: number of clusters.
+\item \textbf{inelcb}: ?????
+\item \textbf{nustates}: total number of states.
+\item \textbf{quais(1:nustates-1)}: vector array to select those $J^{\pi}$
+(inelastic) components of the wavefunction that will be taken into
+account in the calculations. $quais(i)\neq0$ means that component
+$i$ will be included.
+\item \textbf{irho}: ???
+\end{itemize}
+
+\subsection*{KAPAS namelist:}
+
+\begin{itemize}
+\item \textbf{k0000, k1100, k0111, k1120, k1121, k1122}: If \emph{kabkq}=1
+the tensor component $t_{\kappa q}^{(ab)}(\omega\,\vec{\Delta})$
+of the NN amplitude will be taken into account.
+\end{itemize}
+
+\subsection*{TCLUS namelist: }
+
+\begin{itemize}
+\item \textbf{mtclus}: mass of this cluster (u.m.a.)
+\item \textbf{spin}: cluster intrinsic spin
+\item \textbf{ztclus}: cluster charge
+\item \textbf{ttype}: Type of T-matrix\\
+0=Call MSO program to calculate T-matrix\\
+1=Read S-matrix from fortran unit 110, using the format: \emph{sreal,
+simag, l, j}
+\end{itemize}
+
+\section{Input/Output files}
+
+\begin{tabular}{|l|l|c|c|}
+\hline 
+\textbf{Unit}&
+\textbf{Description}&
+\textbf{Format}&
+\textbf{Printed with}\tabularnewline
+\hline
+\hline 
+\multicolumn{4}{|c|}{\textbf{NNAMP}}\tabularnewline
+\hline 
+10 (nnamp.in)&
+&
+&
+\tabularnewline
+\hline 
+22 / 220&
+Off-shell/on-shell isoscalar NN amplitudes&
+&
+aeoff/aeon=1\tabularnewline
+\hline 
+23 / 230&
+Off-shell/on-shell isovector NN amplitudes&
+&
+aeoff/aeon=1\tabularnewline
+\hline 
+32 / 320&
+Off-shell/on-shell pn NN amplitudes&
+&
+aeoff/aeon=3\tabularnewline
+\hline 
+33 / 330&
+Off-shell/on-shell T=0&
+&
+aeoff/aeon=2\tabularnewline
+\hline 
+34 / 340&
+Off-shell/on-shell T=1&
+&
+aeoff/aeon=2\tabularnewline
+\hline 
+&
+&
+&
+\tabularnewline
+\hline 
+\multicolumn{4}{|c|}{\textbf{MSO}}\tabularnewline
+\hline 
+&
+&
+&
+\tabularnewline
+\hline 
+&
+&
+&
+\tabularnewline
+\hline 
+&
+&
+&
+\tabularnewline
+\hline 
+14&
+Input configuration densities&
+&
+\tabularnewline
+\hline 
+11->smat.out&
+S-matrix (output)&
+&
+\tabularnewline
+\hline 
+110&
+S-matrix (input)&
+&
+\tabularnewline
+\hline 
+25->xsec.out&
+Elastic cross section angular distribution&
+&
+\tabularnewline
+\hline 
+\multicolumn{4}{|c|}{\textbf{MST}}\tabularnewline
+\hline 
+mst.in&
+Input parameters&
+&
+\tabularnewline
+\hline 
+&
+&
+&
+\tabularnewline
+\hline
+7&
+Input wavefunction&
+&
+\tabularnewline
+\hline
+20&
+c.m. transition densities&
+&
+\tabularnewline
+\hline
+21&
+Valence transition densities&
+&
+\tabularnewline
+\hline
+75&
+Core on-shell T-matrix&
+&
+\tabularnewline
+\hline
+70&
+Total and core cross section&
+$\theta$~$\sigma_{tot}$($\theta$) ~$\sigma_{core}$($\theta$)~&
+\tabularnewline
+\hline
+65&
+Double cross-sections&
+&
+\tabularnewline
+\hline
+&
+&
+&
+\tabularnewline
+\hline
+\end{tabular}
+
+
+\section{Test examples}
+
+\bibliographystyle{unsrt}
+\bibliography{referRC}
+
+\end{document}

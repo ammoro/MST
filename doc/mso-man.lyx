@@ -1,0 +1,1778 @@
+#LyX 1.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 218
+\textclass article
+\language english
+\inputencoding auto
+\fontscheme default
+\graphics default
+\paperfontsize 12
+\spacing single 
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 0
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+
+\layout Title
+
+MSOamp: A computer code to evaluate the multiple scattering expansion of
+ the optical potential for nucleon-nucleus scattering
+\layout Title
+
+DRAFT
+\layout Author
+
+R.
+ Crespo and A.
+ M.
+ Moro
+\layout Address
+\align center 
+Departamento de F
+\latex latex 
+
+\backslash 
+'i
+\latex default 
+sica, Instituto Superior T
+\latex latex 
+
+\backslash 
+'e
+\latex default 
+cnico, 1049-001 Lisboa, Portugal
+\layout Standard
+
+Email: raquel@wotan.ist.utl.pt, moro@mary.ist.utl.pt
+\layout Standard
+
+
+\begin_inset LatexCommand \tableofcontents{}
+
+\end_inset 
+
+
+\layout Section
+
+Introduction
+\layout Standard
+
+MSOamp is a computer code to evaluate the elastic scattering observables
+ for nucleon-nucleus elastic scatering from an optical potential in the
+ momentum space configuration.
+ The optical potential is constructed as a multiple scattering expansion
+ in terms of the free NN transition amplitude and the target densities
+\begin_inset LatexCommand \cite{Ker59,Wat53,Crespo92}
+
+\end_inset 
+
+.
+ The free NN transition amplitude is calculated in the momentum space configurat
+ion from a realistic NN interaction such as Paris or Bonn 
+\begin_inset LatexCommand \cite{Lacombe80,Machleidt87}
+
+\end_inset 
+
+.
+ This is an ideal tool to study the isospin dependence of the optical potential
+ and thus to to perform comparative studies of neutron and proton elastic
+ scattering in the intermediate energy region.
+ It can be used to support fundamental studies planned in 
+\series bold 
+n-TOF
+\series default 
+.
+ 
+\layout Standard
+
+The code is constructed in fortran 90.
+ The inputs are given through a user friendly namelist.
+\layout Standard
+
+Details of the formalism and some applications can be found in 
+\begin_inset LatexCommand \cite{Crespo02b}
+
+\end_inset 
+
+.
+\layout Section
+
+The formalism
+\layout Subsection
+
+The Lippmann-Schwinger equation: method of solution
+\layout Standard
+
+The Lippmann-Schwinger equation for the elastic scattering problem, for
+ the potential U is 
+\begin_inset Formula \begin{equation}
+T'=U+UG_{0}T'
+\end{equation}
+
+\end_inset 
+
+with the Green's function 
+\begin_inset Formula \( G_{0}=(E-K_{0}+i\epsilon )^{-1} \)
+\end_inset 
+
+where 
+\begin_inset Formula \( K_{0} \)
+\end_inset 
+
+ is the projectile kinetic energy operator.
+ In order to solve this equation, we introduce the partial wave equation
+ 
+\begin_inset Formula \begin{equation}
+|\vec{k}\rangle =\sqrt{\frac{2}{\pi }}\sum _{JLSM}i^{L}|k(LS)JM\rangle Y_{JL}^{M+}(\hat{k}),
+\end{equation}
+
+\end_inset 
+
+leading to 
+\begin_inset Formula \begin{equation}
+\label{eq:TL}
+T'_{L\pm }(k,k_{0})=U_{L\pm }(k,k_{0})+\frac{2}{\pi }\int ^{\infty }_{0}dpp^{2}U_{L\pm }(k,p)G_{0}(p)T'_{L\pm }(p,k_{0})
+\end{equation}
+
+\end_inset 
+
+where 
+\begin_inset Formula \( G_{0}(p) \)
+\end_inset 
+
+ is the Gree's function in the momentum representation 
+\begin_inset Formula \begin{equation}
+G_{0}(p)=\frac{2\mu _{NA}}{\hbar ^{2}}\frac{1}{k^{2}_{0}-p^{2}+i\epsilon }
+\end{equation}
+
+\end_inset 
+
+ and 
+\begin_inset Formula \( L_{\pm }=L\pm 1/2 \)
+\end_inset 
+
+ denotes the eigenvalues of the total angular momentum J.
+ It is more convenient to work with the principal value form of the Green's
+ function, 
+\layout Standard
+
+
+\begin_inset Formula \begin{equation}
+G_{0}(p)=G_{0}^{P}(p)-i\pi \frac{2\mu _{NA}}{\hbar ^{2}}\frac{\delta (k_{0}-p)}{k_{0}}
+\end{equation}
+
+\end_inset 
+
+where 
+\begin_inset Formula \( G_{0}^{P}(p) \)
+\end_inset 
+
+ indicates the principal value.
+ Substituting this eq into the partial wave expansion of the transition
+ amplitude eq.
+ (
+\begin_inset LatexCommand \ref{eq:TL}
+
+\end_inset 
+
+) we get
+\begin_inset Formula \begin{equation}
+R_{L\pm }(k,k_{0})=U_{L\pm }(k,k_{0})+\frac{2}{\pi }\int ^{\infty }_{0}dpp^{2}U_{L\pm }(k,p)G^{p}_{0}(p)R_{L\pm }(p,k_{0})
+\end{equation}
+
+\end_inset 
+
+where the partial-wave R-matrix is related to the partial-wave T matrix
+ by the Heitler equation
+\begin_inset Formula \begin{equation}
+\label{eq:RL}
+R_{L\pm }(k,k_{0})=T'_{L\pm }(k,k_{0})\left[ 1-i\frac{2\mu _{NA}}{\hbar ^{2}}k_{0}T'_{L\pm }(k_{0},k_{0})\right] ^{-1}
+\end{equation}
+
+\end_inset 
+
+From this equation it follows immediately that the on-shell T-matrix 
+\begin_inset Formula \( T'_{L\pm }(k_{0},k_{0}) \)
+\end_inset 
+
+ is given by
+\begin_inset Formula \begin{equation}
+\label{eq:TL-RL}
+T'_{L\pm }(k_{0},k_{0})=\frac{R_{L\pm }(k_{0},k_{0})}{1+i\rho _{\epsilon }R_{L\pm }(k_{0},k_{0})}
+\end{equation}
+
+\end_inset 
+
+with 
+\begin_inset Formula \( \rho _{\epsilon }=2\mu _{NA}/\hbar ^{2} \)
+\end_inset 
+
+.
+ In the KMT multiple scattering formalism, the transition amplitude for
+ elastic scattering, T, is related to the transition amplitude associated
+ with the potential U, through the relation 
+\begin_inset Formula \( T=\frac{A}{A-1}T' \)
+\end_inset 
+
+.
+ Defining the normalized T-matrix and R-matrix according to 
+\begin_inset Formula \( \hat{T}_{L\pm }(k,k')=-\rho _{\epsilon }T_{L\pm }(k,k') \)
+\end_inset 
+
+ and 
+\begin_inset Formula \( \hat{R}_{L\pm }(k,k')=-\rho _{\epsilon }R_{L\pm }(k,k') \)
+\end_inset 
+
+ respectively we obtain 
+\begin_inset Formula \begin{equation}
+\hat{T}_{L\pm }(k_{0},k_{0})=\frac{\hat{R}_{L\pm }(k_{0},k_{0})}{1-i\rho _{\epsilon }\hat{R}_{L\pm }(k_{0},k_{0})}
+\end{equation}
+
+\end_inset 
+
+and thus from eq.
+ (
+\begin_inset LatexCommand \ref{eq:RL}
+
+\end_inset 
+
+) and (
+\begin_inset LatexCommand \ref{eq:TL-RL}
+
+\end_inset 
+
+) the normalized half-off shell T matrix 
+\begin_inset Formula \( \hat{T}_{L\pm }(k,k_{0}) \)
+\end_inset 
+
+, is given by
+\begin_inset Formula \begin{equation}
+\hat{T}_{L\pm }(k,k_{0})=\hat{T}_{L\pm }(k,k_{0})\left[ \frac{A}{A-1}+i\hat{T}_{L\pm }(k,k_{0})\right] 
+\end{equation}
+
+\end_inset 
+
+These normalized on-shell transition matrix elements are related to the
+ nuclear phase shifts according to
+\begin_inset Formula \begin{equation}
+\hat{T}_{L\pm }(k_{0},k_{0})=\frac{\exp (2i\delta _{L\pm })-1}{2i}=\exp (i\delta _{L\pm })sin\delta _{L\pm }
+\end{equation}
+
+\end_inset 
+
+and the reflection coefficients are 
+\begin_inset Formula \( \eta _{L\pm }=|\exp (2i\delta _{L\pm })|=|2i\hat{T}_{L\pm }(k_{0},k_{0})+1| \)
+\end_inset 
+
+.
+ We shall omit, from now on, the partial wave labels in order to simplify
+ the notation.
+ 
+\layout Standard
+
+The numerical solution of the partial wave form of the LS equation, eq.(
+\begin_inset LatexCommand \ref{eq:TL}
+
+\end_inset 
+
+), involves the evaluation of the principal value of the integral together
+ with a discretization and truncation of the range of the momentum variable
+ p.
+ We now briefly describe the method to solve the LS equation 
+\begin_inset LatexCommand \cite{Landau82,Crespo92}
+
+\end_inset 
+
+.
+\layout Standard
+
+The principal value is calculated using the Haftel-Tabakin method .
+ This consists of subtracting a smooth integrand whose contribution to the
+ integral is zero, i.e.
+\begin_inset Formula \begin{equation}
+\label{eq:R-Haftel-Tabakin}
+R(k,k_{0})=U(k,k_{0})+\frac{2}{\pi }\frac{2\mu _{NA}}{\hbar ^{2}}\int ^{\infty }_{0}dp\left[ \frac{p^{2}U(k,p)R(p,k_{0})-k^{2}_{0}U(k,k_{0})R(k_{0},k_{0})}{k^{2}_{0}-p^{2}}\right] 
+\end{equation}
+
+\end_inset 
+
+The discretization of the momentum integral is achieved by introducing N
+ Gaussian quadrature points 
+\begin_inset Formula \( (k_{j};j=1,N) \)
+\end_inset 
+
+ each weighted by 
+\begin_inset Formula \( w_{i} \)
+\end_inset 
+
+.
+ All N integration points, are required not to be equal to 
+\begin_inset Formula \( k_{0} \)
+\end_inset 
+
+.
+ The discretized version of the previous equation, eq.(
+\begin_inset LatexCommand \ref{eq:R-Haftel-Tabakin}
+
+\end_inset 
+
+) reduces to 
+\begin_inset Formula \begin{eqnarray*}
+R(k_{i},k_{0})= & U(k_{i},k_{0})+\frac{2}{\pi }\sum _{j=1}^{N}\frac{2\mu _{NA}}{\hbar ^{2}}w_{j}k_{j}^{2}\frac{U(k_{i},k_{j})R(k_{j},k_{0})}{k^{2}_{0}-k^{2}_{j}} & \nonumber \\
+ & -\frac{2}{\pi }\sum ^{N}_{j=1}\frac{2\mu _{NA}}{\hbar ^{2}}k^{2}_{0}\frac{w_{j}}{k^{2}_{0}-k^{2}_{j}}U(k_{i},k_{0})R(k_{0},k_{0}) & \nonumber 
+\end{eqnarray*}
+
+\end_inset 
+
+Calling 
+\begin_inset Formula \( k_{N+1}=k_{0} \)
+\end_inset 
+
+, we obtain the following system of N+1 equations:
+\begin_inset Formula \begin{equation}
+\sum ^{N+1}_{j=1}F(k_{i},k_{j})R(k_{j},k_{m})=U(k_{i},k_{m})
+\end{equation}
+
+\end_inset 
+
+or simbolically 
+\begin_inset Formula \begin{equation}
+[F]_{(N+1)x(N+1)}[R]_{N+1}=[U]_{N+1}
+\end{equation}
+
+\end_inset 
+
+with
+\begin_inset Formula \begin{equation}
+F(k_{i},k_{j})=\delta _{ij}+U(k_{i},k_{j})\hat{W}_{j}
+\end{equation}
+
+\end_inset 
+
+and
+\begin_inset Formula \begin{equation}
+\hat{W}_{j}=\frac{2}{\pi }\frac{2\mu _{NA}}{\hbar ^{2}}k^{2}_{j}\frac{w_{j}}{k^{2}_{j}-k^{2}_{0}};j\leq N
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Formula \begin{equation}
+\hat{W}_{j}=-\frac{2}{\pi }\frac{2\mu _{NA}}{\hbar ^{2}}k^{2}_{0}\sum ^{N}_{m=1}\frac{w_{m}}{k_{m}^{2}-k^{2}_{0}};j=N+1
+\end{equation}
+
+\end_inset 
+
+The coulomb interaction is included in an approximate way as described in
+ 
+\begin_inset LatexCommand \cite[and references therein]{Crespo90}
+
+\end_inset 
+
+
+\layout Subsection
+
+The optical potential
+\layout Standard
+
+We assume that the target nucleus of number of mass A is well described
+ by N clusters.
+ Within the Multiple Scattering expansion of the Optical potential such
+ as formalated by KMT
+\begin_inset LatexCommand \cite{Ker59,Crespo92}
+
+\end_inset 
+
+, the optical potential can be written as an expantion in terms of the free
+ NN transition amplitude.
+ Within the single scattering 
+\begin_inset Formula \( t\rho  \)
+\end_inset 
+
+ approximation, the matrix elements of the potential are in the momentum
+ space configuration: 
+\begin_inset Formula \begin{equation}
+\langle \vec{k}'|U|\vec{k}\rangle =\frac{A-1}{A}\sum \rho ^{i}_{p}(q)\bar{t}_{pp}(\omega ,q,Q/2,\phi )+\rho ^{i}_{n}\bar{t}_{nn}(\omega ,q,Q/2,\phi )
+\end{equation}
+
+\end_inset 
+
+where 
+\begin_inset Formula \( \rho ^{i}_{n} \)
+\end_inset 
+
+and 
+\begin_inset Formula \( \rho ^{i}_{p} \)
+\end_inset 
+
+are the nuclear matter density distributions for the protons and neutrons
+ respectively for each cluster.
+ Here, 
+\begin_inset Formula \( \bar{t}_{pp} \)
+\end_inset 
+
+ and 
+\begin_inset Formula \( \bar{t}_{nn} \)
+\end_inset 
+
+ are the spin averaged proton-proton and neutron-neutron respectively amplitudes
+ evaluated at the appropriate energy 
+\begin_inset Formula \( \omega  \)
+\end_inset 
+
+, 
+\begin_inset Formula \( \phi  \)
+\end_inset 
+
+ is the angle between the vectors 
+\begin_inset Formula \( \vec{Q}=(\vec{k}'+\vec{k})/2 \)
+\end_inset 
+
+ and 
+\begin_inset Formula \( \vec{q}=(\vec{k}'-\vec{k}) \)
+\end_inset 
+
+ .
+ In this eq.
+ other spin components of the NN transition amplitude for the case of proton
+ elastic scattering from non zero spin targets are not included.
+ In this case, the potential can only have a central and a spin-orbit term
+\begin_inset Formula \begin{equation}
+\langle \vec{k}'|U|\vec{k}\rangle =\langle \vec{k}'|U^{c}|\vec{k}\rangle +i\vec{\sigma }\cdot \vec{n}\langle \vec{k}'|U^{ls}|\vec{k}\rangle 
+\end{equation}
+
+\end_inset 
+
+with 
+\begin_inset Formula \( \sigma  \)
+\end_inset 
+
+ the spin operator for the projectile and 
+\begin_inset Formula \( \vec{n}=\vec{\kappa }\times \vec{\kappa }' \)
+\end_inset 
+
+.
+ According to the last paragraph we need to know the partial wave decomposition
+ of this potential 
+\begin_inset Formula \( U_{LJ}(k',k) \)
+\end_inset 
+
+.
+ It follows that, this can be written as:
+\begin_inset Formula \begin{equation}
+\label{eq:ULJ}
+U_{LJ}(k',k)=U_{L}^{c}(k',k)+C_{LJ}U_{L}^{ls}(k',k)
+\end{equation}
+
+\end_inset 
+
+with the partial wave for the central component given by 
+\begin_inset Formula \begin{equation}
+U_{L}^{c}(k',k)=\pi ^{2}\int ^{+1}_{-1}d(cos\theta _{kk'})P_{L}(cos\theta _{kk'})U^{c}(\vec{k}',\vec{k})
+\end{equation}
+
+\end_inset 
+
+and for the spin-orbit 
+\begin_inset Formula \begin{equation}
+U_{L}^{ls}(k',k)=\frac{\pi ^{2}}{L(L+1)}\int ^{+1}_{-1}d(cos\theta _{kk'})sin^{2}\theta _{kk'}P^{1}_{L}(cos\theta _{kk'})U^{ls}(\vec{k}',\vec{k})
+\end{equation}
+
+\end_inset 
+
+The geometric coefficients in eq.(
+\begin_inset LatexCommand \ref{eq:ULJ}
+
+\end_inset 
+
+) are the matrix elements of the spin-orbit operator
+\begin_inset Formula \begin{equation}
+C_{LJ}=\langle JL|\vec{L}\cdot \vec{\sigma }|JL\rangle =J(J+1)-L(L+1)-3/4
+\end{equation}
+
+\end_inset 
+
+
+\layout Section
+
+About the code
+\layout Subsection
+
+Source files
+\layout Subsection
+
+Source files and compilation
+\layout Standard
+
+The source files of the MSOamp program are organized into two directories,
+ 
+\emph on 
+nnsrc
+\emph default 
+ and 
+\emph on 
+msosrc
+\emph default 
+.
+ The former contains the NNamp source files, while the latter contains those
+ files specific of the MSO formalism.
+ Each one of these directories contains a Makefile.
+ There exits also a Makefile in the top directory of the distribution.
+ If needed, this can be edited and customized before compilation.
+ Notice that the compiler name and options are included by means of *.def
+ files.
+ Presently, two of these files are included: 
+\emph on 
+fujitsu.def
+\emph default 
+ and 
+\emph on 
+pgf90.def
+\emph default 
+.
+ They contain the compilation specifications for the Fujitsu and PGF90 compilers
+, respectively.
+ If you have a different f90 compiler, you may want to create your own *.def
+ file, with the appropriate options.
+ 
+\layout Subsection
+
+Compilation
+\layout Standard
+
+Once the top Makefile have been customized, the NNamp program can be compiled
+ with:
+\layout Standard
+
+
+\latex latex 
+
+\backslash 
+begin{verbatim}
+\latex default 
+prompt> cd nnsrc ; make
+\latex latex 
+
+\backslash 
+end{verbatim}
+\layout Standard
+
+Similarly, to compile the MSOamp program:
+\layout Standard
+
+
+\latex latex 
+
+\backslash 
+begin{verbatim}
+\latex default 
+prompt> cd msosrc; make
+\latex latex 
+
+\backslash 
+end{verbatim}
+\layout Standard
+
+Alternatively, from the top directory to can compile the NNamp program typing:
+\layout Standard
+
+
+\latex latex 
+
+\backslash 
+begin{verbatim}
+\latex default 
+prompt> make nnamp
+\latex latex 
+ 
+\backslash 
+end{verbatim} 
+\layout Standard
+
+
+\latex latex 
+
+\backslash 
+noindent
+\latex default 
+ and the MSOamp program with:
+\layout Standard
+
+
+\latex latex 
+
+\backslash 
+begin{verbatim}
+\latex default 
+prompt> make msoamp
+\latex latex 
+ 
+\backslash 
+end{verbatim} 
+\layout Standard
+
+Notice that, whenever the MSO program is compiled, the NNamp program will
+ also be compiled.
+ 
+\layout Standard
+
+After compilation, you can delete the *.o files by typing: 
+\layout Standard
+
+
+\latex latex 
+
+\backslash 
+begin{verbatim}
+\latex default 
+prompt> make
+\latex latex 
+ 
+\latex default 
+clean 
+\latex latex 
+
+\backslash 
+end{verbatim}
+\layout Standard
+
+To delete *.o as well as MSOamp / NNamp output files: 
+\layout Standard
+
+
+\latex latex 
+
+\backslash 
+begin{verbatim}
+\latex default 
+prompt> make
+\latex latex 
+ 
+\latex default 
+superclean 
+\latex latex 
+
+\backslash 
+end{verbatim}
+\layout Standard
+
+To install the executables in the compilation (mso and nnamp) into the destinati
+on specified at the top Makefile, type:
+\layout Standard
+
+
+\latex latex 
+
+\backslash 
+begin{verbatim}
+\latex default 
+prompt> make
+\latex latex 
+ 
+\latex default 
+install 
+\latex latex 
+
+\backslash 
+end{verbatim}
+\layout Subsection
+
+Compilation
+\layout Section
+
+Description of namelists input variables
+\layout Subsection*
+
+MSO namelist: 
+\layout Standard
+
+Genearal options:
+\layout Itemize
+
+
+\series bold 
+tlab
+\series default 
+: relative kinetic energy projectile-target in laboratory system.
+\layout Itemize
+
+
+\series bold 
+offshell
+\series default 
+: T/F
+\layout Itemize
+
+
+\series bold 
+kmt
+\series default 
+: KMT (kmt=T) or Watson (kmt=F) potential.
+ The former contains the multiplying factor at/(at-1), with at the target
+ atomic number.
+\layout Itemize
+
+
+\series bold 
+igwf
+\series default 
+: If T, calculates wavefunction up to lstore.
+\layout Itemize
+
+
+\series bold 
+lstore
+\series default 
+: max.
+ partial wave for wf.
+\layout Itemize
+
+
+\series bold 
+nr
+\series default 
+: if nr is not 0, a relativistic correction is performed.
+ 
+\layout Itemize
+
+
+\series bold 
+ucnr, ucni
+\series default 
+: central renormalization constants.
+\layout Itemize
+
+
+\series bold 
+usnr, usni
+\series default 
+: s.o.
+ renormalization constants.
+\layout Subsection*
+
+COUL namelist:
+\layout Itemize
+
+
+\series bold 
+coulomb
+\series default 
+: Coulomb correction
+\newline 
+=0: no coulomb
+\newline 
+=1: coulomb amplitude and phase change included\SpecialChar ~
+
+\newline 
+=2: coulomb amplitude, but not phase change
+\newline 
+=3: realistic (HO shape) charge distribuion
+\newline 
+=3: uniform charge sphere distribution
+\layout Itemize
+
+
+\series bold 
+rcut
+\series default 
+ :cut-off radius for subtracted momentum space method 
+\begin_inset LatexCommand \cite{Crespo90}
+
+\end_inset 
+
+.
+\layout Itemize
+
+
+\series bold 
+alfa, beta, gama
+\series default 
+: parameters for the realistic charge distribution of the form:
+\begin_inset Formula \begin{equation}
+\rho (q)=\left\{ 1-\gamma ^{2}q^{2}-\alpha q^{4}\right\} e^{-\beta q^{2}}
+\end{equation}
+
+\end_inset 
+
+
+\layout Subsection*
+
+HIGHORDER namelist:
+\layout Standard
+
+Specifications for high order calculations (second order onward)
+\layout Itemize
+
+
+\series bold 
+second
+\series default 
+:
+\newline 
+= 1 vopt1
+\newline 
+= 2 vopt1 + vopt2(local)
+\newline 
+= 3 vopt1 + vopt2 (non local) 
+\newline 
+= 4 vopt1 + vopt2 (full nonlocal)
+\layout Itemize
+
+
+\series bold 
+isflip
+\series default 
+:not used
+\layout Itemize
+
+
+\series bold 
+ich
+\series default 
+: not used 
+\layout Itemize
+
+
+\series bold 
+ion2
+\series default 
+: not used
+\layout Itemize
+
+
+\series bold 
+lamx
+\series default 
+:not used
+\layout Itemize
+
+
+\series bold 
+lbmx
+\series default 
+: not used
+\layout Itemize
+
+
+\series bold 
+l1mx
+\series default 
+:not used
+\layout Itemize
+
+
+\series bold 
+lfmx
+\series default 
+:not used
+\layout Itemize
+
+
+\series bold 
+rmaxr
+\series default 
+: maximum radius
+\layout Itemize
+
+
+\series bold 
+quin
+\series default 
+: maximum radius for inner region
+\layout Itemize
+
+
+\series bold 
+mquadi
+\series default 
+: number of inner quad points (multiple of 6)
+\layout Itemize
+
+
+\series bold 
+mquado
+\series default 
+: number of outer quad points (multiple of 6)
+\layout Subsection*
+
+PROJ namelist:
+\layout Standard
+
+Projectile properties.
+ Presently, the program only supports structureless projectiles.
+ Thus, unlike the target, no clusters can be defined.
+\layout Itemize
+
+
+\series bold 
+massp
+\series default 
+: mass number (in a.m.u.)
+\layout Itemize
+
+
+\series bold 
+zp
+\series default 
+: charge
+\layout Subsection*
+
+TARG namelist:
+\layout Standard
+
+Target properties
+\layout Itemize
+
+
+\series bold 
+masst
+\series default 
+: mass number (in a.m.u.)
+\layout Itemize
+
+
+\series bold 
+zt
+\series default 
+: charge
+\layout Itemize
+
+
+\series bold 
+at
+\series default 
+: number of nucleons
+\layout Itemize
+
+
+\series bold 
+ncluster
+\series default 
+: number of clusters
+\layout Subsection*
+
+CLUSTER namelist:
+\layout Standard
+
+After the 
+\series bold 
+targ
+\series default 
+ namelist, 
+\emph on 
+ncluster
+\emph default 
+ namelists will be read.
+ Each one contains the information required to construct the density for
+ one the clusters.
+ Notice that the different cluster do not neccesary have to use the same
+ model density.
+\layout Itemize
+
+
+\series bold 
+type
+\series default 
+, 
+\series bold 
+shape
+\series default 
+: specify the kind of density.
+ External densities (type=1, shape=5) are read from fortran unit 4.
+ The first line contains the number of points (
+\emph on 
+nramax
+\emph default 
+) and the step (
+\emph on 
+drx
+\emph default 
+), in free format.
+ Then, nramax density points will be read, assuming that the first one correspon
+ds to the origin.
+ 
+\newline 
+
+\begin_inset  Tabular
+<lyxtabular version="2" rows="10" columns="4">
+<features rotate="false" islongtable="false" endhead="0" endfirsthead="0" endfoot="0" endlastfoot="0">
+<column alignment="center" valignment="top" leftline="true" rightline="false" width="" special="">
+<column alignment="center" valignment="top" leftline="false" rightline="false" width="" special="">
+<column alignment="center" valignment="top" leftline="true" rightline="false" width="" special="">
+<column alignment="left" valignment="top" leftline="false" rightline="true" width="" special="">
+<row topline="true" bottomline="true" newpage="false">
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+type
+\end_inset 
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+shape
+\end_inset 
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row topline="true" bottomline="false" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+0
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Numerical potential
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+0
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Woods-Saxon
+\end_inset 
+</cell>
+</row>
+<row topline="false" bottomline="false" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+1
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Gauss
+\end_inset 
+</cell>
+</row>
+<row topline="false" bottomline="false" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+2
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Yukawa
+\end_inset 
+</cell>
+</row>
+<row topline="false" bottomline="false" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+3
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Hulthen
+\end_inset 
+</cell>
+</row>
+<row topline="false" bottomline="false" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+4
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+cosh
+\end_inset 
+</cell>
+</row>
+<row topline="false" bottomline="false" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+5
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+External
+\end_inset 
+</cell>
+</row>
+<row topline="true" bottomline="false" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+1
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Analytical potential
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+0
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Harmonic-oscillator s.p.
+\end_inset 
+</cell>
+</row>
+<row topline="false" bottomline="false" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+1
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+Three-parameter Fermi
+\end_inset 
+</cell>
+</row>
+<row topline="false" bottomline="true" newpage="false">
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+2
+\end_inset 
+</cell>
+<cell multicolumn="0" alignment="center" valignment="top" topline="true" bottomline="false" leftline="true" rightline="false" rotate="false" usebox="none" width="" special="">
+\begin_inset Text
+
+\layout Standard
+
+G3 distribution
+\end_inset 
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset 
+
+
+\layout Itemize
+
+
+\series bold 
+nzclus
+\series default 
+: number of protons within this cluster.
+\layout Itemize
+
+
+\series bold 
+nnclus
+\series default 
+: number of neutrons within this cluster.
+\layout Subsection*
+
+BSPARM namelist:
+\layout Standard
+
+For type=0, shape=0-4 the bsparm namelist is then read.
+\layout Itemize
+
+
+\series bold 
+cmass, vmass
+\series default 
+: core and bound particle masses.
+\layout Itemize
+
+
+\series bold 
+zc, zv
+\series default 
+: core and bound particle charges.
+\layout Itemize
+
+
+\series bold 
+nramax
+\series default 
+: number of integration steps.
+\layout Itemize
+
+
+\series bold 
+drx
+\series default 
+: radial step for numerical integration.
+\layout Itemize
+
+
+\series bold 
+dmat
+\series default 
+:fine tuning of interior-exterior matching.
+ Usually input 0.
+ * If no state found try increase of dmat to of order 10.
+\layout Itemize
+
+
+\series bold 
+nshell
+\series default 
+: number of shells.
+\layout Subsection*
+
+BSHELL namelist:
+\layout Standard
+
+Parameters for this specific shell.
+\layout Itemize
+
+
+\series bold 
+bengy
+\series default 
+: binding energy.
+\layout Itemize
+
+
+\series bold 
+vdepth
+\series default 
+, 
+\series bold 
+wr0, wal
+\series default 
+: potential depth, radius and diffuseness.
+\layout Itemize
+
+
+\series bold 
+wls
+\series default 
+: spin-orbit strength.
+\layout Itemize
+
+
+\series bold 
+is2
+\series default 
+=2*valence particle spin 
+\begin_inset Formula \( s \)
+\end_inset 
+
+.
+\layout Itemize
+
+
+\series bold 
+lmoma
+\series default 
+= orbital angular momentum 
+\begin_inset Formula \( \ell  \)
+\end_inset 
+
+.
+\layout Itemize
+
+
+\series bold 
+j2a
+\series default 
+ : 2*j, where 
+\begin_inset Formula \( j=\ell +s \)
+\end_inset 
+
+.
+\layout Itemize
+
+
+\series bold 
+nodd
+\series default 
+=number of nodes.
+\layout Itemize
+
+
+\series bold 
+norba
+\series default 
+=occupation number of this shell.
+\layout Subsection*
+
+BS3PF namelist:
+\layout Standard
+
+If type=1, shape=5 density is defined, a 
+\series bold 
+&bs3pf/
+\series default 
+ namelist is then read.
+ In configuration space, it obeys to the form:
+\begin_inset Formula \begin{equation}
+\label{Eq:rho-fermi}
+\rho (r)=\rho _{0}\frac{1+w(r/c)^{2}}{\exp [(r-c)/z]}
+\end{equation}
+
+\end_inset 
+
+where 
+\begin_inset Formula \( \rho _{0} \)
+\end_inset 
+
+ is a normalization constant and 
+\begin_inset Formula \( w,\, c,\, z \)
+\end_inset 
+
+ are free parameters.
+ 
+\layout Itemize
+
+
+\series bold 
+w3p, z3p
+\series default 
+, 
+\series bold 
+c3p
+\series default 
+: Fermi parameters for protons.
+\layout Itemize
+
+
+\series bold 
+w3n, z3n, c3n
+\series default 
+: Fermi parameters for neutrons.
+\layout Itemize
+
+
+\series bold 
+nramax
+\series default 
+: number of radial points to calculate the density.
+\layout Itemize
+
+
+\series bold 
+drx
+\series default 
+: step size (fm).
+\layout Subsection*
+
+HOPARM namelist:
+\layout Standard
+
+For type=1, shape=0 densities, harmonic oscillator parameters are read.
+ First, a 
+\series bold 
+hoparm
+\series default 
+ namelist is introduced, which currently only contains the number of shells
+ that will be next read by means of 
+\series bold 
+hoshell
+\series default 
+ namelists.
+\layout Itemize
+
+
+\series bold 
+hoparm
+\series default 
+: number of harmonic-oscillator shells to be read.
+\layout Subsection*
+
+HOSHELL namelist: 
+\layout Standard
+
+Provides the HO parameters and occupations numbers for each shell.
+\layout Itemize
+
+
+\series bold 
+aap, aan
+\series default 
+: HO parameters for protons and neutrons, respectively.
+\layout Itemize
+
+
+\series bold 
+zorba, norba
+\series default 
+: occupation number (protons and neutrons) for this shell.
+\layout Section
+
+Test examples
+\layout Subsection
+
+p+
+\begin_inset Formula \( ^{16} \)
+\end_inset 
+
+O with HO formactors
+\layout Standard
+
+In describing 
+\begin_inset Formula \( ^{16} \)
+\end_inset 
+
+O we consider a shell model harmonic oscillator (HO) description where the
+ center-of-mass corrections are neglected.
+ Thus, the nucleus matter density distribution is directly evaluated from
+ the HO single particle wave functions using the relative frequency obtained
+ by Donnelly and Walker 
+\begin_inset LatexCommand \cite{Donnelly69}
+
+\end_inset 
+
+.
+ 
+\layout Standard
+
+
+\begin_inset Include \verbatiminput{examples/mso_o16_ho.in}
+
+\end_inset 
+
+
+\layout Subsection
+
+n+
+\begin_inset Formula \( ^{16} \)
+\end_inset 
+
+Pb with 3-parameter Fermi formactor
+\layout Standard
+
+In this example, the density distribution of the 
+\begin_inset Formula \( ^{208} \)
+\end_inset 
+
+Pb nucleus has been modeled with the three-parameter Fermi form, Eq
+\latex latex 
+.
+\backslash 
+ 
+\latex default 
+(
+\begin_inset LatexCommand \ref{Eq:rho-fermi}
+
+\end_inset 
+
+).
+ The parameters where taken from 
+\begin_inset LatexCommand \cite{Barrett79}
+
+\end_inset 
+
+.
+\layout Standard
+
+
+\begin_inset Include \verbatiminput{examples/mso_pb_g3.in}
+
+\end_inset 
+
+
+\layout Subsection
+
+p+
+\begin_inset Formula \( ^{9} \)
+\end_inset 
+
+Li with external (Hartree-Fock) formfactors 
+\layout Standard
+
+In describing the 
+\begin_inset Formula \( ^{9} \)
+\end_inset 
+
+Li ground state, we use a shell model Hartree-Fock description as described
+ in the work of 
+\begin_inset LatexCommand \cite{Sagawa92}
+
+\end_inset 
+
+.
+ This is read externally from fortran unit file 4.
+ The first line of this line contains the number of points and radial step.
+\layout Standard
+
+
+\begin_inset Include \verbatiminput{examples/mso_li9_hf.in}
+
+\end_inset 
+
+
+\layout Subsection
+
+p+
+\begin_inset Formula \( ^{9} \)
+\end_inset 
+
+Li with mixed (cluster) formfactors 
+\layout Standard
+
+As a check of of the dependence of the scattering observables on the model
+ adopted for the matter density, we repeat in this example the calculation
+ for p+
+\begin_inset Formula \( ^{9} \)
+\end_inset 
+
+Li, with a different model for the 
+\begin_inset Formula \( ^{9} \)
+\end_inset 
+
+Li.
+ Now we assume a cluster model for 
+\begin_inset Formula \( ^{9} \)
+\end_inset 
+
+Li as in 
+\begin_inset LatexCommand \cite{Crespo96}
+
+\end_inset 
+
+ consisting of an 
+\begin_inset Formula \( \alpha  \)
+\end_inset 
+
+-particle-like core, four neutrons in the 
+\begin_inset Formula \( p_{3/2} \)
+\end_inset 
+
+ shell coupled to spin zero, and a proton in the 
+\begin_inset Formula \( p_{3/2} \)
+\end_inset 
+
+ shell.
+ We take a Gaussian distribution for the nucleons in the alpha core.
+ For the other nucleons we consider two cases: an harmonic oscilator model
+ (here called Cluster I) where the valence neutrons and protons are described
+ within the harmonic oscillator single particle model.
+ The ranges of the parameters correspond to the parameter set (a) found
+ in 
+\begin_inset LatexCommand \cite{Crespo96}
+
+\end_inset 
+
+.
+ We also take the valence nucleons as bound to the core by a Woods-Saxon
+ potential with parameters adjusted to obtain the valence neutron and proton
+ separation energy (here called cluster II).
+\layout Standard
+
+
+\begin_inset Include \verbatiminput{examples/mso_li9_clus.in}
+
+\end_inset 
+
+
+\layout Standard
+
+Note that all these examples require, together with the MSOamp input file
+ (typically mso.in), the NNamp input file.
+ In these examples we have used:
+\layout Standard
+
+
+\begin_inset Include \verbatiminput{examples/nnamp.in}
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset LatexCommand \BibTeX[unsrt]{referRC}
+
+\end_inset 
+
+
+\the_end

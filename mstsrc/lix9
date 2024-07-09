@@ -1,0 +1,52 @@
+1303,1304c1303,1304
+< 
+< !            do i=1,nth
+---
+>              write(61,*)'tnmat'
+>              do i=1,nth
+1307,1308c1307,1308
+< !               write(61,*)i,abs(tnmat(i))**2
+< !            enddo
+---
+>                 write(61,*)i,10*abs(tnmat(i))**2
+>              enddo
+1377c1377,1378
+<           do 200 iqrr = 1, nangles
+---
+>          write(61,*)'interpolated tnmat' 
+>          do 200 iqrr = 1, nangles
+1385c1386
+< !!             write(*,*) thet,10*abs(tabkq(iaj,ibj,ikj,iqj,iqrr))**2
+---
+>               write(61,*) thet,10*abs(tabkq(iaj,ibj,ikj,iqj,iqrr))**2
+1400c1401,1405
+<        do 250 ibj = 0,isnx
+---
+> 
+> !! RCRESPO 6/01/04
+> !! change to allow spin zero of projectile
+> !! do 250 ibj = 0,isnx
+>        do 250 ibj = 0,2*s2
+1414c1419,1422
+<           do 350 iaj=0,isnx
+---
+> !! RCRESPO 6/01/04
+> !! change to allow spin zero of projectile
+> !! do 350 iaj=0,isnx
+>           do 350 iaj=0,2*s1
+1443,1444c1451,1455
+<        do 400 ib1j = 0,isnx
+<        do 400 ib2j = 0,isnx
+---
+> !! RCRESPO 6/01/04
+> !! do 400 ib1j = 0,isnx
+> !! do 400 ib2j = 0,isnx
+>        do 400 ib1j = 0,2*s2
+>        do 400 ib2j = 0,2*s2
+1462,1463c1473,1475
+< 
+<        do 450 ib1j = 0,isnx
+---
+> !! RCRESPO 6/01/04
+> !! do 450 ib1j = 0,isnx
+>        do 450 ib1j = 0,2*s2

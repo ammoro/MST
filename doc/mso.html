@@ -1,0 +1,1655 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with jLaTeX2HTML 2002 (1.62) JA patch-1.4
+patched version by:  Kenshi Muto, Debian Project.
+LaTeX2HTML 2002 (1.62),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>MSOamp: A computer code to evaluate the multiple scattering expansion
+of the optical potential for nucleon-nucleus scattering</TITLE>
+<META NAME="description" CONTENT="MSOamp: A computer code to evaluate the multiple scattering expansion
+of the optical potential for nucleon-nucleus scattering">
+<META NAME="keywords" CONTENT="mso-man">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002 JA patch-1.4">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="mso-man.css">
+
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive"
+ SRC="file:/usr/share/latex2html/icons/nx_grp_g.png"> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev_g.png">   
+<BR>
+<BR><BR>
+<!--End of Navigation Panel-->
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+<H1 ALIGN="CENTER">DRAFT</H1>
+<P ALIGN="CENTER"><STRONG>R. Crespo and A. M. Moro</STRONG></P>
+
+<P>
+
+<P>
+<DIV ALIGN="CENTER">Departamento de F&#237;sica, Instituto Superior T&#233;cnico,
+1049-001 Lisboa, Portugal 
+   <BR>
+<BR>
+   </DIV>
+<P>
+<DIV ALIGN="CENTER"></DIV>
+
+<P>
+Email: raquel@wotan.ist.utl.pt, moro@mary.ist.utl.pt
+
+<P>
+<BR>
+
+<H2><A NAME="SECTION00010000000000000000">
+Contents</A>
+</H2>
+<!--Table of Contents-->
+
+<UL>
+<LI><A NAME="tex2html30"
+  HREF="mso-man.html">1 Introduction</A>
+<LI><A NAME="tex2html31"
+  HREF="mso-man.html#SECTION00030000000000000000">2 The formalism</A>
+<UL>
+<LI><A NAME="tex2html32"
+  HREF="mso-man.html#SECTION00031000000000000000">2.1 The Lippmann-Schwinger equation: method of solution</A>
+<LI><A NAME="tex2html33"
+  HREF="mso-man.html#SECTION00032000000000000000">2.2 The optical potential</A>
+</UL><BR>
+<LI><A NAME="tex2html34"
+  HREF="mso-man.html#SECTION00040000000000000000">3 About the code</A>
+<UL>
+<LI><A NAME="tex2html35"
+  HREF="mso-man.html#SECTION00041000000000000000">3.1 Source files</A>
+<LI><A NAME="tex2html36"
+  HREF="mso-man.html#SECTION00042000000000000000">3.2 Source files and compilation</A>
+<LI><A NAME="tex2html37"
+  HREF="mso-man.html#SECTION00043000000000000000">3.3 Compilation</A>
+<LI><A NAME="tex2html38"
+  HREF="mso-man.html#SECTION00044000000000000000">3.4 Compilation</A>
+</UL><BR>
+<LI><A NAME="tex2html39"
+  HREF="mso-man.html#SECTION00050000000000000000">4 Description of namelists input variables</A>
+<UL>
+<LI><A NAME="tex2html40"
+  HREF="mso-man.html#SECTION00051000000000000000">MSO namelist: </A>
+<LI><A NAME="tex2html41"
+  HREF="mso-man.html#SECTION00052000000000000000">COUL namelist:</A>
+<LI><A NAME="tex2html42"
+  HREF="mso-man.html#SECTION00053000000000000000">HIGHORDER namelist:</A>
+<LI><A NAME="tex2html43"
+  HREF="mso-man.html#SECTION00054000000000000000">PROJ namelist:</A>
+<LI><A NAME="tex2html44"
+  HREF="mso-man.html#SECTION00055000000000000000">TARG namelist:</A>
+<LI><A NAME="tex2html45"
+  HREF="mso-man.html#SECTION00056000000000000000">CLUSTER namelist:</A>
+<LI><A NAME="tex2html46"
+  HREF="mso-man.html#SECTION00057000000000000000">BSPARM namelist:</A>
+<LI><A NAME="tex2html47"
+  HREF="mso-man.html#SECTION00058000000000000000">BSHELL namelist:</A>
+<LI><A NAME="tex2html48"
+  HREF="mso-man.html#SECTION00059000000000000000">BS3PF namelist:</A>
+<LI><A NAME="tex2html49"
+  HREF="mso-man.html#SECTION000510000000000000000">HOPARM namelist:</A>
+<LI><A NAME="tex2html50"
+  HREF="mso-man.html#SECTION000511000000000000000">HOSHELL namelist: </A>
+</UL><BR>
+<LI><A NAME="tex2html51"
+  HREF="mso-man.html#SECTION00060000000000000000">5 Test examples</A>
+<UL>
+<LI><A NAME="tex2html52"
+  HREF="mso-man.html#SECTION00061000000000000000">5.1 p+O with HO formactors</A>
+<LI><A NAME="tex2html53"
+  HREF="mso-man.html#SECTION00062000000000000000">5.2 n+Pb with 3-parameter Fermi formactor</A>
+<LI><A NAME="tex2html54"
+  HREF="mso-man.html#SECTION00063000000000000000">5.3 p+Li with external (Hartree-Fock) formfactors </A>
+<LI><A NAME="tex2html55"
+  HREF="mso-man.html#SECTION00064000000000000000">5.4 p+Li with mixed (cluster) formfactors </A>
+</UL><BR>
+<LI><A NAME="tex2html56"
+  HREF="mso-man.html#SECTION00070000000000000000">Bibliography</A>
+<LI><A NAME="tex2html57"
+  HREF="mso-man.html#SECTION00080000000000000000">About this document ...</A>
+</UL>
+<!--End of Table of Contents-->
+
+<P>
+
+<H1><A NAME="SECTION00020000000000000000">
+1 Introduction</A>
+</H1>
+
+<P>
+MSOamp is a computer code to evaluate the elastic scattering observables
+for nucleon-nucleus elastic scatering from an optical potential in
+the momentum space configuration. The optical potential is constructed
+as a multiple scattering expansion in terms of the free NN transition
+amplitude and the target densities[<A
+ HREF="mso-man.html#Ker59">1</A>,<A
+ HREF="mso-man.html#Wat53">2</A>,<A
+ HREF="mso-man.html#Crespo92">3</A>]. The
+free NN transition amplitude is calculated in the momentum space configuration
+from a realistic NN interaction such as Paris or Bonn [<A
+ HREF="mso-man.html#Lacombe80">4</A>,<A
+ HREF="mso-man.html#Machleidt87">5</A>].
+This is an ideal tool to study the isospin dependence of the optical
+potential and thus to to perform comparative studies of neutron and
+proton elastic scattering in the intermediate energy region. It can
+be used to support fundamental studies planned in <B>n-TOF</B>. 
+
+<P>
+The code is constructed in fortran 90. The inputs are given through
+a user friendly namelist.
+
+<P>
+Details of the formalism and some applications can be found in [<A
+ HREF="mso-man.html#Crespo02b">6</A>].
+
+<P>
+
+<H1><A NAME="SECTION00030000000000000000">
+2 The formalism</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION00031000000000000000">
+2.1 The Lippmann-Schwinger equation: method of solution</A>
+</H2>
+
+<P>
+The Lippmann-Schwinger equation for the elastic scattering problem,
+for the potential U is <BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+T'=U+UG_{0}T'
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="135" HEIGHT="31" BORDER="0"
+ SRC="img3.png"
+ ALT="\begin{displaymath}
+T'=U+UG_{0}T'
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(1)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+with the Green's function <!-- MATH
+ $G_{0}=(E-K_{0}+i\epsilon )^{-1}$
+ -->
+<IMG
+ WIDTH="183" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4.png"
+ ALT="\( G_{0}=(E-K_{0}+i\epsilon )^{-1} \)">where
+<IMG
+ WIDTH="28" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.png"
+ ALT="\( K_{0} \)"> is the projectile kinetic energy operator. In order to
+solve this equation, we introduce the partial wave equation <BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+|\vec{k}\rangle =\sqrt{\frac{2}{\pi }}\sum _{JLSM}i^{L}|k(LS)JM\rangle Y_{JL}^{M+}(\hat{k}),
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="306" HEIGHT="60" BORDER="0"
+ SRC="img6.png"
+ ALT="\begin{displaymath}
+\vert\vec{k}\rangle =\sqrt{\frac{2}{\pi }}\sum _{JLSM}i^{L}\vert k(LS)JM\rangle Y_{JL}^{M+}(\hat{k}),
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(2)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+leading to <BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+T'_{L\pm }(k,k_{0})=U_{L\pm }(k,k_{0})+\frac{2}{\pi }\int ^{\infty }_{0}dpp^{2}U_{L\pm }(k,p)G_{0}(p)T'_{L\pm }(p,k_{0})
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:TL"></A><IMG
+ WIDTH="504" HEIGHT="46" BORDER="0"
+ SRC="img7.png"
+ ALT="\begin{displaymath}
+T'_{L\pm }(k,k_{0})=U_{L\pm }(k,k_{0})+\frac{2}{\pi }\int ^{\infty }_{0}dpp^{2}U_{L\pm }(k,p)G_{0}(p)T'_{L\pm }(p,k_{0})
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(3)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+where <IMG
+ WIDTH="51" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.png"
+ ALT="\( G_{0}(p) \)"> is the Gree's function in the momentum representation
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+G_{0}(p)=\frac{2\mu _{NA}}{\hbar ^{2}}\frac{1}{k^{2}_{0}-p^{2}+i\epsilon }
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="217" HEIGHT="49" BORDER="0"
+ SRC="img9.png"
+ ALT="\begin{displaymath}
+G_{0}(p)=\frac{2\mu _{NA}}{\hbar ^{2}}\frac{1}{k^{2}_{0}-p^{2}+i\epsilon }
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(4)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+and <!-- MATH
+ $L_{\pm }=L\pm 1/2$
+ -->
+<IMG
+ WIDTH="118" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img10.png"
+ ALT="\( L_{\pm }=L\pm 1/2 \)"> denotes the eigenvalues of the total
+angular momentum J. It is more convenient to work with the principal
+value form of the Green's function, 
+
+<P>
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+G_{0}(p)=G_{0}^{P}(p)-i\pi \frac{2\mu _{NA}}{\hbar ^{2}}\frac{\delta (k_{0}-p)}{k_{0}}
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="286" HEIGHT="50" BORDER="0"
+ SRC="img11.png"
+ ALT="\begin{displaymath}
+G_{0}(p)=G_{0}^{P}(p)-i\pi \frac{2\mu _{NA}}{\hbar ^{2}}\frac{\delta (k_{0}-p)}{k_{0}}
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(5)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+where <IMG
+ WIDTH="55" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="img12.png"
+ ALT="\( G_{0}^{P}(p) \)"> indicates the principal value. Substituting
+this eq into the partial wave expansion of the transition amplitude
+eq. (<A HREF="mso-man.html#eq:TL">3</A>) we get<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+R_{L\pm }(k,k_{0})=U_{L\pm }(k,k_{0})+\frac{2}{\pi }\int ^{\infty }_{0}dpp^{2}U_{L\pm }(k,p)G^{p}_{0}(p)R_{L\pm }(p,k_{0})
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="510" HEIGHT="46" BORDER="0"
+ SRC="img13.png"
+ ALT="\begin{displaymath}
+R_{L\pm }(k,k_{0})=U_{L\pm }(k,k_{0})+\frac{2}{\pi }\int ^{\infty }_{0}dpp^{2}U_{L\pm }(k,p)G^{p}_{0}(p)R_{L\pm }(p,k_{0})
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(6)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+where the partial-wave R-matrix is related to the partial-wave T matrix
+by the Heitler equation<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+R_{L\pm }(k,k_{0})=T'_{L\pm }(k,k_{0})\left[ 1-i\frac{2\mu _{NA}}{\hbar ^{2}}k_{0}T'_{L\pm }(k_{0},k_{0})\right] ^{-1}
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:RL"></A><IMG
+ WIDTH="422" HEIGHT="50" BORDER="0"
+ SRC="img14.png"
+ ALT="\begin{displaymath}
+R_{L\pm }(k,k_{0})=T'_{L\pm }(k,k_{0})\left[ 1-i\frac{2\mu _{NA}}{\hbar ^{2}}k_{0}T'_{L\pm }(k_{0},k_{0})\right] ^{-1}
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(7)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+From this equation it follows immediately that the on-shell T-matrix
+<!-- MATH
+ $T'_{L\pm }(k_{0},k_{0})$
+ -->
+<IMG
+ WIDTH="94" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img15.png"
+ ALT="\( T'_{L\pm }(k_{0},k_{0}) \)"> is given by<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+T'_{L\pm }(k_{0},k_{0})=\frac{R_{L\pm }(k_{0},k_{0})}{1+i\rho _{\epsilon }R_{L\pm }(k_{0},k_{0})}
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:TL-RL"></A><IMG
+ WIDTH="263" HEIGHT="52" BORDER="0"
+ SRC="img16.png"
+ ALT="\begin{displaymath}
+T'_{L\pm }(k_{0},k_{0})=\frac{R_{L\pm }(k_{0},k_{0})}{1+i\rho _{\epsilon }R_{L\pm }(k_{0},k_{0})}
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(8)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+with <!-- MATH
+ $\rho _{\epsilon }=2\mu _{NA}/\hbar ^{2}$
+ -->
+<IMG
+ WIDTH="117" HEIGHT="41" ALIGN="MIDDLE" BORDER="0"
+ SRC="img17.png"
+ ALT="\( \rho _{\epsilon }=2\mu _{NA}/\hbar ^{2} \)">. In the KMT multiple
+scattering formalism, the transition amplitude for elastic scattering,
+T, is related to the transition amplitude associated with the potential
+U, through the relation <!-- MATH
+ $T=\frac{A}{A-1}T'$
+ -->
+<IMG
+ WIDTH="93" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img18.png"
+ ALT="\( T=\frac{A}{A-1}T' \)">. Defining the normalized
+T-matrix and R-matrix according to <!-- MATH
+ $\hat{T}_{L\pm }(k,k')=-\rho _{\epsilon }T_{L\pm }(k,k')$
+ -->
+<IMG
+ WIDTH="220" HEIGHT="44" ALIGN="MIDDLE" BORDER="0"
+ SRC="img19.png"
+ ALT="\( \hat{T}_{L\pm }(k,k')=-\rho _{\epsilon }T_{L\pm }(k,k') \)">
+and <!-- MATH
+ $\hat{R}_{L\pm }(k,k')=-\rho _{\epsilon }R_{L\pm }(k,k')$
+ -->
+<IMG
+ WIDTH="226" HEIGHT="44" ALIGN="MIDDLE" BORDER="0"
+ SRC="img20.png"
+ ALT="\( \hat{R}_{L\pm }(k,k')=-\rho _{\epsilon }R_{L\pm }(k,k') \)">
+respectively we obtain <BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+\hat{T}_{L\pm }(k_{0},k_{0})=\frac{\hat{R}_{L\pm }(k_{0},k_{0})}{1-i\rho _{\epsilon }\hat{R}_{L\pm }(k_{0},k_{0})}
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="264" HEIGHT="58" BORDER="0"
+ SRC="img21.png"
+ ALT="\begin{displaymath}
+\hat{T}_{L\pm }(k_{0},k_{0})=\frac{\hat{R}_{L\pm }(k_{0},k_{0})}{1-i\rho _{\epsilon }\hat{R}_{L\pm }(k_{0},k_{0})}
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(9)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+and thus from eq. (<A HREF="mso-man.html#eq:RL">7</A>) and (<A HREF="mso-man.html#eq:TL-RL">8</A>) the normalized
+half-off shell T matrix <!-- MATH
+ $\hat{T}_{L\pm }(k,k_{0})$
+ -->
+<IMG
+ WIDTH="87" HEIGHT="44" ALIGN="MIDDLE" BORDER="0"
+ SRC="img22.png"
+ ALT="\( \hat{T}_{L\pm }(k,k_{0}) \)">, is given
+by<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+\hat{T}_{L\pm }(k,k_{0})=\hat{T}_{L\pm }(k,k_{0})\left[ \frac{A}{A-1}+i\hat{T}_{L\pm }(k,k_{0})\right]
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="368" HEIGHT="47" BORDER="0"
+ SRC="img23.png"
+ ALT="\begin{displaymath}
+\hat{T}_{L\pm }(k,k_{0})=\hat{T}_{L\pm }(k,k_{0})\left[ \frac{A}{A-1}+i\hat{T}_{L\pm }(k,k_{0})\right]
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(10)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+These normalized on-shell transition matrix elements are related to
+the nuclear phase shifts according to<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+\hat{T}_{L\pm }(k_{0},k_{0})=\frac{\exp (2i\delta _{L\pm })-1}{2i}=\exp (i\delta _{L\pm })sin\delta _{L\pm }
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="396" HEIGHT="47" BORDER="0"
+ SRC="img24.png"
+ ALT="\begin{displaymath}
+\hat{T}_{L\pm }(k_{0},k_{0})=\frac{\exp (2i\delta _{L\pm })-1}{2i}=\exp (i\delta _{L\pm })sin\delta _{L\pm }
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(11)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+and the reflection coefficients are <!-- MATH
+ $\eta _{L\pm }=|\exp (2i\delta _{L\pm })|=|2i\hat{T}_{L\pm }(k_{0},k_{0})+1|$
+ -->
+<IMG
+ WIDTH="334" HEIGHT="44" ALIGN="MIDDLE" BORDER="0"
+ SRC="img25.png"
+ ALT="\( \eta _{L\pm }=\vert\exp (2i\delta _{L\pm })\vert=\vert 2i\hat{T}_{L\pm }(k_{0},k_{0})+1\vert \)">.
+We shall omit, from now on, the partial wave labels in order to simplify
+the notation. 
+
+<P>
+The numerical solution of the partial wave form of the LS equation,
+eq.(<A HREF="mso-man.html#eq:TL">3</A>), involves the evaluation of the principal value
+of the integral together with a discretization and truncation of the
+range of the momentum variable p. We now briefly describe the method
+to solve the LS equation [<A
+ HREF="mso-man.html#Landau82">7</A>,<A
+ HREF="mso-man.html#Crespo92">3</A>].
+
+<P>
+The principal value is calculated using the Haftel-Tabakin method
+. This consists of subtracting a smooth integrand whose contribution
+to the integral is zero, i.e.<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+R(k,k_{0})=U(k,k_{0})+\frac{2}{\pi }\frac{2\mu _{NA}}{\hbar ^{2}}\int ^{\infty }_{0}dp\left[ \frac{p^{2}U(k,p)R(p,k_{0})-k^{2}_{0}U(k,k_{0})R(k_{0},k_{0})}{k^{2}_{0}-p^{2}}\right]
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:R-Haftel-Tabakin"></A><IMG
+ WIDTH="626" HEIGHT="54" BORDER="0"
+ SRC="img26.png"
+ ALT="\begin{displaymath}
+R(k,k_{0})=U(k,k_{0})+\frac{2}{\pi }\frac{2\mu _{NA}}{\hbar ...
+...})-k^{2}_{0}U(k,k_{0})R(k_{0},k_{0})}{k^{2}_{0}-p^{2}}\right]
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(12)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+The discretization of the momentum integral is achieved by introducing
+N Gaussian quadrature points <IMG
+ WIDTH="113" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img27.png"
+ ALT="\( (k_{j};j=1,N) \)"> each weighted by
+<IMG
+ WIDTH="24" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img28.png"
+ ALT="\( w_{i} \)">. All N integration points, are required not to be equal
+to <IMG
+ WIDTH="22" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img29.png"
+ ALT="\( k_{0} \)">. The discretized version of the previous equation,
+eq.(<A HREF="mso-man.html#eq:R-Haftel-Tabakin">12</A>) reduces to <P></P><DIV ALIGN="CENTER">
+<!-- MATH
+ \begin{eqnarray*}
+R(k_{i},k_{0})= & U(k_{i},k_{0})+\frac{2}{\pi }\sum _{j=1}^{N}\frac{2\mu _{NA}}{\hbar ^{2}}w_{j}k_{j}^{2}\frac{U(k_{i},k_{j})R(k_{j},k_{0})}{k^{2}_{0}-k^{2}_{j}} & \nonumber \\
+ & -\frac{2}{\pi }\sum ^{N}_{j=1}\frac{2\mu _{NA}}{\hbar ^{2}}k^{2}_{0}\frac{w_{j}}{k^{2}_{0}-k^{2}_{j}}U(k_{i},k_{0})R(k_{0},k_{0}) & \nonumber
+\end{eqnarray*}
+ -->
+<IMG
+ WIDTH="439" HEIGHT="77" BORDER="0"
+ SRC="img30.png"
+ ALT="\begin{eqnarray*}
+R(k_{i},k_{0})= &amp; U(k_{i},k_{0})+\frac{2}{\pi }\sum _{j=1}^{N}...
+...}}{k^{2}_{0}-k^{2}_{j}}U(k_{i},k_{0})R(k_{0},k_{0}) &amp; \nonumber
+\end{eqnarray*}"><BR CLEAR="ALL"></DIV><P></P>
+<BR CLEAR="ALL"><P></P><BR CLEAR="ALL"><P></P>
+Calling <IMG
+ WIDTH="87" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img31.png"
+ ALT="\( k_{N+1}=k_{0} \)">, we obtain the following system of N+1
+equations:<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+\sum ^{N+1}_{j=1}F(k_{i},k_{j})R(k_{j},k_{m})=U(k_{i},k_{m})
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="278" HEIGHT="61" BORDER="0"
+ SRC="img32.png"
+ ALT="\begin{displaymath}
+\sum ^{N+1}_{j=1}F(k_{i},k_{j})R(k_{j},k_{m})=U(k_{i},k_{m})
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(13)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+or simbolically <BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+[F]_{(N+1)x(N+1)}[R]_{N+1}=[U]_{N+1}
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="246" HEIGHT="35" BORDER="0"
+ SRC="img33.png"
+ ALT="\begin{displaymath}[F]_{(N+1)x(N+1)}[R]_{N+1}=[U]_{N+1}
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(14)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+with<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+F(k_{i},k_{j})=\delta _{ij}+U(k_{i},k_{j})\hat{W}_{j}
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="231" HEIGHT="34" BORDER="0"
+ SRC="img34.png"
+ ALT="\begin{displaymath}
+F(k_{i},k_{j})=\delta _{ij}+U(k_{i},k_{j})\hat{W}_{j}
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(15)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+and<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+\hat{W}_{j}=\frac{2}{\pi }\frac{2\mu _{NA}}{\hbar ^{2}}k^{2}_{j}\frac{w_{j}}{k^{2}_{j}-k^{2}_{0}};j\leq N
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="252" HEIGHT="52" BORDER="0"
+ SRC="img35.png"
+ ALT="\begin{displaymath}
+\hat{W}_{j}=\frac{2}{\pi }\frac{2\mu _{NA}}{\hbar ^{2}}k^{2}_{j}\frac{w_{j}}{k^{2}_{j}-k^{2}_{0}};j\leq N
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(16)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+
+<P>
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+\hat{W}_{j}=-\frac{2}{\pi }\frac{2\mu _{NA}}{\hbar ^{2}}k^{2}_{0}\sum ^{N}_{m=1}\frac{w_{m}}{k_{m}^{2}-k^{2}_{0}};j=N+1
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="337" HEIGHT="58" BORDER="0"
+ SRC="img36.png"
+ ALT="\begin{displaymath}
+\hat{W}_{j}=-\frac{2}{\pi }\frac{2\mu _{NA}}{\hbar ^{2}}k^{2}_{0}\sum ^{N}_{m=1}\frac{w_{m}}{k_{m}^{2}-k^{2}_{0}};j=N+1
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(17)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+The coulomb interaction is included in an approximate way as described
+in [<A
+ HREF="mso-man.html#Crespo90">8</A>, and references therein]
+
+<P>
+
+<H2><A NAME="SECTION00032000000000000000">
+2.2 The optical potential</A>
+</H2>
+
+<P>
+We assume that the target nucleus of number of mass A is well described
+by N clusters. Within the Multiple Scattering expansion of the Optical
+potential such as formalated by KMT[<A
+ HREF="mso-man.html#Ker59">1</A>,<A
+ HREF="mso-man.html#Crespo92">3</A>], the optical
+potential can be written as an expantion in terms of the free NN transition
+amplitude. Within the single scattering <IMG
+ WIDTH="21" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img37.png"
+ ALT="\( t\rho \)"> approximation,
+the matrix elements of the potential are in the momentum space configuration:
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+\langle \vec{k}'|U|\vec{k}\rangle =\frac{A-1}{A}\sum \rho ^{i}_{p}(q)\bar{t}_{pp}(\omega ,q,Q/2,\phi )+\rho ^{i}_{n}\bar{t}_{nn}(\omega ,q,Q/2,\phi )
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="507" HEIGHT="46" BORDER="0"
+ SRC="img38.png"
+ ALT="\begin{displaymath}
+\langle \vec{k}'\vert U\vert\vec{k}\rangle =\frac{A-1}{A}\su...
+...a ,q,Q/2,\phi )+\rho ^{i}_{n}\bar{t}_{nn}(\omega ,q,Q/2,\phi )
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(18)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+where <IMG
+ WIDTH="23" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="img39.png"
+ ALT="\( \rho ^{i}_{n} \)">and <IMG
+ WIDTH="22" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="img40.png"
+ ALT="\( \rho ^{i}_{p} \)">are the nuclear
+matter density distributions for the protons and neutrons respectively
+for each cluster. Here, <IMG
+ WIDTH="26" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img41.png"
+ ALT="\( \bar{t}_{pp} \)"> and <IMG
+ WIDTH="29" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img42.png"
+ ALT="\( \bar{t}_{nn} \)">
+are the spin averaged proton-proton and neutron-neutron respectively
+amplitudes evaluated at the appropriate energy <IMG
+ WIDTH="17" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img43.png"
+ ALT="\( \omega \)">, <IMG
+ WIDTH="16" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img44.png"
+ ALT="\( \phi \)">
+is the angle between the vectors <!-- MATH
+ $\vec{Q}=(\vec{k}'+\vec{k})/2$
+ -->
+<IMG
+ WIDTH="126" HEIGHT="45" ALIGN="MIDDLE" BORDER="0"
+ SRC="img45.png"
+ ALT="\( \vec{Q}=(\vec{k}'+\vec{k})/2 \)">
+and <!-- MATH
+ $\vec{q}=(\vec{k}'-\vec{k})$
+ -->
+<IMG
+ WIDTH="102" HEIGHT="45" ALIGN="MIDDLE" BORDER="0"
+ SRC="img46.png"
+ ALT="\( \vec{q}=(\vec{k}'-\vec{k}) \)"> . In this eq. other spin components
+of the NN transition amplitude for the case of proton elastic scattering
+from non zero spin targets are not included. In this case, the potential
+can only have a central and a spin-orbit term<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+\langle \vec{k}'|U|\vec{k}\rangle =\langle \vec{k}'|U^{c}|\vec{k}\rangle +i\vec{\sigma }\cdot \vec{n}\langle \vec{k}'|U^{ls}|\vec{k}\rangle
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="303" HEIGHT="33" BORDER="0"
+ SRC="img47.png"
+ ALT="\begin{displaymath}
+\langle \vec{k}'\vert U\vert\vec{k}\rangle =\langle \vec{k}'...
+...}\cdot \vec{n}\langle \vec{k}'\vert U^{ls}\vert\vec{k}\rangle
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(19)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+with <IMG
+ WIDTH="16" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img48.png"
+ ALT="\( \sigma \)"> the spin operator for the projectile and <!-- MATH
+ $\vec{n}=\vec{\kappa }\times \vec{\kappa }'$
+ -->
+<IMG
+ WIDTH="90" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img49.png"
+ ALT="\( \vec{n}=\vec{\kappa }\times \vec{\kappa }' \)">.
+According to the last paragraph we need to know the partial wave decomposition
+of this potential <IMG
+ WIDTH="84" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img50.png"
+ ALT="\( U_{LJ}(k',k) \)">. It follows that, this can be
+written as:<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+U_{LJ}(k',k)=U_{L}^{c}(k',k)+C_{LJ}U_{L}^{ls}(k',k)
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="eq:ULJ"></A><IMG
+ WIDTH="302" HEIGHT="33" BORDER="0"
+ SRC="img51.png"
+ ALT="\begin{displaymath}
+U_{LJ}(k',k)=U_{L}^{c}(k',k)+C_{LJ}U_{L}^{ls}(k',k)
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(20)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+with the partial wave for the central component given by <BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+U_{L}^{c}(k',k)=\pi ^{2}\int ^{+1}_{-1}d(cos\theta _{kk'})P_{L}(cos\theta _{kk'})U^{c}(\vec{k}',\vec{k})
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="392" HEIGHT="47" BORDER="0"
+ SRC="img52.png"
+ ALT="\begin{displaymath}
+U_{L}^{c}(k',k)=\pi ^{2}\int ^{+1}_{-1}d(cos\theta _{kk'})P_{L}(cos\theta _{kk'})U^{c}(\vec{k}',\vec{k})
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(21)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+and for the spin-orbit <BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+U_{L}^{ls}(k',k)=\frac{\pi ^{2}}{L(L+1)}\int ^{+1}_{-1}d(cos\theta _{kk'})sin^{2}\theta _{kk'}P^{1}_{L}(cos\theta _{kk'})U^{ls}(\vec{k}',\vec{k})
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="520" HEIGHT="53" BORDER="0"
+ SRC="img53.png"
+ ALT="\begin{displaymath}
+U_{L}^{ls}(k',k)=\frac{\pi ^{2}}{L(L+1)}\int ^{+1}_{-1}d(cos...
+...heta _{kk'}P^{1}_{L}(cos\theta _{kk'})U^{ls}(\vec{k}',\vec{k})
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(22)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+The geometric coefficients in eq.(<A HREF="mso-man.html#eq:ULJ">20</A>) are the matrix elements
+of the spin-orbit operator<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+C_{LJ}=\langle JL|\vec{L}\cdot \vec{\sigma }|JL\rangle =J(J+1)-L(L+1)-3/4
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="413" HEIGHT="33" BORDER="0"
+ SRC="img54.png"
+ ALT="\begin{displaymath}
+C_{LJ}=\langle JL\vert\vec{L}\cdot \vec{\sigma }\vert JL\rangle =J(J+1)-L(L+1)-3/4
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(23)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+
+<P>
+
+<H1><A NAME="SECTION00040000000000000000">
+3 About the code</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION00041000000000000000">
+3.1 Source files</A>
+</H2>
+
+<P>
+
+<H2><A NAME="SECTION00042000000000000000">
+3.2 Source files and compilation</A>
+</H2>
+
+<P>
+The source files of the MSOamp program are organized into two directories,
+<I>nnsrc</I> and <I>msosrc</I>. The former contains the NNamp source
+files, while the latter contains those files specific of the MSO formalism.
+Each one of these directories contains a Makefile. There exits also
+a Makefile in the top directory of the distribution. If needed, this
+can be edited and customized before compilation. Notice that the compiler
+name and options are included by means of *.def files. Presently,
+two of these files are included: <I>fujitsu.def</I> and <I>pgf90.def</I>.
+They contain the compilation specifications for the Fujitsu and PGF90
+compilers, respectively. If you have a different f90 compiler, you
+may want to create your own *.def file, with the appropriate options. 
+
+<P>
+
+<H2><A NAME="SECTION00043000000000000000">
+3.3 Compilation</A>
+</H2>
+
+<P>
+Once the top Makefile have been customized, the NNamp program can
+be compiled with:
+
+<P>
+<PRE>prompt&gt; cd nnsrc ; make
+</PRE>
+
+<P>
+Similarly, to compile the MSOamp program:
+
+<P>
+<PRE>prompt&gt; cd msosrc; make
+</PRE>
+
+<P>
+Alternatively, from the top directory to can compile the NNamp program
+typing:
+
+<P>
+<PRE>prompt&gt; make nnamp
+</PRE> 
+
+<P>
+and the MSOamp program with:
+
+<P>
+<PRE>prompt&gt; make msoamp
+</PRE> 
+
+<P>
+Notice that, whenever the MSO program is compiled, the NNamp program
+will also be compiled. 
+
+<P>
+After compilation, you can delete the *.o files by typing: 
+
+<P>
+<PRE>prompt&gt; make clean
+</PRE>
+
+<P>
+To delete *.o as well as MSOamp / NNamp output files: 
+
+<P>
+<PRE>prompt&gt; make superclean
+</PRE>
+
+<P>
+To install the executables in the compilation (mso and nnamp) into
+the destination specified at the top Makefile, type:
+
+<P>
+<PRE>prompt&gt; make install
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00044000000000000000">
+3.4 Compilation</A>
+</H2>
+
+<P>
+
+<H1><A NAME="SECTION00050000000000000000">
+4 Description of namelists input variables</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION00051000000000000000">
+MSO namelist: </A>
+</H2>
+
+<P>
+Genearal options:
+
+<P>
+
+<UL>
+<LI><B>tlab</B>: relative kinetic energy projectile-target in laboratory
+system.
+</LI>
+<LI><B>offshell</B>: T/F
+</LI>
+<LI><B>kmt</B>: KMT (kmt=T) or Watson (kmt=F) potential. The former
+contains the multiplying factor at/(at-1), with at the target atomic
+number.
+</LI>
+<LI><B>igwf</B>: If T, calculates wavefunction up to lstore.
+</LI>
+<LI><B>lstore</B>: max. partial wave for wf.
+</LI>
+<LI><B>nr</B>: if nr is not 0, a relativistic correction is performed. 
+</LI>
+<LI><B>ucnr, ucni</B>: central renormalization constants.
+</LI>
+<LI><B>usnr, usni</B>: s.o. renormalization constants.
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00052000000000000000">
+COUL namelist:</A>
+</H2>
+
+<P>
+
+<UL>
+<LI><B>coulomb</B>: Coulomb correction
+<BR>=0: no coulomb
+<BR>=1: coulomb amplitude and phase change included&nbsp;
+<BR>=2: coulomb amplitude, but not phase change
+<BR>=3: realistic (HO shape) charge distribuion
+<BR>=3: uniform charge sphere distribution
+</LI>
+<LI><B>rcut</B> :cut-off radius for subtracted momentum space method
+[<A
+ HREF="mso-man.html#Crespo90">8</A>].
+</LI>
+<LI><B>alfa, beta, gama</B>: parameters for the realistic charge distribution
+of the form:<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+\rho (q)=\left\{ 1-\gamma ^{2}q^{2}-\alpha q^{4}\right\} e^{-\beta q^{2}}
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="241" HEIGHT="38" BORDER="0"
+ SRC="img55.png"
+ ALT="\begin{displaymath}
+\rho (q)=\left\{ 1-\gamma ^{2}q^{2}-\alpha q^{4}\right\} e^{-\beta q^{2}}
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(24)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+
+<P>
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00053000000000000000">
+HIGHORDER namelist:</A>
+</H2>
+
+<P>
+Specifications for high order calculations (second order onward)
+
+<P>
+
+<UL>
+<LI><B>second</B>:
+<BR>= 1 vopt1
+<BR>= 2 vopt1 + vopt2(local)
+<BR>= 3 vopt1 + vopt2 (non local) 
+<BR>= 4 vopt1 + vopt2 (full nonlocal)
+</LI>
+<LI><B>isflip</B>:not used
+</LI>
+<LI><B>ich</B>: not used 
+</LI>
+<LI><B>ion2</B>: not used
+</LI>
+<LI><B>lamx</B>:not used
+</LI>
+<LI><B>lbmx</B>: not used
+</LI>
+<LI><B>l1mx</B>:not used
+</LI>
+<LI><B>lfmx</B>:not used
+</LI>
+<LI><B>rmaxr</B>: maximum radius
+</LI>
+<LI><B>quin</B>: maximum radius for inner region
+</LI>
+<LI><B>mquadi</B>: number of inner quad points (multiple of 6)
+</LI>
+<LI><B>mquado</B>: number of outer quad points (multiple of 6)
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00054000000000000000">
+PROJ namelist:</A>
+</H2>
+
+<P>
+Projectile properties. Presently, the program only supports structureless
+projectiles. Thus, unlike the target, no clusters can be defined.
+
+<P>
+
+<UL>
+<LI><B>massp</B>: mass number (in a.m.u.)
+</LI>
+<LI><B>zp</B>: charge
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00055000000000000000">
+TARG namelist:</A>
+</H2>
+
+<P>
+Target properties
+
+<P>
+
+<UL>
+<LI><B>masst</B>: mass number (in a.m.u.)
+</LI>
+<LI><B>zt</B>: charge
+</LI>
+<LI><B>at</B>: number of nucleons
+</LI>
+<LI><B>ncluster</B>: number of clusters
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00056000000000000000">
+CLUSTER namelist:</A>
+</H2>
+
+<P>
+After the <B>targ</B> namelist, <I>ncluster</I> namelists will be
+read. Each one contains the information required to construct the
+density for one the clusters. Notice that the different cluster do
+not neccesary have to use the same model density.
+
+<P>
+
+<UL>
+<LI><B>type</B>, <B>shape</B>: specify the kind of density. External
+densities (type=1, shape=5) are read from fortran unit 4. The first
+line contains the number of points (<I>nramax</I>) and the step (<I>drx</I>),
+in free format. Then, nramax density points will be read, assuming
+that the first one corresponds to the origin. 
+<BR><TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="CENTER" COLSPAN=2>type</TD>
+<TD ALIGN="CENTER" COLSPAN=2>shape</TD>
+</TR>
+<TR><TD ALIGN="CENTER">0</TD>
+<TD ALIGN="CENTER">Numerical potential</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="LEFT">Woods-Saxon</TD>
+</TR>
+<TR><TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="LEFT">Gauss</TD>
+</TR>
+<TR><TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">2</TD>
+<TD ALIGN="LEFT">Yukawa</TD>
+</TR>
+<TR><TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">3</TD>
+<TD ALIGN="LEFT">Hulthen</TD>
+</TR>
+<TR><TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">4</TD>
+<TD ALIGN="LEFT">cosh</TD>
+</TR>
+<TR><TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">5</TD>
+<TD ALIGN="LEFT">External</TD>
+</TR>
+<TR><TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">Analytical potential</TD>
+<TD ALIGN="CENTER">0</TD>
+<TD ALIGN="LEFT">Harmonic-oscillator s.p.</TD>
+</TR>
+<TR><TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">1</TD>
+<TD ALIGN="LEFT">Three-parameter Fermi</TD>
+</TR>
+<TR><TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+<TD ALIGN="CENTER">2</TD>
+<TD ALIGN="LEFT">G3 distribution</TD>
+</TR>
+</TABLE>
+</LI>
+<LI><B>nzclus</B>: number of protons within this cluster.
+</LI>
+<LI><B>nnclus</B>: number of neutrons within this cluster.
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00057000000000000000">
+BSPARM namelist:</A>
+</H2>
+
+<P>
+For type=0, shape=0-4 the bsparm namelist is then read.
+
+<P>
+
+<UL>
+<LI><B>cmass, vmass</B>: core and bound particle masses.
+</LI>
+<LI><B>zc, zv</B>: core and bound particle charges.
+</LI>
+<LI><B>nramax</B>: number of integration steps.
+</LI>
+<LI><B>drx</B>: radial step for numerical integration.
+</LI>
+<LI><B>dmat</B>:fine tuning of interior-exterior matching. Usually input
+0. * If no state found try increase of dmat to of order 10.
+</LI>
+<LI><B>nshell</B>: number of shells.
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00058000000000000000">
+BSHELL namelist:</A>
+</H2>
+
+<P>
+Parameters for this specific shell.
+
+<P>
+
+<UL>
+<LI><B>bengy</B>: binding energy.
+</LI>
+<LI><B>vdepth</B>, <B>wr0, wal</B>: potential depth, radius and diffuseness.
+</LI>
+<LI><B>wls</B>: spin-orbit strength.
+</LI>
+<LI><B>is2</B>=2*valence particle spin <IMG
+ WIDTH="14" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img56.png"
+ ALT="\( s \)">.
+</LI>
+<LI><B>lmoma</B>= orbital angular momentum <IMG
+ WIDTH="13" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img57.png"
+ ALT="\( \ell \)">.
+</LI>
+<LI><B>j2a</B> : 2*j, where <IMG
+ WIDTH="78" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img58.png"
+ ALT="\( j=\ell +s \)">.
+</LI>
+<LI><B>nodd</B>=number of nodes.
+</LI>
+<LI><B>norba</B>=occupation number of this shell.
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00059000000000000000">
+BS3PF namelist:</A>
+</H2>
+
+<P>
+If type=1, shape=5 density is defined, a <B>&amp;bs3pf/</B> namelist
+is then read. In configuration space, it obeys to the form:<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+\rho (r)=\rho _{0}\frac{1+w(r/c)^{2}}{\exp [(r-c)/z]}
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><A NAME="Eq:rho-fermi"></A><IMG
+ WIDTH="190" HEIGHT="53" BORDER="0"
+ SRC="img59.png"
+ ALT="\begin{displaymath}
+\rho (r)=\rho _{0}\frac{1+w(r/c)^{2}}{\exp [(r-c)/z]}
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(25)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+where <IMG
+ WIDTH="22" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img60.png"
+ ALT="\( \rho _{0} \)"> is a normalization constant and <IMG
+ WIDTH="59" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img61.png"
+ ALT="\( w,\, c,\, z \)">
+are free parameters. 
+
+<P>
+
+<UL>
+<LI><B>w3p, z3p</B>, <B>c3p</B>: Fermi parameters for protons.
+</LI>
+<LI><B>w3n, z3n, c3n</B>: Fermi parameters for neutrons.
+</LI>
+<LI><B>nramax</B>: number of radial points to calculate the density.
+</LI>
+<LI><B>drx</B>: step size (fm).
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION000510000000000000000">
+HOPARM namelist:</A>
+</H2>
+
+<P>
+For type=1, shape=0 densities, harmonic oscillator parameters are
+read. First, a <B>hoparm</B> namelist is introduced, which currently
+only contains the number of shells that will be next read by means
+of <B>hoshell</B> namelists.
+
+<P>
+
+<UL>
+<LI><B>hoparm</B>: number of harmonic-oscillator shells to be read.
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION000511000000000000000">
+HOSHELL namelist: </A>
+</H2>
+
+<P>
+Provides the HO parameters and occupations numbers for each shell.
+
+<P>
+
+<UL>
+<LI><B>aap, aan</B>: HO parameters for protons and neutrons, respectively.
+</LI>
+<LI><B>zorba, norba</B>: occupation number (protons and neutrons) for
+this shell.
+</LI>
+</UL>
+
+<P>
+
+<H1><A NAME="SECTION00060000000000000000">
+5 Test examples</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION00061000000000000000">
+5.1 p+<IMG
+ WIDTH="19" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="\( ^{16}\)">O with HO formactors</A>
+</H2>
+
+<P>
+In describing <IMG
+ WIDTH="19" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="\( ^{16}\)">O we consider a shell model harmonic oscillator
+(HO) description where the center-of-mass corrections are neglected.
+Thus, the nucleus matter density distribution is directly evaluated
+from the HO single particle wave functions using the relative frequency
+obtained by Donnelly and Walker [<A
+ HREF="mso-man.html#Donnelly69">9</A>]. 
+
+<P>
+<BR>
+<PRE># MSO input file: mso_o16_ho.in 
+# p + 16O scattering at E=50 MeV including Coulomb
+  &amp;mso tlab=500 offshell=T kmt=T  lxmax=35 
+       ngp=40, kode=022 b=21000. nang=-1 ymin1=-7. ymin2=-2. nr=0 
+       ucnr=1. ucni=1. usnr=1. usni=1. /
+  &amp;coul coulomb=3 rcut=10.  alfa=0.3916125 beta=3.1329 gama=0. /
+  &amp;highorder second=1 closure=F rmaxr=10. quin=6. mquadi=120 mquado=48 /
+  &amp;proj massp=1.0072 zp=1 /
+  &amp;targ ncluster=1 masst=16. at=16 zt=8 /
+  &amp;cluster type=1 shape=0 nzclus=8 nnclus=8 /
+
+# HO
+  &amp;hoparm   nshell=2  /
+  &amp;hoshell  aap=1.77  aan=1.77 zorba=2 norba=2 /
+  &amp;hoshell  aap=1.77  aan=1.77 zorba=6 norba=6 /
+</PRE>
+<P>
+
+<H2><A NAME="SECTION00062000000000000000">
+5.2 n+<IMG
+ WIDTH="19" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="\( ^{16}\)">Pb with 3-parameter Fermi formactor</A>
+</H2>
+
+<P>
+In this example, the density distribution of the <IMG
+ WIDTH="26" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img62.png"
+ ALT="\( ^{208} \)">Pb nucleus
+has been modeled with the three-parameter Fermi form, Eq. (<A HREF="mso-man.html#Eq:rho-fermi">25</A>).
+The parameters where taken from [<A
+ HREF="mso-man.html#Barrett79">10</A>].
+
+<P>
+<BR>
+<PRE># Namelist input for MSO: mso_pb_g3.in  
+# Reaction: n + 208Pb @ 65 MeV
+# Matter density from 3-parameter Fermi distribution 
+  &amp;mso tlab=65. offshell=T kmt=T  lxmax=40 
+       ngp=40, kode=022 b=21000. nang=-1 ymin1=-7. ymin2=-2. nr=0 
+       ucnr=1. ucni=1. usnr=1. usni=1. /
+  &amp;coul coulomb=0 rcut=10.  alfa=0.3916125 beta=3.1329 gama=0. /
+  &amp;highorder second=1 closure=F rmaxr=10. quin=6. mquadi=120 mquado=48 /
+  &amp;proj massp=1.0072 zp=0 /
+  &amp;targ ncluster=1 masst=208. at=208 zt=82 /
+  &amp;cluster type=1 shape=1 nzclus=82 nnclus=126 /
+
+#3 parameter Fermi density
+   &amp;bs3pF   w3p=0. z3p=0.549 c3p=6.624  
+	    w3n=0. z3n=0.549 c3n=6.624 nramax=250 drx=0.1    /
+
+</PRE>
+<P>
+
+<H2><A NAME="SECTION00063000000000000000">
+5.3 p+<IMG
+ WIDTH="12" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img2.png"
+ ALT="\( ^{9}\)">Li with external (Hartree-Fock) formfactors </A>
+</H2>
+
+<P>
+In describing the <IMG
+ WIDTH="12" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img2.png"
+ ALT="\( ^{9}\)">Li ground state, we use a shell model
+Hartree-Fock description as described in the work of [<A
+ HREF="mso-man.html#Sagawa92">11</A>].
+This is read externally from fortran unit file 4. The first line of
+this line contains the number of points and radial step.
+
+<P>
+<BR>
+<PRE># MSOamp input file: mso_li9_hf.in
+# p + 9Li scattering at E= MeV including Coulomb
+# Reads external form factor from unit 4
+  &amp;mso tlab=100 offshell=T kmt=T  lxmax=35 
+       ngp=40, kode=022 b=21000. nang=-1 ymin1=-7. ymin2=-2. nr=0 
+       ucnr=1. ucni=1. usnr=1. usni=1. /
+  &amp;coul coulomb=4 rcut=10.  alfa=0.3916125 beta=3.1329 gama=0. /
+  &amp;highorder second=1 closure=F rmaxr=10. quin=6. mquadi=120 mquado=48 /
+  &amp;proj massp=1.0072 zp=1 /
+  &amp;targ ncluster=1 masst=9. at=10 zt=3 /
+  &amp;cluster type=0 shape=5  /
+
+</PRE>
+<P>
+
+<H2><A NAME="SECTION00064000000000000000">
+5.4 p+<IMG
+ WIDTH="12" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img2.png"
+ ALT="\( ^{9}\)">Li with mixed (cluster) formfactors </A>
+</H2>
+
+<P>
+As a check of of the dependence of the scattering observables on the
+model adopted for the matter density, we repeat in this example the
+calculation for p+<IMG
+ WIDTH="12" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img2.png"
+ ALT="\( ^{9}\)">Li, with a different model for the <IMG
+ WIDTH="12" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img2.png"
+ ALT="\( ^{9}\)">Li.
+Now we assume a cluster model for <IMG
+ WIDTH="12" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img2.png"
+ ALT="\( ^{9}\)">Li as in [<A
+ HREF="mso-man.html#Crespo96">12</A>]
+consisting of an <IMG
+ WIDTH="17" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img63.png"
+ ALT="\( \alpha \)">-particle-like core, four neutrons
+in the <IMG
+ WIDTH="35" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img64.png"
+ ALT="\( p_{3/2} \)"> shell coupled to spin zero, and a proton in
+the <IMG
+ WIDTH="35" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img64.png"
+ ALT="\( p_{3/2} \)"> shell. We take a Gaussian distribution for the
+nucleons in the alpha core. For the other nucleons we consider two
+cases: an harmonic oscilator model (here called Cluster I) where the
+valence neutrons and protons are described within the harmonic oscillator
+single particle model. The ranges of the parameters correspond to
+the parameter set (a) found in [<A
+ HREF="mso-man.html#Crespo96">12</A>]. We also take the
+valence nucleons as bound to the core by a Woods-Saxon potential with
+parameters adjusted to obtain the valence neutron and proton separation
+energy (here called cluster II).
+
+<P>
+<BR>
+<PRE># MSO input file: mso_li9_clus.in
+# Reaction: p + 9Li @ 100 MeV
+# Cluster form factor: alpha + 4n + 1p
+  &amp;mso tlab=100. offshell=T kmt=T ioptls=1 ioptcnt=0 lxmax=25 
+       ngp=40, kode=022 b=21000. nang=-1 ymin1=-7. ymin2=-2. nr=0 
+       ucnr=1. ucni=1. usnr=1. usni=1. /
+  &amp;coul coulomb=4 rcut=10.  alfa=0.3916125 beta=3.1329 gama=0. /
+  &amp;highorder second=1 closure=F rmaxr=10. quin=6. mquadi=120 mquado=48 /
+  &amp;proj massp=1.0072 zp=1 /
+  &amp;targ ncluster=3 masst=9. at=9 zt=3 /
+ 
+# alpha cluster
+  &amp;cluster type=1 shape=0  /
+  &amp;hoparm   nshell=1  /
+  &amp;hoshell  aap=1.38  aan=1.38 zorba=2 norba=2 /
+
+# 4n
+  &amp;cluster type=0 shape=0  /
+  &amp;bsparm  cmass=8  vmass=1 zc=3 zv=0.
+          nramax=212  drx=0.1  dmat=0. nshell=1  /
+  &amp;bshell  ia=0  bengy=4.1  vdepth=0  
+         wr0=1.37  wal=0.61  wls=0. 
+         j2a=1 lmoma=1 is2=1  nodd=0  norba=4   /
+  &amp;bsparm / 
+ 
+# 1p
+  &amp;cluster type=0 shape=0  /
+  &amp;bsparm  cmass=8  vmass=1 zc=2 zv=1
+          nramax=212  drx=0.1  dmat=0. nshell=1  /
+  &amp;bshell  ia=0  bengy=13.9  vdepth=0  
+         wr0=1.37  wal=0.61  wls=0. 
+         j2a=1 lmoma=1 is2=1  nodd=0  norba=1   /
+
+  &amp;bsparm /
+  
+
+</PRE>
+<P>
+Note that all these examples require, together with the MSOamp input
+file (typically mso.in), the NNamp input file. In these examples we
+have used:
+
+<P>
+<BR>
+<PRE>#NNAMP input file: nnamp.in
+#Uses Paris potential
+&amp;system nnpot='paris' jmax=6 /
+&amp;out  dels=0 aeon=0 aeoff=1 mon=0 moff=0 /
+&amp;kmat hw=0.5 b01=0. b34=30. 
+      n1=3 n2=6 n3=15 n4=6 
+      s=1.0 qlo=0.  qhi=100. /
+
+&amp;amp ifkq=1 xkmax=2.0 xqmax=3.6 dk=0.2 dq=0.2 theta=90. nth=90 
+     itype=2 icase=2 /
+ 
+
+</PRE>
+<P>
+
+<H2><A NAME="SECTION00070000000000000000">
+Bibliography</A>
+</H2><DL COMPACT><DD><P></P><DT><A NAME="Ker59">1</A>
+<DD>
+A.K. Kerman, H.&nbsp;McManus, and R.M. Thaler.
+<BR><EM>Ann. Phys. (N.Y.) <B>8</B>, 551</EM>, 1959.
+
+<P></P><DT><A NAME="Wat53">2</A>
+<DD>
+K.M. Watson.
+<BR><EM>Phsy. Rev. <B>89</B>, 575</EM>, 1953.
+
+<P></P><DT><A NAME="Crespo92">3</A>
+<DD>
+R.&nbsp;Crespo, R.&nbsp;C. Johnson, and J.A. Tostevin.
+<BR><EM>Phys. Rev. C <B>46</B>, 279</EM>, 1992.
+
+<P></P><DT><A NAME="Lacombe80">4</A>
+<DD>
+M.&nbsp;Lacombe et al.
+<BR><EM>Phys. Rev. C <B>21</B>, 861</EM>, 1980.
+
+<P></P><DT><A NAME="Machleidt87">5</A>
+<DD>
+Holinde&nbsp;K. Machleidt, R. and Ch. Elster.
+<BR><EM>Phys. Rep. <B>149</B>, 1</EM>, 1987.
+
+<P></P><DT><A NAME="Crespo02b">6</A>
+<DD>
+R.&nbsp;Crespo and A.&nbsp;M. Moro.
+<BR><EM>SAM: A tool for scattering from stable and unstable nuclei, In
+  preparation</EM>, 2002.
+
+<P></P><DT><A NAME="Landau82">7</A>
+<DD>
+R.&nbsp;H. Landau.
+<BR><EM>Comp. Phys. Comm. <B>28</B>, 109</EM>, 1982.
+
+<P></P><DT><A NAME="Crespo90">8</A>
+<DD>
+R.&nbsp;Crespo and J.&nbsp;A. Tostevin.
+<BR><EM>Phys. Rev. C <B>41</B>, 2615</EM>, 1990.
+
+<P></P><DT><A NAME="Donnelly69">9</A>
+<DD>
+T.&nbsp;W. Donnelly and G.&nbsp;E. Walker.
+<BR><EM>Phys. Rev. Lett. <B>22</B>, 1121</EM>, 1969.
+
+<P></P><DT><A NAME="Barrett79">10</A>
+<DD>
+R.&nbsp;Barret and D.F. Jackson.
+<BR><EM>Nuclear Sizes and Structure</EM>.
+<BR>The international series of monographs on Physics, 1979.
+
+<P></P><DT><A NAME="Sagawa92">11</A>
+<DD>
+H.&nbsp;Sagawa.
+<BR><EM>Phys. Lett. <B>286</B>, 7</EM>, 1992.
+
+<P></P><DT><A NAME="Crespo96">12</A>
+<DD>
+R.&nbsp;Crespo, J.&nbsp;A. Tostevin, and I.&nbsp;J. Thompson.
+<BR><EM>Phys. Rev. C <B>54</B>, 1867</EM>, 1999.
+</DL>
+
+<P>
+
+<H1><A NAME="SECTION00080000000000000000">
+About this document ...</A>
+</H1>
+ <STRONG>DRAFT</STRONG><P>
+This document was generated using the
+<A HREF="http://www.latex2html.org/"><STRONG>LaTeX</STRONG>2<tt>HTML</tt></A> translator Version 2002 (1.62)
+<P>
+Copyright &#169; 1993, 1994, 1995, 1996,
+<A HREF="http://cbl.leeds.ac.uk/nikos/personal.html">Nikos Drakos</A>, 
+Computer Based Learning Unit, University of Leeds.
+<BR>Copyright &#169; 1997, 1998, 1999,
+<A HREF="http://www.maths.mq.edu.au/~ross/">Ross Moore</A>, 
+Mathematics Department, Macquarie University, Sydney.
+<P>
+The command line arguments were: <BR>
+ <STRONG>latex2html</STRONG> <TT>-no_subdir -split 0 -show_section_numbers /tmp/lyx_tmpdir11422bTxJz1/lyx_tmpbuf11422Rjjt3F/mso-man.tex</TT>
+<P>
+The translation was initiated by Raquel Crespo on 2002-09-27<HR>
+<!--Navigation Panel-->
+<IMG WIDTH="81" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next_inactive"
+ SRC="file:/usr/share/latex2html/icons/nx_grp_g.png"> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev_g.png">   
+<BR>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Raquel Crespo
+2002-09-27
+</ADDRESS>
+</BODY>
+</HTML>

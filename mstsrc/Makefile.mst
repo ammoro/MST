@@ -1,0 +1,80 @@
+#If compiled with fujitsu f90
+#include fujitsu.def
+
+#If compiled with pgf90
+include pgf90.def
+
+# g95
+#include g95.def
+mst=.
+nnamp=.
+mso=.
+
+.SUFFIXES: .c .o
+#Compile NNAMP
+MAKEFLAGS=
+#subsystem:
+#	cd $(nnamp); $(MAKE)
+
+OBJ= modmst.o modules.o rc1.o rc2.o rc3.o rc4.o utils.o deprecated.o optpot.o fform.o xsec.o $(nnamp)/nnmodules.o $(nnamp)/klsp.o $(nnamp)/ktall.o $(nnamp)/ampall.o $(nnamp)/mon.o $(nnamp)/modbonn.o $(nnamp)/potbonn.o $(nnamp)/moff.o  $(nnamp)/main.o $(nnamp)/nnutils.o mstutils.o mstmain.o
+all: $(OBJ)
+	$(FC) -o mst $(OBJ) $(LFLAGS)
+modules.o:modules.f90
+	$(FC) $(FORM) $(FFLAGS) -c $(mso)/modules.f90
+nnmodules.o:$(nnamp)/nnmodules.f90
+	$(FC) $(FORM) $(FFLAGS) -c  $(nnamp)/nnmodules.f90
+rc1.o:modules.o rc1.f90
+	$(FC) $(FORM) $(FFLAGS) -c $(mso)/rc1.f90
+rc2.o:modules.o rc2.f90
+	$(FC) $(FORM) $(FFLAGS) -c $(mso)/rc2.f90
+rc3.o:modules.o rc3.f90
+	$(FC) $(FORM) $(FFLAGS) -c $(mso)/rc3.f90
+rc4.o:modules.o rc4.f90 
+	$(FC) $(FORM) $(FFLAGS) -c $(mso)/rc4.f90 
+fform.o:modules.o fform.f90 
+	$(FC) $(FORM) $(FFLAGS) -c $(mso)/fform.f90
+optpot.o:modules.o optpot.f90 
+	$(FC) $(FORM) $(FFLAGS) -c $(mso)/optpot.f90
+xsec.o:modules.o xsec.f90 
+	$(FC) $(FORM) $(FFLAGS) -c $(mso)/xsec.f90
+utils.o:modules.o utils.f90
+	$(FC) $(FORM) $(FFLAGS) -c $(mso)/utils.f90
+deprecated.o:modules.o deprecated.f90 
+	$(FC) $(FORM) $(FFLAGS) -c $(mso)/deprecated.f90
+modbonn.o:modbonn.f90
+	$(FC) $(FORM) $(FFLAGS) -c  $(nnamp)/modbonn.f90
+main.o:nnmodules.o main.f90
+	$(FC) $(FORM) $(FFLAGS) -c $(nnamp)/main.f90
+klsp.o:nnmodules.o klsp.f90
+	$(FC) $(FORM) $(FFLAGS) -c  $(nnamp)/klsp.f90
+ktall.o:nnmodules.o ktall.f90 
+	$(FC) $(FORM) $(FFLAGS) -c  $(nnamp)/ktall.f90
+ampall.o:nnmodules.o ampall.f90 
+	$(FC) $(FORM) $(FFLAGS) -c  $(nnamp)/ampall.f90
+mon.o:nnmodules.o modbonn.o mon.f90
+	$(FC) $(FORM) $(FFLAGS) -c  $(nnamp)/mon.f90
+ampon.o:nnmodules.o modbonn.o ampon.f90
+	$(FC) $(FORM) $(FFLAGS) -c  $(nnamp)/ampon.f90
+potbonn.o:nnmodules.o modbonn.o  potbonn.f90
+	$(FC) $(FORM) $(FFLAGS) -c  $(nnamp)/potbonn.f90
+moff.o:nnmodules.o modbonn.o moff.f90
+	$(FC) $(FORM) $(FFLAGS) -c  $(nnamp)/moff.f90
+nnutils.o:nnmodules.o nnutils.f90
+	$(FC) $(FORM) $(FFLAGS) -c  $(nnamp)/nnutils.f90
+modmst.o:modmst.f90
+	$(FC) $(FORM) $(FFLAGS) -c $(mst)/modmst.f90
+mstutils.o:mstutils.f90 modmst.f90
+	$(FC) $(FORM) $(FFLAGS) -c $(mst)/mstutils.f90
+mstmain.o:mstmain.f90 modmst.f90
+	$(FC) $(FORM) $(FFLAGS) -c $(mst)/mstmain.f90
+clean:
+	-rm -f *.o core *.mod
+	-rm -f $(nnamp)/*.o $(nnamp)/core
+# DO NOT DELETE
+
+
+
+
+
+
+

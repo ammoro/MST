@@ -1,0 +1,526 @@
+This is pdfeTeX, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=latex 2005.10.11)  31 OCT 2005 16:49
+entering extended mode
+**SAM-man.tex
+(./SAM-man.tex
+LaTeX2e <2003/12/01>
+Babel <v3.8d> and hyphenation patterns for american, french, german, ngerman, b
+ahasa, basque, bulgarian, catalan, croatian, czech, danish, dutch, esperanto, e
+stonian, finnish, greek, icelandic, irish, italian, latin, magyar, norsk, polis
+h, portuges, romanian, russian, serbian, slovak, slovene, spanish, swedish, tur
+kish, ukrainian, nohyphenation, loaded.
+(/usr/share/texmf/tex/latex/base/article.cls
+Document Class: article 2004/02/16 v1.4f Standard LaTeX document class
+(/usr/share/texmf/tex/latex/base/size12.clo
+File: size12.clo 2004/02/16 v1.4f Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/share/texmf/tex/latex/base/fontenc.sty
+Package: fontenc 2004/02/22 v1.99f Standard LaTeX package
+
+(/usr/share/texmf/tex/latex/base/t1enc.def
+File: t1enc.def 2004/02/22 v1.99f Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+))
+(/usr/share/texmf/tex/latex/base/inputenc.sty
+Package: inputenc 2004/02/05 v1.0d Input encoding file
+
+(/usr/share/texmf/tex/latex/base/latin1.def
+File: latin1.def 2004/02/05 v1.0d Input encoding file
+))
+(/usr/share/texmf/tex/generic/babel/babel.sty
+Package: babel 2004/11/20 v3.8d The Babel package
+
+(/usr/share/texmf/tex/generic/babel/english.ldf
+Language: english 2004/06/14 v3.3o English support from the babel system
+
+(/usr/share/texmf/tex/generic/babel/babel.def
+File: babel.def 2004/11/20 v3.8d Babel common definitions
+\babel@savecnt=\count87
+\U@D=\dimen103
+)
+\l@british = a dialect from \language\l@english 
+\l@UKenglish = a dialect from \language\l@english 
+\l@canadian = a dialect from \language\l@american 
+\l@australian = a dialect from \language\l@british 
+\l@newzealand = a dialect from \language\l@british 
+))
+(/usr/share/texmf/tex/latex/graphics/graphics.sty
+Package: graphics 2001/07/07 v1.0n Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texmf/tex/latex/graphics/graphics.cfg
+File: graphics.cfg 2005/02/03 v1.3 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: dvips.def on input line 80.
+
+(/usr/share/texmf/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+(/usr/share/texmf/tex/latex/tools/verbatim.sty
+Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks14
+\verbatim@line=\toks15
+\verbatim@in@stream=\read1
+)
+No file SAM-man.aux.
+\openout1 = `SAM-man.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 31.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 31.
+No file SAM-man.toc.
+\tf@toc=\write3
+\openout3 = `SAM-man.toc'.
+
+[1
+
+]
+
+LaTeX Warning: Citation `Lacombe80' on page 2 undefined on input line 81.
+
+
+LaTeX Warning: Citation `Machleidt87' on page 2 undefined on input line 81.
+
+
+LaTeX Warning: Citation `Redish87a' on page 2 undefined on input line 82.
+
+
+LaTeX Warning: Citation `Redish87b' on page 2 undefined on input line 82.
+
+
+LaTeX Warning: Citation `Redish87c' on page 2 undefined on input line 82.
+
+
+LaTeX Warning: Citation `Wolfenstein52' on page 2 undefined on input line 84.
+
+
+LaTeX Warning: Citation `Crespo91 ' on page 2 undefined on input line 84.
+
+
+LaTeX Warning: Citation `Crespo02a' on page 2 undefined on input line 85.
+
+
+LaTeX Warning: Citation `Ker59' on page 2 undefined on input line 92.
+
+
+LaTeX Warning: Citation `Wat53' on page 2 undefined on input line 92.
+
+
+LaTeX Warning: Citation `Crespo92' on page 2 undefined on input line 92.
+
+
+LaTeX Warning: Citation `Landau82' on page 2 undefined on input line 92.
+
+
+LaTeX Warning: Citation `Crespo91 ' on page 2 undefined on input line 92.
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 113.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 113.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 113.
+[2]
+
+LaTeX Warning: Reference `Tmat' on page 3 undefined on input line 132.
+
+
+LaTeX Warning: Reference `Tmat-i' on page 3 undefined on input line 158.
+
+
+LaTeX Warning: Reference `Tmat-i' on page 3 undefined on input line 159.
+
+
+LaTeX Warning: Citation `Ker59' on page 3 undefined on input line 164.
+
+[3]
+
+LaTeX Warning: Reference `Uopt-KMT' on page 4 undefined on input line 193.
+
+[4]
+Overfull \hbox (1.1662pt too wide) detected at line 227
+[]\OML/cmm/m/it/12 U[] \OT1/cmr/m/n/12 = \OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 (\
+OML/cmm/m/it/12 A \OMS/cmsy/m/n/12 ^^@ \OT1/cmr/m/n/12 1)[]\OMS/cmsy/m/n/12 h\O
+ML/cmm/m/it/12 ^^^[]\OMS/cmsy/m/n/12 j[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 E\OT1
+/cmr/m/n/12 )\OML/cmm/m/it/12 P[]G[][]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 E\OT1/c
+mr/m/n/12 )\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 ^^^[]\OMS/cmsy/m/n/12 i \OT1/cmr/
+m/n/12 + [] []\OMS/cmsy/m/n/12 h\OML/cmm/m/it/12 ^^^[]\OMS/cmsy/m/n/12 j[]\OT1/
+cmr/m/n/12 (\OML/cmm/m/it/12 E\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 G[]\OT1/cmr/m/n
+/12 (\OML/cmm/m/it/12 E\OT1/cmr/m/n/12 )\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 ^^^[
+]\OMS/cmsy/m/n/12 i\OML/cmm/m/it/12 :
+ []
+
+[5]
+
+LaTeX Warning: Citation `Wolfenstein52' on page 6 undefined on input line 280.
+
+
+LaTeX Warning: Citation `Love81' on page 6 undefined on input line 286.
+
+
+LaTeX Warning: Citation `Love85' on page 6 undefined on input line 286.
+
+
+LaTeX Warning: Citation `Hooton71' on page 6 undefined on input line 289.
+
+
+LaTeX Warning: Citation `Crespo02a' on page 6 undefined on input line 289.
+
+
+LaTeX Warning: Reference `scattA' on page 6 undefined on input line 292.
+
+
+Overfull \hbox (5.63885pt too wide) in paragraph at lines 297--301
+\T1/cmr/m/n/12 of the NN am-pli-tudes from the par-tial wave tran-si-tion am-pl
+i-tudes $\OML/cmm/m/it/12 M[]\OT1/cmr/m/n/12 (\OMS/cmsy/m/n/12 K[]\OML/cmm/m/it
+/12 ; \OMS/cmsy/m/n/12 K\OT1/cmr/m/n/12 )$\T1/cmr/m/n/12 .
+ []
+
+[6]
+
+LaTeX Warning: Citation `Brink' on page 7 undefined on input line 309.
+
+
+LaTeX Warning: Citation `Crespo92' on page 7 undefined on input line 317.
+
+
+LaTeX Warning: Citation `Wolfenstein52' on page 7 undefined on input line 323.
+
+
+LaTeX Warning: Citation `Wolfenstein52' on page 7 undefined on input line 334.
+
+[7]
+
+LaTeX Warning: Citation `Crespo02a' on page 8 undefined on input line 383.
+
+[8]
+
+LaTeX Warning: Citation `Crespo02a' on page 9 undefined on input line 408.
+
+
+LaTeX Warning: Citation `Red87a' on page 9 undefined on input line 435.
+
+
+Overfull \hbox (21.35202pt too wide) detected at line 442
+\OML/cmm/m/it/12 R[]\OT1/cmr/m/n/12 (\OMS/cmsy/m/n/12 K[]\OML/cmm/m/it/12 ; \OM
+S/cmsy/m/n/12 K\OT1/cmr/m/n/12 ) = \OML/cmm/m/it/12 V[]\OT1/cmr/m/n/12 (\OMS/cm
+sy/m/n/12 K[]\OML/cmm/m/it/12 ; \OMS/cmsy/m/n/12 K\OT1/cmr/m/n/12 ) + [] [] [][
+] \OML/cmm/m/it/12 d\OMS/cmsy/m/n/12 K[]K[]\OML/cmm/m/it/12 V[]\OT1/cmr/m/n/12 
+(\OMS/cmsy/m/n/12 K[]\OML/cmm/m/it/12 ; \OMS/cmsy/m/n/12 K[]\OT1/cmr/m/n/12 )\O
+ML/cmm/m/it/12 G[]\OT1/cmr/m/n/12 (\OMS/cmsy/m/n/12 K[]\OT1/cmr/m/n/12 )\OML/cm
+m/m/it/12 R[]\OT1/cmr/m/n/12 (\OMS/cmsy/m/n/12 K[]\OML/cmm/m/it/12 ; \OMS/cmsy/
+m/n/12 K\OT1/cmr/m/n/12 )
+ []
+
+
+LaTeX Warning: Citation `Sloan68' on page 9 undefined on input line 445.
+
+[9]
+Overfull \hbox (81.70851pt too wide) detected at line 455
+\OML/cmm/m/it/12 t[]\OT1/cmr/m/n/12 (\OMS/cmsy/m/n/12 K[]\OML/cmm/m/it/12 ; \OM
+S/cmsy/m/n/12 K\OT1/cmr/m/n/12 ) = \OML/cmm/m/it/12 R[]\OT1/cmr/m/n/12 (\OMS/cm
+sy/m/n/12 K[]\OML/cmm/m/it/12 ; \OMS/cmsy/m/n/12 K\OT1/cmr/m/n/12 ) \OMS/cmsy/m
+/n/12 ^^@ \OT1/cmr/m/n/12 2\OML/cmm/m/it/12 i^^V\OMS/cmsy/m/n/12 K[] [] \OML/cm
+m/m/it/12 R[]\OT1/cmr/m/n/12 (\OMS/cmsy/m/n/12 K[]\OML/cmm/m/it/12 ; \OMS/cmsy/
+m/n/12 K[]\OT1/cmr/m/n/12 )[1 + 2\OML/cmm/m/it/12 i^^V\OMS/cmsy/m/n/12 K[]\OML/
+cmm/m/it/12 R[]\OT1/cmr/m/n/12 (\OMS/cmsy/m/n/12 K[]\OML/cmm/m/it/12 ; \OMS/cms
+y/m/n/12 K[]\OT1/cmr/m/n/12 )][]\OML/cmm/m/it/12 R[]\OT1/cmr/m/n/12 (\OMS/cmsy/
+m/n/12 K[]\OML/cmm/m/it/12 ; \OMS/cmsy/m/n/12 K\OT1/cmr/m/n/12 )
+ []
+
+
+LaTeX Warning: Reference `Uopt-SSA+DSA' on page 10 undefined on input line 466.
+
+
+
+LaTeX Warning: Citation `Ker59' on page 10 undefined on input line 468.
+
+
+LaTeX Warning: Citation `Crespo92' on page 10 undefined on input line 468.
+
+
+LaTeX Warning: Reference `Uopt-SSA-k' on page 10 undefined on input line 487.
+
+[10]
+Overfull \hbox (20.08864pt too wide) detected at line 504
+\OMS/cmsy/m/n/12 h[]j\OML/cmm/m/it/12 U[]\OMS/cmsy/m/n/12 j[]i \OT1/cmr/m/n/12 
+= [][][] [][\OML/cmm/m/it/12 ^^Z[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 q\OT1/cmr/m
+/n/12 )\OMS/cmsy/m/n/12 C[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 !; q; Q=\OT1/cmr/m
+/n/12 2\OML/cmm/m/it/12 ; ^^^\OT1/cmr/m/n/12 ) + \OML/cmm/m/it/12 ^^Z[]\OMS/cms
+y/m/n/12 C[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 !; q; Q=\OT1/cmr/m/n/12 2\OML/cmm
+/m/it/12 ; ^^^\OT1/cmr/m/n/12 )]\OML/cmm/m/it/12 :
+ []
+
+
+LaTeX Warning: Citation `Crespo90a ' on page 11 undefined on input line 522.
+
+
+LaTeX Warning: Citation `Crespo90a ' on page 11 undefined on input line 529.
+
+
+LaTeX Warning: Reference `Uopt-DSA' on page 11 undefined on input line 535.
+
+[11]
+Overfull \hbox (33.5444pt too wide) detected at line 560
+\OMS/cmsy/m/n/12 h[]j\OML/cmm/m/it/12 U[]\OMS/cmsy/m/n/12 j[]i \OT1/cmr/m/n/12 
+= \OMS/cmsy/m/n/12 ^^@[] [] \OML/cmm/m/it/12 d[]^^L\OT1/cmr/m/n/12 (\OML/cmm/m/
+it/12 !; []; []; []\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 g\OT1/cmr/m/n/12 (\OML/cmm
+/m/it/12 k[]\OT1/cmr/m/n/12 ) [] \OML/cmm/m/it/12 d[] [] d[] [] \OMS/cmsy/m/n/1
+2 ^^@\OML/cmm/m/it/12 i\OT1/cmr/m/n/12 ([] \OMS/cmsy/m/n/12 ^^A [] \OT1/cmr/m/n
+/12 + [] \OMS/cmsy/m/n/12 ^^A []\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 D\OT1/cmr/m/n
+/12 ([]\OML/cmm/m/it/12 ; []\OT1/cmr/m/n/12 )
+ []
+
+[12]
+
+LaTeX Warning: Reference `U-DSA-local' on page 13 undefined on input line 596.
+
+
+Overfull \hbox (6.31912pt too wide) in paragraph at lines 601--601
+[]\T1/cmr/bx/n/14.4 The Lippmann-Schwinger equa-tion: so-lu-tion method 
+ []
+
+
+LaTeX Warning: Reference `eq:ULJ' on page 13 undefined on input line 618.
+
+
+LaTeX Warning: Reference `T-KMT' on page 13 undefined on input line 635.
+
+
+LaTeX Warning: Reference `Uopt-KMT' on page 13 undefined on input line 635.
+
+
+LaTeX Warning: Reference `partialk' on page 13 undefined on input line 638.
+
+[13]
+
+LaTeX Warning: Reference `eq:TL' on page 14 undefined on input line 655.
+
+
+Overfull \hbox (20.30571pt too wide) in paragraph at lines 662--664
+\T1/cmr/m/n/12 >From this equa-tion it fol-lows im-me-di-ately that the on-shel
+l T-matrix $\OML/cmm/m/it/12 T[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 k[]; k[]\OT1/
+cmr/m/n/12 )$
+ []
+
+
+LaTeX Warning: Reference `eq:RL' on page 14 undefined on input line 674.
+
+
+LaTeX Warning: Reference `eq:TL-RL' on page 14 undefined on input line 674.
+
+[14]
+
+LaTeX Warning: Reference `eq:TL' on page 15 undefined on input line 688.
+
+
+LaTeX Warning: Citation `Landau82' on page 15 undefined on input line 691.
+
+
+LaTeX Warning: Citation `Crespo92' on page 15 undefined on input line 691.
+
+
+Overfull \hbox (6.15646pt too wide) detected at line 698
+[]\OML/cmm/m/it/12 R\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 k; k[]\OT1/cmr/m/n/12 ) =
+ \OML/cmm/m/it/12 U\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 k; k[]\OT1/cmr/m/n/12 ) + 
+[][] [][] \OML/cmm/m/it/12 dp []
+ []
+
+
+LaTeX Warning: Reference `eq:R-Haftel-Tabakin' on page 15 undefined on input li
+ne 703.
+
+[15]
+
+LaTeX Warning: Citation `Crespo90b' on page 16 undefined on input line 726.
+
+
+LaTeX Warning: Citation `Crespo99a ' on page 16 undefined on input line 766.
+
+
+LaTeX Warning: Citation `Crespo01' on page 16 undefined on input line 766.
+
+
+LaTeX Warning: Citation `Crespo02' on page 16 undefined on input line 766.
+
+[16]
+
+LaTeX Warning: Citation `Crespo02a' on page 17 undefined on input line 789.
+
+[17]
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 833.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 844.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 844.
+
+[18]
+
+LaTeX Warning: Reference `eq:rho00' on page 19 undefined on input line 867.
+
+
+LaTeX Warning: Reference `eq:wfnn' on page 19 undefined on input line 869.
+
+
+Overfull \hbox (13.40518pt too wide) in alignment at lines 889--892
+ [][][] []
+ []
+
+[19]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 920.
+
+ (/usr/share/texmf/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 920.
+ [20]
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 977.
+
+
+(/usr/share/texmf/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+) [21]
+
+LaTeX Warning: Reference `Fig:redish' on page 22 undefined on input line 1033.
+
+[22]
+
+LaTeX Warning: File `redish.eps' not found on input line 1045.
+
+
+! LaTeX Error: File `redish.eps' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1045 {\centering \includegraphics{redish.eps}
+                                                \par}
+? 
+
+! LaTeX Error: Cannot determine size of graphic in redish.eps (no BoundingBox).
+
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1045 {\centering \includegraphics{redish.eps}
+                                                \par}
+? 
+File: redish.eps Graphic file (type eps)
+<redish.eps>
+Underfull \hbox (badness 10000) in paragraph at lines 1061--1141
+
+ []
+
+
+Overfull \hbox (16.25296pt too wide) in paragraph at lines 1061--1141
+[]    [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1061--1141
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1061--1141
+
+ []
+
+[23]
+
+LaTeX Warning: Citation `Cres01' on page 24 undefined on input line 1142.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1146--1176
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1146--1176
+
+ []
+
+[24] [25]
+
+LaTeX Warning: Citation `Crespo90' on page 26 undefined on input line 1250.
+
+[26] [27] [28] [29] [30]
+No file nnamp.dat.
+[31]
+Underfull \hbox (badness 10000) in paragraph at lines 1520--1525
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1529--1533
+
+ []
+
+
+Overfull \hbox (0.31317pt too wide) in paragraph at lines 1535--1537
+[]\T1/cmr/m/n/12 &kmat hw=0.5 b01=0. b34=30. ,n1=5 n2=6 n3=15 n4=6, s=1.0, qlo=
+0.,
+ []
+
+
+LaTeX Warning: Reference `Fig:redish' on page 32 undefined on input line 1541.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1538--1543
+
+ []
+
+[32] [33]
+No file dels.dat.
+No file SAM-man.bbl.
+[34] (./SAM-man.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 1136 strings out of 94501
+ 12642 string characters out of 1176788
+ 64683 words of memory out of 1000000
+ 4325 multiletter control sequences out of 10000+50000
+ 15151 words of font info for 37 fonts, out of 500000 for 2000
+ 580 hyphenation exceptions out of 1000
+ 25i,12n,21p,340b,301s stack positions out of 1500i,500n,5000p,200000b,5000s
+
+Output written on SAM-man.dvi (34 pages, 93748 bytes).

@@ -1,0 +1,1694 @@
+#LyX 1.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 221
+\textclass article
+\language english
+\inputencoding auto
+\fontscheme default
+\graphics default
+\paperfontsize 12
+\spacing single 
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 0
+\use_natbib 0
+\use_numerical_citations 0
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+
+\layout Title
+
+MSTamp: A computer code to evaluate the multiple scattering expansion of
+ the total transition amplitude for nucleon-nucleus scattering
+\layout Author
+
+R.
+ Crespo and A.
+ M.
+ Moro
+\layout Address
+\align center 
+Departamento de F
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+
+\backslash 
+'i
+\end_inset 
+
+sica, Instituto Superior T
+\begin_inset ERT
+status Collapsed
+
+\layout Standard
+
+\backslash 
+'e
+\end_inset 
+
+cnico, 1049-001 Lisboa, Portugal
+\layout Standard
+
+Email: raquel@wotan.ist.utl.pt, moro@mary.ist.utl.pt
+\layout Standard
+
+
+\begin_inset LatexCommand \tableofcontents{}
+
+\end_inset 
+
+
+\layout Section
+
+Formalism
+\layout Subsection
+
+The nuclear structure
+\layout Standard
+
+We describe in this section the scattering of a nucleus assumed to be well
+ described by a core and two valence particles (C+v
+\begin_inset Formula $_{1}$
+\end_inset 
+
++v
+\begin_inset Formula $_{2}$
+\end_inset 
+
+) originally in a 
+\begin_inset Formula $|\Psi_{i}\rangle$
+\end_inset 
+
+, state to a final 
+\begin_inset Formula $|\Psi_{f}\rangle$
+\end_inset 
+
+ state, by means of its interaction with a proton, with initial momentum
+ 
+\begin_inset Formula $\vec{k}_{i}$
+\end_inset 
+
+ and spin 
+\begin_inset Formula $S\sigma$
+\end_inset 
+
+ (
+\begin_inset Formula $S=1/2$
+\end_inset 
+
+) and final momentum 
+\begin_inset Formula $\vec{k}_{f}$
+\end_inset 
+
+ and spin 
+\begin_inset Formula $S\sigma'$
+\end_inset 
+
+ in the nucleon-nucleus center-of-mass frame.
+ We describe the initial (final) state with angular momentum of the valence
+ pair 
+\begin_inset Formula $J^{\pi}(i)$
+\end_inset 
+
+ 
+\begin_inset Formula $\left(J^{\pi}(f)\right)$
+\end_inset 
+
+ and energy 
+\begin_inset Formula $E_{i}$
+\end_inset 
+
+ (
+\begin_inset Formula $E_{f}$
+\end_inset 
+
+) as 
+\begin_inset Formula $\phi_{i}=|J^{\pi}(i),E_{i}\rangle$
+\end_inset 
+
+ 
+\begin_inset Formula $\left(\phi_{f}=|J^{\pi}(f),E_{f}\rangle\right)$
+\end_inset 
+
+, neglecting the spin of the core.
+ The wave function is then written as 
+\begin_inset Formula \begin{equation}
+\Psi_{n}(\vec{r},\vec{R},R_{c})=\left[\phi_{n}(\vec{r},\vec{R})\otimes\Phi(\vec{\xi}_{c})\right]\end{equation}
+
+\end_inset 
+
+where 
+\begin_inset Formula $\Phi(\vec{\xi}_{c})$
+\end_inset 
+
+ is the core internal wave function and 
+\begin_inset Formula $\phi_{n}(\vec{r},\vec{R})$
+\end_inset 
+
+ the two body wave function of the valence system relative to the core,
+ for the state n(=i,f),
+\layout Standard
+
+
+\begin_inset Formula \begin{equation}
+\phi_{n}(\vec{r},\vec{R})=\sum_{\ell\lambda LS}F_{\ell\lambda LSJ_{n}}(r,R)\left[\left[Y_{\ell}(\hat{r})\otimes Y_{\lambda}(\hat{R})\right]_{L}\otimes\left[\chi_{S_{2}}\otimes\chi_{S_{3}}\right]_{S}\right]^{J_{n}M_{n}}\label{eq:wfnn}\end{equation}
+
+\end_inset 
+
+In this equation 
+\begin_inset Formula $\lambda$
+\end_inset 
+
+ is the orbital angular momentum between the core and the center of mass
+ of the valence pair and 
+\begin_inset Formula $\ell$
+\end_inset 
+
+ the relative angular momentum of the pair.
+ 
+\layout Subsection
+
+The transition amplitudes
+\layout Standard
+
+We consider then the scattering of a nucleon from a system assumed to be
+ well described by 
+\begin_inset Formula $\mathcal{N}$
+\end_inset 
+
+ subsystems.
+ The total transition amplitude T can be written as a multiple scattering
+ expansion in the transition amplitudes 
+\begin_inset Formula $\hat{t}_{\mathcal{I}}$
+\end_inset 
+
+ for proton scattering from each projectile sub-system 
+\begin_inset Formula $\mathcal{I}$
+\end_inset 
+
+
+\begin_inset LatexCommand \cite{Crespo99a  ,Crespo01,Crespo02}
+
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Formula \begin{equation}
+T=\sum_{\mathcal{I}}\hat{t}_{\mathcal{I}}+\sum_{\mathcal{I}}\hat{t}_{\mathcal{I}}G_{0}\sum_{\mathcal{J}\neq\mathcal{I}}\hat{t}_{\mathcal{J}}+\cdots\end{equation}
+
+\end_inset 
+
+where the propagator 
+\begin_inset Formula $G_{0}=(E^{+}-\mathcal{K})^{(-1)}$
+\end_inset 
+
+, within the impulse approximation, contains the kinetic energy operator
+ of the projectile and all the target subsystems.
+ Here E is the kinetic energy in the overall center of mass frame.
+ In the case of a p scattering from a 3-body composite system (C+v
+\begin_inset Formula $_{1}$
+\end_inset 
+
++v
+\begin_inset Formula $_{2}$
+\end_inset 
+
+) the single scattering approximation is
+\layout Standard
+
+
+\begin_inset Formula \[
+T=T_{C}+T_{v_{1}}+T_{v_{2}}\]
+
+\end_inset 
+
+
+\layout Subsubsection
+
+The single scattering approximation
+\layout Paragraph
+
+Scattering from the valence system
+\layout Standard
+
+We assume in here that the valence systems are nucleons.
+ The nucleon-nucleon scattering can be described by the tensor representation
+ 
+\begin_inset LatexCommand \cite{Crespo02a}
+
+\end_inset 
+
+.
+ This is a a convenient general method to express the NN transition amplitude
+ as a linear combination for the spherical components of the spin operators
+ of the two interacting particles.
+ In this representation, the scattering amplitude is written in terms of
+ the tensor of rank 
+\begin_inset Formula $\kappa$
+\end_inset 
+
+
+\layout Standard
+
+
+\begin_inset Formula \begin{eqnarray}
+\mathcal{T}_{\kappa q}(a,b)=\sum_{\alpha\beta}(a\alpha b\beta|\kappa q)\tau_{a\alpha}(s_{0})\tau_{b\beta}(s_{1}).\label{bigT}\end{eqnarray}
+
+\end_inset 
+
+ as, 
+\begin_inset Formula \begin{eqnarray}
+\langle\vec{k}'|t|\vec{k}\rangle=\sum_{\kappa qab}t_{\kappa q}^{(ab)}(\vec{k}',\vec{k})\mathcal{T}_{\kappa q}^{\dagger}(a,b),\end{eqnarray}
+
+\end_inset 
+
+ where 
+\begin_inset Formula $\tau_{a\alpha}(s_{0})$
+\end_inset 
+
+ is the irreducible tensor operator for the projectile particle (0) with
+ spin 
+\begin_inset Formula $s_{0}$
+\end_inset 
+
+ (
+\begin_inset Formula $a=0,\ldots2s_{0}$
+\end_inset 
+
+); 
+\begin_inset Formula $\tau_{b\beta}(s_{1})$
+\end_inset 
+
+ is the irreducible tensor operator for the struck particle (1) with spin
+ 
+\begin_inset Formula $s_{1}$
+\end_inset 
+
+ (
+\begin_inset Formula $b=0,\ldots2s_{1}$
+\end_inset 
+
+).
+ Explicitly, since 
+\begin_inset Formula $s_{0}=s_{1}=\frac{1}{2}$
+\end_inset 
+
+, 
+\begin_inset Formula $\tau_{00}({\frac{1}{2}})=1$
+\end_inset 
+
+ and 
+\begin_inset Formula $\tau_{1\beta}({\frac{1}{2}})=\sigma_{\beta}(1)$
+\end_inset 
+
+, with 
+\begin_inset Formula $\sigma_{\beta}(1)$
+\end_inset 
+
+ the spherical components of 
+\begin_inset Formula $\vec{\sigma}_{1}$
+\end_inset 
+
+ with respect to the chosen 
+\begin_inset Formula $z$
+\end_inset 
+
+-axis.
+ It follows that the scattering from the valence can be written as:
+\layout Standard
+
+
+\begin_inset Formula \begin{equation}
+\langle\vec{k}_{f}S\sigma';\Psi_{n'}|\hat{t}_{[v_{1}]}|\vec{k}_{i}S\sigma;\Psi_{n}\rangle=\sum_{b\beta}\hat{t}_{[b\beta];[v_{1}]}^{\sigma'\sigma}(\omega_{v}\vec{\Delta})\rho_{[b\beta]}^{fi}\left(\frac{m_{v_{2}}}{M_{v}}\vec{\Delta},\frac{M_{C}}{M}\vec{\Delta}\right)\label{eq:sscatv}\end{equation}
+
+\end_inset 
+
+where the quantity 
+\begin_inset Formula $\hat{t}_{[b\beta];[v_{1}]}^{\sigma'\sigma}$
+\end_inset 
+
+ is given in terms of the tensor components of the nucleon-nucleon transition
+ amplitude as 
+\layout Standard
+
+
+\begin_inset Formula \begin{eqnarray*}
+\hat{t}_{[b\beta];[v_{1}]}^{\sigma'\sigma} & = & \sum_{\kappa qa\alpha}(-)^{q}\frac{\hat{S}_{v_{2}}}{\hat{b}}\langle S||\tau_{a}(\frac{1}{2};p)||S\rangle\langle S_{v_{1}}||\tau_{b}(\frac{1}{2};v1)||S_{v_{1}}\rangle\\
+ & \times & t_{\kappa q}^{(ab)}(\omega\,\vec{\Delta})(S\sigma a\alpha|S\sigma')(a\alpha b\beta|S\sigma')\end{eqnarray*}
+
+\end_inset 
+
+The density formfactor is
+\layout Standard
+
+
+\begin_inset Formula \begin{eqnarray*}
+\rho_{[b\beta]}^{fi}\left(\frac{m_{v_{2}}}{M_{v}}\vec{\Delta},\frac{M_{C}}{M}\vec{\Delta}\right) & = & \sum\hat{\rho}_{[bdc]}\left(\frac{m_{v_{2}}}{M_{v}}\Delta,\frac{M_{C}}{M}\Delta\right)\\
+ & \times & \varphi_{2}(b\beta d\delta|c\gamma)(J_{f}M_{f}d\delta|J_{i}M_{i})\sqrt{4\pi}Y_{c\gamma}(\hat{\Delta})\end{eqnarray*}
+
+\end_inset 
+
+with
+\layout Standard
+
+
+\begin_inset Formula \begin{eqnarray*}
+\hat{\rho}_{[bdc]}\left(\frac{m_{v_{2}}}{M_{v}}\Delta,\frac{M_{C}}{M}\Delta\right) & = & \sum\left(i^{\ell}\right)^{*}\left(i^{\ell'}\right)^{*}\varphi_{1}\frac{\hat{\ell}^{2}\hat{\ell}'^{2}\hat{d}^{2}\hat{b}\hat{S}\hat{S}'\hat{L}\hat{L}'\hat{\ell}_{1}\hat{\lambda}\hat{J}_{\tiny{f}}}{\hat{c}}\\
+ & \times & (\ell0\ell_{1}0|\ell_{1}'0)(\ell0\ell'0|\mathcal{L}0)(\ell'0\lambda0|\lambda'0)W(SS_{2}S'S_{2};S_{3}b)\\
+ & \times & \left\{ \begin{array}{ccc}
+b & d & c\\
+S' & J_{f} & L'\\
+J & J_{i} & L\end{array}\right\} \left\{ \begin{array}{ccc}
+\ell & \ell' & c\\
+\ell_{1} & \lambda & L\\
+\ell_{1}' & \lambda' & L'\end{array}\right\} \\
+ & \times & \int r^{2}drR^{2}dRF_{\tiny{\ell_{1}'\lambda'L'S'J_{f}}}(r,R)F_{\tiny{\ell_{1}\lambda LSJ_{i}}}(r,R)\\
+ & \times & j_{\ell}\left(\frac{m_{\nu_{2}}}{M_{\nu}}\Delta r\right)j_{\ell'}\left(\frac{M_{C}}{M}\Delta R\right)\end{eqnarray*}
+
+\end_inset 
+
+with 
+\begin_inset Formula $\varphi_{1}$
+\end_inset 
+
+and 
+\begin_inset Formula $\varphi_{2}$
+\end_inset 
+
+ phase factors.
+\layout Paragraph
+
+Scattering from the core
+\layout Standard
+
+We proceed by evaluating the single scattering term from the core, and assume
+ only a central interaction in this case.
+ The transition amplitude is then given as
+\layout Standard
+
+
+\begin_inset Formula \begin{equation}
+\langle\vec{k}_{f}S\sigma';\Psi_{f}|\hat{t}_{[C]}|\vec{k}_{i}S\sigma;\Psi_{i}\rangle=\langle S\sigma';\Phi_{c}|\hat{t}_{[00];[C]}(\omega_{pC}\vec{\Delta})|\Phi_{c};S\sigma\rangle\rho_{[00]}^{fi}\left(0,\frac{M_{v}}{M}\vec{\Delta}\right)\end{equation}
+
+\end_inset 
+
+where 
+\begin_inset Formula $M_{v}=m_{v1}+m_{v2}$
+\end_inset 
+
+ and 
+\begin_inset Formula $M=M_{v}+M_{C}$
+\end_inset 
+
+.
+ The form factor 
+\begin_inset Formula $\rho_{[00]}^{fi}$
+\end_inset 
+
+ is evaluated from the 2-body halo transition density distribution
+\layout Standard
+
+
+\begin_inset Formula \begin{equation}
+\rho_{[00]}^{fi}(\vec{\Delta}_{1,}\vec{\Delta}_{2})=\int d\vec{Q}_{1}d\vec{Q}_{2}\phi_{f}(\vec{Q}_{1},\vec{Q}_{2})\phi_{i}(\vec{Q}_{1}+\vec{\Delta}_{1,}\vec{Q}_{2}+\vec{\Delta}_{2}).\label{eq:rho00}\end{equation}
+
+\end_inset 
+
+In eq.(
+\begin_inset LatexCommand \ref{eq:rho00}
+
+\end_inset 
+
+) 
+\begin_inset Formula $\phi_{n}(\vec{Q}_{1},\vec{Q}_{2})$
+\end_inset 
+
+ is the fourier transform of the wave function of the twobody valence system
+ relative to the core.
+ In terms of the wave function, eq.(
+\begin_inset LatexCommand \ref{eq:wfnn}
+
+\end_inset 
+
+) we get
+\layout Standard
+
+
+\begin_inset Formula \begin{equation}
+\rho_{[00]}^{fi}\left(0,\frac{M_{v}}{M}\vec{\Delta}\right)=\hat{\rho}_{[\mathcal{L}]}\left(0,\frac{M_{v}}{M}\vec{\Delta}\right)(J_{f}M_{i}\mathcal{LM}|J_{i}M_{i})\sqrt{4\pi}Y_{\mathcal{LM}}(\hat{\Delta})\end{equation}
+
+\end_inset 
+
+with
+\layout Standard
+
+
+\begin_inset Formula \begin{eqnarray*}
+\hat{\rho}_{[\mathcal{L}]}\left(0,\frac{M_{v}}{M}\vec{\Delta}\right) & = & \sum i^{\mathcal{L}^{*}}[\hat{J}^{f}\widehat{\mathcal{L}}\hat{L}\hat{L}'\varphi]W(LJ_{i}L'J_{f}S\mathcal{L})W(\mathcal{L}L'\ell\;\lambda'L)(\mathcal{L}0\lambda0|\lambda'0)\\
+ & \times & \int r^{2}drR^{2}dRF_{\ell\lambda'L'SJ_{f}}(r,R)F_{\ell\lambda LSJ_{i}}j_{\mathcal{L}}\left(\frac{M_{v}}{M}\Delta R\right)\end{eqnarray*}
+
+\end_inset 
+
+where 
+\begin_inset Formula $\varphi$
+\end_inset 
+
+ is a phase factor.
+ 
+\layout Subsubsection
+
+The reaction observables
+\layout Standard
+
+In order to evaluate the scattering observables we write the transition
+ amplitude in the following way: For the scattering from the core:
+\layout Standard
+
+
+\begin_inset Formula \begin{eqnarray*}
+\langle\vec{k}_{f}S\sigma';\Psi_{f}|\hat{t}_{[C]}|\vec{k}_{i}S\sigma;\Psi_{i}\rangle & = & \widehat{\mathcal{L}}\left[\langle S\sigma';\Phi_{c}|\hat{t}_{[00];[pC]}(\omega_{C}\vec{\Delta})|\Phi_{c};S\sigma\rangle\hat{\rho}_{[\mathcal{L}]}\left(0,\frac{M_{v}}{M}\vec{\Delta}\right)\right]\\
+ & \times & (J_{f}M_{f}\mathcal{LM}|J_{i}M_{i})\mathcal{D}_{\mathcal{M}0}^{\mathcal{L}*}(\hat{\Delta})\end{eqnarray*}
+
+\end_inset 
+
+and for the scattering of the valence particle:
+\layout Standard
+
+
+\begin_inset Formula \begin{eqnarray*}
+\langle\vec{k}_{f}S\sigma';\Psi_{f}|\hat{t}_{[v1]}|\vec{k}_{i}S\sigma;\Psi_{i}\rangle & = & \hat{c}\hat{\rho}_{[bdc]}\left(\frac{m_{v_{2}}}{M_{v}}\Delta,\frac{M_{C}}{M}\Delta\right)\hat{t}_{[b\beta];[v]}^{\sigma'\sigma}\\
+ & \times & (b\beta d\delta|c\gamma)(J_{f}M_{f}d\delta|J_{i}M_{i})\mathcal{D}_{\gamma0}^{c*}(\hat{\Delta})\end{eqnarray*}
+
+\end_inset 
+
+
+\layout Standard
+
+For each final state the differential cross section can be readily evaluated
+ from these expressions by calculating the square and cross products.
+\layout Section
+
+Namelist description
+\layout Subsection*
+
+MST namelist:
+\layout Itemize
+
+
+\series bold 
+qmax: 
+\layout Itemize
+
+
+\series bold 
+tlab
+\series default 
+: projectile energy in laboratory frame.
+\layout Itemize
+
+
+\series bold 
+thmin, thmax, dth
+\series default 
+: angular range and step for calculated cross sections.
+\layout Itemize
+
+
+\series bold 
+dry: 
+\newline 
+dry=F
+\series default 
+: Skip reading 3B wf
+\series bold 
+ 
+\layout Subsection*
+
+QUAD1 namelist:
+\layout Itemize
+
+
+\series bold 
+qmaxr
+\series default 
+: 
+\layout Itemize
+
+
+\series bold 
+quin
+\series default 
+: 
+\layout Itemize
+
+
+\series bold 
+mquadi
+\series default 
+: 
+\layout Itemize
+
+
+\series bold 
+mquado:
+\layout Subsection*
+
+QUAD2 namelist:
+\layout Itemize
+
+
+\series bold 
+qmaxrd
+\series default 
+:
+\layout Itemize
+
+
+\series bold 
+quind
+\series default 
+: 
+\layout Itemize
+
+
+\series bold 
+mquadid:
+\layout Itemize
+
+
+\series bold 
+mquadod
+\series default 
+: 
+\layout Subsection*
+
+QUAD3 namelist:
+\layout Itemize
+
+
+\series bold 
+rmaxr
+\series default 
+ : 
+\layout Itemize
+
+
+\series bold 
+rin
+\series default 
+ :
+\layout Itemize
+
+
+\series bold 
+mrquadi
+\series default 
+ : 
+\layout Itemize
+
+
+\series bold 
+mrquado
+\series default 
+ : 
+\layout Subsection*
+
+PROJ namelist:
+\layout Itemize
+
+
+\series bold 
+massp
+\series default 
+: projectile mass
+\layout Itemize
+
+
+\series bold 
+zp
+\series default 
+: projectile charge
+\layout Itemize
+
+
+\series bold 
+jp
+\series default 
+: spin of projectile
+\layout Subsection*
+
+TARG namelist:
+\layout Itemize
+
+
+\series bold 
+masst
+\series default 
+: target mass
+\layout Itemize
+
+
+\series bold 
+zt
+\series default 
+: target charge 
+\layout Itemize
+
+
+\series bold 
+ncl
+\series default 
+: number of clusters.
+\layout Itemize
+
+
+\series bold 
+inelcb
+\series default 
+: ?????
+\layout Itemize
+
+
+\series bold 
+nustates
+\series default 
+: total number of states.
+\layout Itemize
+
+
+\series bold 
+quais(1:nustates-1)
+\series default 
+: vector array to select those 
+\begin_inset Formula $J^{\pi}$
+\end_inset 
+
+ (inelastic) components of the wavefunction that will be taken into account
+ in the calculations.
+ 
+\begin_inset Formula $quais(i)\neq0$
+\end_inset 
+
+ means that component 
+\begin_inset Formula $i$
+\end_inset 
+
+ will be included.
+\layout Itemize
+
+
+\series bold 
+irho
+\series default 
+: ???
+\layout Subsection*
+
+KAPAS namelist:
+\layout Itemize
+
+
+\series bold 
+k0000, k1100, k0111, k1120, k1121, k1122
+\series default 
+: If 
+\emph on 
+kabkq
+\emph default 
+=1 the tensor component 
+\begin_inset Formula $t_{\kappa q}^{(ab)}(\omega\,\vec{\Delta})$
+\end_inset 
+
+ of the NN amplitude will be taken into account.
+\layout Subsection*
+
+TCLUS namelist: 
+\layout Itemize
+
+
+\series bold 
+mtclus
+\series default 
+: mass of this cluster (u.m.a.)
+\layout Itemize
+
+
+\series bold 
+spin
+\series default 
+: cluster intrinsic spin
+\layout Itemize
+
+
+\series bold 
+ztclus
+\series default 
+: cluster charge
+\layout Itemize
+
+
+\series bold 
+ttype
+\series default 
+: Type of T-matrix
+\newline 
+0=Call MSO program to calculate T-matrix
+\newline 
+1=Read S-matrix from fortran unit 110, using the format: 
+\emph on 
+sreal, simag, l, j
+\layout Section
+
+Input/Output files
+\layout Standard
+
+
+\begin_inset  Tabular
+<lyxtabular version="3" rows="27" columns="4">
+<features>
+<column alignment="left" valignment="top" leftline="true" width="0in">
+<column alignment="left" valignment="top" leftline="true" width="0pt">
+<column alignment="center" valignment="top" leftline="true" width="0pt">
+<column alignment="center" valignment="top" leftline="true" rightline="true" width="0pt">
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+
+\series bold 
+Unit
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+
+\series bold 
+Description
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+
+\series bold 
+Format
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+
+\series bold 
+Printed with
+\end_inset 
+</cell>
+</row>
+<row topline="true">
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+
+\series bold 
+NNAMP
+\end_inset 
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+10 (nnamp.in)
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+22 / 220
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+Off-shell/on-shell isoscalar NN amplitudes
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+aeoff/aeon=1
+\end_inset 
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+23 / 230
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+Off-shell/on-shell isovector NN amplitudes
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+aeoff/aeon=1
+\end_inset 
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+32 / 320
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+Off-shell/on-shell pn NN amplitudes
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+aeoff/aeon=3
+\end_inset 
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+33 / 330
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+Off-shell/on-shell T=0
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+aeoff/aeon=2
+\end_inset 
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+34 / 340
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+Off-shell/on-shell T=1
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+aeoff/aeon=2
+\end_inset 
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row topline="true">
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+
+\series bold 
+MSO
+\end_inset 
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+14
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+Input configuration densities
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+11->smat.out
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+S-matrix (output)
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+110
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+S-matrix (input)
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+25->xsec.out
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+Elastic cross section angular distribution
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row topline="true">
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+
+\series bold 
+MST
+\end_inset 
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row topline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+mst.in
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+Input parameters
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row topline="true" bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+7
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+Input wavefunction
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+20
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+c.m.
+ transition densities
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+21
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+Valence transition densities
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+75
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+Core on-shell T-matrix
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+70
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+Total and core cross section
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+
+\begin_inset Formula $\theta$
+\end_inset 
+
+\SpecialChar ~
+
+\begin_inset Formula $\sigma_{tot}$
+\end_inset 
+
+(
+\begin_inset Formula $\theta$
+\end_inset 
+
+) \SpecialChar ~
+
+\begin_inset Formula $\sigma_{core}$
+\end_inset 
+
+(
+\begin_inset Formula $\theta$
+\end_inset 
+
+)\SpecialChar ~
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+65
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+Double cross-sections
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+<row bottomline="true">
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\layout Standard
+
+\end_inset 
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset 
+
+
+\layout Section
+
+Test examples
+\layout Standard
+
+
+\begin_inset LatexCommand \BibTeX[unsrt]{referRC}
+
+\end_inset 
+
+
+\the_end

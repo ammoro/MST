@@ -1,0 +1,1787 @@
+       program mstamp
+	use wfns
+	use trdens
+        use scattering
+        use bt
+        use constants
+        
+      	implicit real*8(a-h,o-z)
+       
+
+        logical:: dry
+        integer ::jnn,icb,party,ttype
+        real*8:: massp,masst,mtclus,spin
+        
+
+        interface
+          function wxxi(qrr,qcore,tnct,noangs,noangs2)
+            integer::noangs,noangs2
+            real*8::qrr,qcore(:)
+            complex*16::tnct(:)
+            complex*16::wxxi
+          end function wxxi
+        end interface
+
+
+        namelist /mst/ qmax, tlab,thmin,thmax,dth,dry
+        namelist /proj/ massp,zp,jp
+        namelist /targ/ masst,zt,ncl,inelcb,nustates,quais,irho
+        namelist /jpi/ jnn,party,icb
+        namelist /kapas/ k0000,k1100,k0111,k1120,k1121,k1122
+        namelist /tclus/ mtclus,spin,ztclus,ttype
+        namelist /quad1/ qmaxr,quin,mquadi,mquado
+        namelist /quad2/ qmaxrd,quind,mquadid,mquadod 
+        namelist /quad3/ rmaxr,rin,mrquadi,mrquado
+ 
+
+        write(*,*)'MSTamp'
+      	pi = 4d0*atan(1d0)
+        amu=931.49432
+        fpi = 4d0*pi
+      	call logfac(lfact)
+       
+
+        open(unit=18,file='mst.in',status='old')
+        open(unit=99,file='mst.log',status='unknown')
+!        open(unit=10,file='output.data',status='unknown')
+!        open(unit=15,file='gammin.data',status='old') 
+
+!        open(20,file='trcmall.den',status='unknown')
+!        open(21,file='trvalall.den',status='unknown')
+!        open(23,file='trval.den', status='unknown')
+!        open(24,file='trcm.den', status='unknown')
+!        open(25,file='shakeoff.den', status='unknown')
+
+!        open(unit=35,file='tnn.data', status='unknown')
+!        open(unit=36,file='tnnon.data', status='unknown')
+!        open(unit=40,file='dens.data', status='unknown')
+
+!        open(unit=52,file='M0000',status='unknown')
+!        open(unit=53,file='M0111',status='unknown')
+!!       open(unit=54,file='M1011',status='unknown')
+!        open(unit=55,file='M1100',status='unknown')
+!!       open(unit=56,file='M1111',status='unknown')
+!        open(unit=57,file='M1120',status='unknown')
+!        open(unit=58,file='M1121',status='unknown')
+!        open(unit=59,file='M1122',status='unknown')
+
+!        open(unit=65,file='doublexs.data',status='unknown')
+!        open(unit=70,file='xsection11.data',status='unknown')
+!        open(unit=73,file='xs11soff.data',status='unknown')
+!        open(unit=75,file='xsection9.data',status='unknown')
+!        open(unit=71,file='xsecthex.data',status='unknown')
+!        open(unit=96,file='xsecex.data', status='unknown')
+
+!        open(unit=77, file='tncBA.data', status='unknown')
+!        open(unit=80, file='tna.data', status='old')
+!        open(unit=85, file='tnaint.data', status='unknown')
+
+!        open(unit=92, file='scratch.data', status='unknown')
+!        open(unit=95, file='warning.txt', status='unknown')
+        
+
+
+c=======================================================================
+c       reads input parameters
+c=======================================================================
+        itnn=0;itnnav=0 !PROVISIONAL
+        quais=1
+        dry=.false.
+        read(18,nml=mst)
+        read(18,nml=quad1)
+        read(18,nml=quad2)
+        read(18,nml=quad3)
+        read(18,nml=proj)
+        m1=massp
+        z1=zp
+        read(18,nml=targ)
+        if (ncl>3) then
+           write(*,*) 'Only up to three clusters allowed';stop
+        endif
+        if(nustates>50) then
+            write(*,*) 'Too many states. Increase dimension of quais'
+            stop
+         endif
+       
+!        allocate(jnnpin(nustates))
+!        allocate(partyin(nustates))
+!        allocate(istatcb(nustates))
+!        do i=1,nustates
+!           read(18,nml=jpi)
+!           jnnpin(i)=jnn
+!           partyin(i)=party
+!           istatcb(i)=icb
+!           write(*,nml=jpi)
+!        enddo
+        read(18,nml=kapas)
+ 
+       
+
+c *** memory allocation here!!
+        write(*,'("Reading",1i2," clusters")') ncl
+        read(18,nml=tclus) ! valence 1 
+!        write(*,nml=tclus) 
+        m2=mtclus
+        z2=ztclus
+        read(18,nml=tclus) ! valence 2
+!         write(*,nml=tclus)
+        m3=mtclus
+        z3=ztclus
+        ttype=0 !cluster T-matrix calculated on-the-fly
+        read(18,nml=tclus) ! core
+!         write(*,nml=tclus)
+        m4=mtclus
+        z4=ztclus
+        close(18)
+        
+ 
+!!$        do icl=1,ncl
+!!$           read(15,nml=tclus)  ! read t-cluster 
+!!$           if ((ztclus.eq.0).or.(ztclus.eq.1)) then
+!!$              
+!!$        call tntensor()
+!!$           else
+!!$              call tncore()
+!!$           endif
+!!$        enddo
+        
+ 
+
+
+
+c OLD INPUT-----------------------------------------
+!        read(15,*)qmax
+!        read(15,*)tlab
+!        read(15,*)m1,m2,m3,m4
+!        read(15,*)s2,s3
+!        read(15,*)thmin, thmax,dth
+!        read(15,*)qmaxr,quin,mquadi,mquado
+!        read(15,*)qmaxrd,quind,mquadid,mquadod 
+c        read(15,*)irho
+c        read(15,*)itnn,itnnav
+c        read(15,*)rhomx,steprho
+c        read(15,*)inelcb
+!        read(15,*)rmaxr,rin,mrquadi,mrquado
+c        read(15,*) nustates,itstates 
+c        read(15,*)((jnnpin(i),partyin(i),istatcb(i)),i=1,nustates)
+c        read(15,*)k0000,k1100,k0111,k1120,k1121,k1122 
+c------------------------------------
+        zz = cmplx(0.d0,1.d0)
+        mn = 939.5731
+        hbarc = 197.3289
+        s1 = 0.5
+        iqmx = mquadi + mquado
+        iqmxd = mquadid + mquadod
+        mq = iqmx
+        mdelta = iqmxd
+        dq=0.1
+        
+        qmxnn = qmaxr
+        nq=qmxnn/dq
+        nangles = (thmax-thmin)/dth + 1
+        write(*,*)'iqmx,iqmxd,qmxnn=',iqmx,iqmxd,qmxnn
+        call gauss3(qmaxr,quin,mquadi,mquado,radxis,radwt)
+        call gauss3(qmaxrd,quind,mquadid,mquadod,radxisd,radwtd)
+        call gauss3(rmaxr,rin,mrquadi,mrquado,radxisr,radwtr)
+c        if (iqmx.gt.mrho.and.iqmxd.gt.mrho)then
+c        write(10,*)'iqmx gt mrho'
+c        stop
+c        endif
+
+        m234 = m2+m3+m4
+        m1234 = m234+m1
+        m23=m2+m3
+        m34=m3+m4
+        m14=m1+m4
+        m12=m1+m2
+        ncore = m4
+        amass = m234
+        muna = amass/(amass+massp)*mn
+        k0 = 2 * muna * tlab
+        k0 = sqrt(k0)/hbarc
+        write(99,*)'- In MST: k0=',k0
+!        mucore = mn*m4/(m4+1.) !Changed 19/03/2003
+        mucore = amu*massp*m4/(m4+massp)
+       
+
+c energy parameters
+        w12=tlab*(1-m1*m34/m12/m234)
+        e14=tlab*(1-m1*m23/m14/m1234) !lab
+        w14=e14*m1*m4/m14 !cm
+
+        kcore = 2 * mucore * e14
+        kcore = sqrt(kcore)/hbarc
+        write(99,*)'+Allocating',mdelta,'pts for tvalence,tcore'
+        allocate(tvalence(mdelta))
+        allocate(tcore(mdelta))
+
+        
+        tvalence(1:mdelta)=(0.d0,0.d0)
+        tcore(1:mdelta) = (0.d0,0.d0)
+      	stepdel = qmax/ndel
+
+c====================================================================
+c check
+c        call statescb(1,0,1)
+c        call statescb(0,0,1)
+c        call statescb(1,1,1)
+c        stop
+c======================================================================
+c       reads and calculates the density functions in appropriate grid
+c======================================================================
+        write(99,*) '-> Entering readwf'
+        if (dry) then
+           write(*,*) '**WARNING**: DRY RUN. NO WF READ'
+        else
+           call readwf
+        endif
+c===================================================================
+c       calculates the scattering
+c==================================================================     
+
+c **  reads and interpolates NA ( proton/neutron - core) scattering matrix
+       write(99,*) '-> Entering tncore'
+      call tncore(e14,ttype)
+
+c ** calculates scattering by valence particles
+       write(99,*) '-> Entering tntensor w12=',w12
+      call tntensor(w12,ttype)
+     
+       write(99,*) '<- Exiting  tntensor'
+c **  calculates cross section
+       write(99,*) '-> Entering drotat'
+       call drotat()
+       write(99,*) '-> Entering xsecinel'
+       call xsecinel()
+       write(99,*) '-> Entering test'
+       if (dry) stop
+       call test()
+       
+      
+       write(99,*) '-> Entering sigex'
+       call sigex()
+       write(99,*) '<- Exiting sigex'
+       call flush(99)
+       
+       end program mstamp
+
+c-------------------------------------------------------------
+	subroutine cmdens(in)
+c-------------------------------------------------------------
+	use parameters
+        use wfns
+	use trdens
+        use scattering
+      	implicit real*8(a-h,o-z)
+	real*8 bes(nrxy),xn(ndel)
+        complex*16 taux(mrxy,mrxy), cint2d
+	hat(i) = sqrt(real(2*I+1))
+
+        lvalmax(in)=-1
+	do 100 ll=0,mll
+	rhocm(:,ll,in) = 0.0
+
+        nrmax = mrquadi+mrquado
+	
+	do 60 ia=1,na(elastic)
+	lx = TNQ(1,ia,elastic) 
+	ly = TNQ(2,ia,elastic)
+	lll = TNQ(3,ia,elastic)
+	S = TNQ(4,ia,elastic)
+	jnn = TNQ(5,ia,elastic)
+!	ic = TNQ(6,ia,elastic)
+!	jc2 = TNQ(7,ia,elastic)
+!	jtot2 = TNQ(8,ia,elastic)
+
+	do 60 ib=1,na(in+1)
+	lxp = TNQ(1,ib,itytr) 
+!       RC modification here
+               if (lxp.ne.lx) go to 60
+	lyp = TNQ(2,ib,itytr)
+	lllp = TNQ(3,ib,itytr)
+	Sp = TNQ(4,ib,itytr)
+!       RC modification here
+               if (Sp.ne.S) go to 60
+	jnnp = TNQ(5,ib,itytr)
+!	icp = TNQ(6,ib,itytr)
+!	jc2p = TNQ(7,ib,itytr)
+!	jtot2p = TNQ(8,ib,itytr)
+! 	 if(ic/=icp) go to 60
+ 	 if(s/=sp) go to 60
+ 	 if(lx/=lxp) go to 60
+	
+	alg1 = hat(jnnp) * hat(ll) * hat(ly)*hat(lll)*hat(lllp)
+	alg2 = (-1)**(lll+jnn+2*jnnp+s + 2*lx+ly+lyp) 
+	alg3 = racah2(lll+z,jnn+z,lllp+z,jnnp+z,s+z,ll+z)
+        if (abs(ll)>1) write(6,*)'alg3',alg3,'ll',abs(ll)
+	alg4 = racah2(ll+z,ly+z,lllp+z,lx+z,lyp+z,lll+z)
+	alg5 = cleb6(ll+z,z,ly+z,z,lyp+z,z)
+		if(abs(alg5)<1e-10) goto 60
+	alg = alg1*alg2*alg3*alg4*alg5 
+
+!!$        if (abs(nustates-itstates).gt.0.0001)then
+!!$        call statescb(Jnnp,lxp,lyp)
+!!$        if(jnncb.eq.0)alg=0.
+!!$        endif
+
+	write(6,10) in,ll,ia,ib,alg1,alg2,alg3,alg4,alg5,alg
+10	format(' in,ll=',2i2,' #',2i3,':',5f8.4,f10.5)
+
+	if(abs(alg)<1e-10) goto 60
+	do 50 idel=1,ndel
+ 	 delta = (idel-1)*stepdel
+         deltaren = delta*m23/m234
+	 if(ll>0.and.idel==1) go to 50
+	 call bessr(ll,deltaren,bes,nrxy,rstep)  ! Bessel or spherical bessel?`
+	XN(idel) = 0.0
+        sumcm = 0.0
+        DO 20 IX=1,NRXY
+        DO 20 IY=1,NRXY
+!	RR = RV(IY)
+
+	T = WF(IX,IY,IA,elastic)*WF(IX,IY,IB,ITYTR) 
+	trr = T * bes(IY) * rstep**2 
+        taux(ix,iy) = trr
+!       RC modification here
+!	XN(idel) = XN(idel) + trr
+20	sumcm  = sumcm + trr
+
+!       Calculates radial integral more accurately
+!       sumcm =  0.0
+!       do 25 i=1,nrmax
+!       do 25 j=1,nrmax
+!       qr = radxisr(i)
+!       qrr = radxisr(j)
+!       tauxin = dreal(cint2d(RV,RV,taux,qr,qrr,NRXY,NRXY,5,mrxy))
+!       sumcm = sumcm + tauxin * radwtr(i)*radwtr(j)
+!       if (icount.lt.1) write(*,*)tauxin, radwtr(i),radwtr(j)
+! 25    continue
+
+
+        sumcm = sumcm * alg       
+        rhocm(idel,ll,in) = rhocm(idel,ll,in) + sumcm
+50	continue
+60	continue
+
+!       RC modification here	
+!	rhocm(:,ll,in) = XN(:) * alg
+   	lvalmax(in)=ll        
+100	continue
+   	if(lvalmax(in)>=0) then
+        parityf = (-1)**(lxp+lyp)
+	write(20,101) in, jnnp, parityf
+101	format('# CM transition density to state no.',i3, i3, i3 )
+	do 105 idel=1,ndel
+ 	 delta = (idel-1)*stepdel
+105	write(20,106) delta,(rhocm(idel,ll,in),ll=0,lvalmax(in) )
+106	format(f8.3,3f12.8)
+	write(20,*) '&' 
+	call flush(20)
+
+         if (in.eq.3)then
+         do 110 idel=1,ndel
+         delta = (idel-1)*stepdel  
+         write (9,*) 'inel',delta,rhocm(idel,0,in), rhocm(idel,1,in)
+ 110     continue
+         endif 
+
+	endif
+
+	return
+	end
+
+	subroutine valdens(in)
+c***************************************************************************
+	use wfns
+	use trdens
+        use scattering
+      	implicit real*8(a-h,o-z)
+	real*8 bes1(nrxy),bes2(nrxy),xn(ndel,ndel)
+	integer b,c,d,phi1,phi2
+	complex*16 alg1
+        complex*16 alg,sumval
+	hat(i) = sqrt(real(2*I+1))
+	hats(i) = real(2*I+1)
+
+	s2 = 0.5  
+	s3 = 0.5   
+	bmax(in)=-1
+	do 100 b=0,mll
+  	cdmax(1:2,b,in)=-1
+	do 100 c=0,mll
+	do 100 d=0,mll
+	rhoval(:,b,c,d,in) = 0.0
+	
+	do 60 ia=1,na(elastic)
+	lx = TNQ(1,ia,elastic) 
+	ly = TNQ(2,ia,elastic)
+	lll = TNQ(3,ia,elastic)
+	S = TNQ(4,ia,elastic)
+	jnn = TNQ(5,ia,elastic)
+!	ic = TNQ(6,ia,elastic)
+!	jc2 = TNQ(7,ia,elastic)
+!	jtot2 = TNQ(8,ia,elastic)
+
+	do 60 ib=1,na(in+1)
+	lxp = TNQ(1,ib,itytr) 
+	lyp = TNQ(2,ib,itytr)
+	lllp = TNQ(3,ib,itytr)
+	Sp = TNQ(4,ib,itytr)
+	jnnp = TNQ(5,ib,itytr)
+!	icp = TNQ(6,ib,itytr)
+!	jc2p = TNQ(7,ib,itytr)
+!	jtot2p = TNQ(8,ib,itytr)
+! 	 if(ic/=icp) go to 60
+!	do 60 l=0,mllt
+!	do 60 lp=0,mllt
+        do 60 l=0,mllmx
+           do 60 lp=0,mllmx
+	
+ 	alg1 =  (0.,1.)**(-l-lp)
+	alg2 = hats(l) * hats(lp) * hats(d)
+     X          * hat(b)*hat(s)*hat(sp)
+     X		* hat(lll)*hat(lllp)*hat(lx)
+     x          * hat(ly) * hat(jnnp) / hat(c)
+	 phi1 = 2*s - sp + nint(s2 - s3) + b
+	 phi2 = lll+lllp-jnnp+c-l+lp+d+jnn+2*(d-b+Sp-lyp-lx)
+	alg3 = (-1)**(phi1 + phi2)
+	alg4 = cleb6(l+z,z,lx+z,z,lxp+z,z) 
+	alg5 = cleb6(l+z,z,lp+z,z,c+z,z) 
+	alg6 = cleb6(lp+z,z,ly+z,z,lyp+z,z)
+		if(abs(alg4*alg5*alg6)<1e-10) goto 60
+
+	alg7 = racah2(s+z,s2,sp+z,s2,s3,b+z)
+	alg8 = wig9j(b+z,  d+z,   c+z,
+     X               sp+z, jnnp+z,lllp+z,
+     X               s+z,  jnn+z, lll+z)
+	alg9 = wig9j(l+z,  lp+z,  c+z,
+     X               lx+z, ly+z,  lll+z,
+     X               lxp+z,lyp+z, lllp+z)
+	alg =alg1*alg2*alg3*alg4*alg5*alg6*alg7*alg8*alg9 
+
+!        if (abs(nustates-itstates).gt.0.0001)then
+!        call statescb(Jnnp,lxp,lyp)
+!        if(jnncb.eq.0)alg=0.
+!        endif
+
+	if(abs(alg)<1e-10) goto 60
+	XN(:,:) = 0.0
+	do 50 idel1=1,ndel
+ 	 delta1 = (idel1-1)*stepdel
+         delta1ren = delta1*m3/m23
+	 if(l>0.and.idel1==1) go to 50
+	 call bessr(l,delta1ren,bes1,nrxy,rstep) 
+ 	 if(lp>0.and.idel1==1) go to 48
+ 	 delta2 = (idel1-1)*stepdel
+         delta2ren = delta1*m4/m234
+	 call bessr(lp,delta2ren,bes2,nrxy,rstep)  
+!       XN(idel1,idel2) = 0.0
+        sumval = (0.0,0.0)
+        DO 20 IX=1,NRXY
+        DO 20 IY=1,NRXY
+!	 RR = RV(IY)
+	T = WF(IX,IY,IA,elastic)*WF(IX,IY,IB,ITYTR) 
+	trr = T * bes1(IX)*bes2(IY)*rstep**2
+!20	XN(idel1,idel2) = XN(idel1,idel2) + trr
+ 20     sumval  =  sumval + trr
+        sumval  = sumval * alg
+        rhoval(idel1,b,c,d,in)=rhoval(idel1,b,c,d,in) + sumval
+48      continue
+50	continue
+60	continue
+	
+!	rhoval(:,b,c,d,in) = XN(:,:) * alg
+	 bmax(in) = max(b,bmax(in))
+   	 cdmax(1,b,in)=c
+   	 cdmax(2,b,in)=d
+100	continue
+	 do 110 b=0,bmax(in)
+   	 if(cdmax(1,b,in)>=0.and.cdmax(2,b,in)>=0) then
+	 write(21,101) in,jnnp,b
+101	format('# Valence transition density to state no',
+     x      i3,' jnnp:',i3,' b:',i3)
+        write(21,*)'real components'
+	do 105 idel1=1,ndel
+ 	 delta1 = (idel1-1)*stepdel
+105	write(21,106) delta1,(    (dreal(rhoval(idel1,b,c,d,in)),
+     X    d=0,max(2,cdmax(2,b,in)) ),
+     X    c=0,max(2,cdmax(1,b,in)) )
+106	format(f8.3,9f10.6)
+	write(21,*) '&'
+	call flush(21)
+
+        write(21,*)'imag components'
+	do 115 idel1=1,ndel
+ 	 delta1 = (idel1-1)*stepdel
+115	write(21,116) delta1,(    (dimag(rhoval(idel1,b,c,d,in)),
+     X    d=0,max(2,cdmax(2,b,in)) ),
+     X    c=0,max(2,cdmax(1,b,in)) )
+116	format(f8.3,9f10.6)
+c	write(22,*) '&'
+	call flush(22)
+
+	endif
+110	continue
+	return
+	end
+
+
+
+
+**      	real*8 rhoval(ndel,0:mll,0:mll,0:mll,0:inel),
+**    X		rhocm(ndel,0:mll,0:inel)
+**	integer cdmax(2,0:mll,inel),lvalmax(0:inel)
+
+c============================================
+c Read 3B wf
+c=============================================
+	subroutine readwf          
+
+C  coupling order |[(S1,S2)S, (LX,LY)LL, Jnn], JC; JTOT>
+C
+c 	where S1=S2=1/2 and JC = core spin (zero for 6Li and 6He).
+c       (IWF.EQ.1) OR (IN=IWF-1.EQ.0)   elastic
+c       (IWF.GT.1) OR (IN=IWF-1.GT.1)   inelastic  
+c
+	use wfns
+        use scattering
+        use trdens
+      IMPLICIT REAL*8(A-H,O-Z)
+      real*8:: jlast=-1
+      real*8::iparlast=-2,elast=0.0
+      integer :: ijpi=-1
+      integer:: jimax=0,jfmax=0
+C
+c--------------------------------------------------------------
+c  Dummy read to set dimensions:
+        write(*,*)'Prereding wf to set dimensions'
+        write(*,*)'------------- J Pi components --------------'
+        rewind(nfl)
+        IWF=0
+        nma=0
+        mllmx=0
+11        READ(NFL,2,end=998) NRXY,RSTEP,II,en,TN 
+2       format(i4,f10.5,i4,f10.5,f10.6)
+c        write(*,*)'IWF=',IWF,'ens(in)=',ens0  
+	if(NRXY.gt.MRXY) stop 'MRXY'
+!	WN = 0.0
+!	VN = 0.0
+	IWF=IWF+1
+        IF(IWF.EQ.1)ITYTR=elastic
+        IF(IWF.GT.1)ITYTR=inelastic
+      DO 201 IVERT=0,0
+      READ(NFL,*) 
+      READ(NFL,*) 
+     
+      ima=0
+      DO 111 IA=1,ma
+      READ(NFL,915) LX,LY,LL,S,JNN,IC,JC,JTOT 
+      
+      if (max(lx,ly)>mllmx) mllmx=2*max(lx,ly)
+      
+      
+
+      if(LX.lt.0) go to 121
+      ima=ima+1
+      IPAR = (-1)**(LX+LY)
+ !     if ((ia.eq.1).and.iwf<3) write(*,916)JTOT,PSIGN(IPAR+2),EN
+      if ((jlast.ne.jtot).or.(ipar.ne.iparlast).or.
+     & (elast<0.and.abs(elast-en)>0.001)) then
+         ijpi=ijpi+1
+         write(*,916)ijpi,JTOT,PSIGN(IPAR+2),EN
+      endif
+      
+      if (ijpi>0) then
+         jfmax=max(jnn,jfmax) 
+      else
+         jimax=max(jimax,jnn)
+      endif
+
+!       write(*,916)JTOT,PSIGN(IPAR+2),EN
+916    format('Component: J,PI,=',i3,f5.1,a1,' at',f8.3,' MeV')
+      jlast=jtot
+      iparlast=ipar
+      elast=en
+      if(IC>1.or.JC>0.) then
+	write(6,*) 'This program not written for core excitation!'
+	stop
+	endif
+C
+!40      RV(1) = 0.0
+        DO 51 IX=1,NRXY
+!	RV(IX) = (IX-1)*RSTEP
+	read(NFL,*) IIX
+51	READ(NFL,*) (WF0,IY=1,NRXY)
+	XN = 0.0
+        DO 54 IX=1,NRXY
+        DO 54 IY=1,NRXY
+54      continue
+ 	read(NFL,*) PNORM
+81    FORMAT(' Input ch.',I3,' ( lx,ly,L,S=',4i3,') norm =',f9.5)
+111   CONTINUE
+121   if (ima>nma) nma=ima
+      read(NFL,*) TNORM
+201   CONTINUE
+      indx = IWF-1
+      go to 11
+998    NWF=IWF
+      
+
+c      write(*,*)'- Read',nwf,'states'
+c      write(*,*)'- Max number of components =',nma
+      write(*,*)'-----------------------------------------------------'
+
+c *** Allocate according to determined bounds     
+      dmax=jimax+jfmax
+      mll=dmax+isnx
+      allocate(wf(nrxy,nrxy,nma,2))
+      allocate(tnq(8,nma,2))
+      allocate(na(nwf))
+      allocate(ens(0:nwf))
+      allocate(rv(mrxy))
+      allocate(rhocm(ndel,0:mll,0:nwf))
+      allocate(rhoval(ndel,0:mll,0:mll,0:mll,0:nwf))
+      allocate(bmax(0:nwf))
+      allocate(cdmax(2,0:mll,0:nwf))
+      allocate(lvalmax(0:nwf))
+     
+      allocate(ffcore(mdelta,0:mll,0:nwf))
+      allocate(ffval(mdelta,0:mll,0:isnx,0:mll,0:nwf))
+      allocate(ffcth(nangles,0:mll,0:nwf))
+      allocate(ffvth(nangles,0:mll,0:isnx,0:mll,0:nwf))
+      
+     
+      
+c------------------------------------------------------------
+       ijpi=-1
+       jlast=-1
+       iparlast=-2
+       elast=0.0
+       REWIND NFL    
+       do IWF=1,nwf
+        
+! Amoro addition: nwf read to permit dynamic allocation
+!1      READ(NFL,2,end=999) NWF,NRXY,RSTEP,II,ens(IWF),TN
+1      READ(NFL,2) NRXY,RSTEP,II,en,TN 
+          ens(iwf-1)=en
+                 write(*,*)'IWF=',IWF-1,'ens(in)=',ens(IWF-1)  
+        IF(IWF.EQ.1)ITYTR=elastic
+        IF(IWF.GT.1)ITYTR=inelastic
+      DO 200 IVERT=0,0
+      READ(NFL,*) 
+      READ(NFL,*) 
+      DO 110 IA=1,ma
+      READ(NFL,915) LX,LY,LL,S,JNN,IC,JC,JTOT
+	if(LX.lt.0) go to 120
+915	format(3x,6i3,2f4.1)
+	NA(IWF) = IA
+	TNQ(1,IA,ITYTR) = LX
+	TNQ(2,IA,ITYTR) = LY
+	TNQ(3,IA,ITYTR) = LL
+	TNQ(4,IA,ITYTR) = S
+	TNQ(5,IA,ITYTR) = JNN
+!	TNQ(6,IA,ITYTR) = IC
+!	TNQ(7,IA,ITYTR) = nint(2.*JC)
+!	TNQ(8,IA,ITYTR) = nint(2.*JTOT)
+      IPAR = (-1)**(LX+LY)
+      if ((jlast.ne.jtot).or.(ipar.ne.iparlast).or.
+     & (elast<0.and.abs(elast-en)>0.001)) then
+         ijpi=ijpi+1
+         write(*,916)ijpi,JTOT,PSIGN(IPAR+2),EN
+      endif
+      jlast=jtot
+      iparlast=ipar
+      elast=en
+      if(IA.eq.1) write(KO,25) JTOT,PSIGN(IPAR+2),en
+25	format(//' Wave function for J,pi =',F5.1,a1,f5.1/)
+
+      IF(IPC.GE.5) WRITE(KO,*) 'Have:',LX,LY,LL,S,JNN,IC,JC,JTOT
+C
+      IF(IPC.GE.4)WRITE(KO,*) IA,LX,LY,LL,S,JNN,IC,JC,JTOT
+30    FORMAT(' Input ch.',I3,' ( nos.',6i3,2f4.1,') ')
+     
+      if(IC>1.or.JC>0.) then
+	write(6,*) 'This program not written for core excitation!'
+	stop
+	endif
+C
+40      RV(1) = 0.0
+        DO 50 IX=1,NRXY
+	RV(IX) = (IX-1)*RSTEP
+	read(NFL,*) IIX
+50	READ(NFL,*) (WF(IX,IY,IA,ITYTR),IY=1,NRXY)
+	XN = 0.0
+        DO 53 IX=1,NRXY
+        DO 53 IY=1,NRXY
+	if(IVERT.eq.0) XN = XN + WF(IX,IY,IA,ITYTR)**2 * RSTEP**2
+53	if(IVERT.gt.0) XN = XN + WF(IX,IY,IA,ITYTR) * 
+     X		RV(IX)*RV(IY)*RSTEP**2 *FPI
+
+ 	read(NFL,*) PNORM
+      IF(IPC.GE.4) WRITE(KO,*) 'Input partial integral:',real(XN)
+      IF(IPC.eq.3)WRITE(KO,80) IA,LX,LY,LL,S,XN
+80    FORMAT(' Input ch.',I3,' ( lx,ly,L,S=',4i3,') norm =',f9.5)
+110   CONTINUE
+120 	read(NFL,*) TNORM
+      IF(IPC.GE.3) WRITE(KO,*) 'Input summed integrals:',real(TNORM)
+200   CONTINUE
+      indx = IWF-1
+      write(*,*)'Calling dens with indx=',indx
+
+      
+      if (ijpi.eq.0) then
+         call dens(indx)
+      else if (quais(ijpi)>0) then
+         call dens(indx)
+      endif
+
+      enddo
+
+      
+c************************************************
+c      CHECK FOR READING THE ENERGIES PROPERLY
+c************************************************
+      do 500  in=0,NWF-1
+      write(*,*)'in',in, 'ens(in)', ens(in)
+ 500  continue
+  
+
+      RETURN
+      END
+
+
+
+
+      subroutine dens(in)
+c***********************************************************************
+c     Calculates halo density and core cm density distribution
+c     in the momentum space grid for the scattering and in theta grid
+c------------------------------------------------------------------------
+      use parameters
+      use wfns
+      use scattering
+      use trdens
+      use constants
+      implicit real*8 (a-h,o-z)
+      complex*16 wxxi
+
+
+	call cmdens(in)        
+ 	call valdens(in)
+
+      if (irho.eq.0)then
+        allocate(rhoaux(ndel))
+        allocate(qdelta(ndel))
+        do 20 ll=0,mll
+        do 5 i=1,ndel
+        rhoaux(i) = rhocm(i,ll,in)
+        qdelta(i) = (i-1)*stepdel
+        if(in.eq.0.and.ll.eq.0)then
+        ren = 1/rhocm(1,0,0)
+        rhoaux(i) = ren * rhoaux(i)
+        endif
+ 5      continue   
+
+        if(in.eq.0)then
+           
+        do 6 i=1,ndel
+        write(24,*)qdelta(i),'rhocm', rhocm(i,0,in)
+ 6      continue  
+        endif 
+
+        call flush(24)
+        
+	do 10 iq=1,mdelta
+	q = radxisd(iq)
+        ffcore(iq,ll,in) = wxxi(q,qdelta,rhoaux,ndel,ndel)
+ 10	continue
+
+        
+!        write(60,*)ll,in
+        do 15  ith = 1,nangles
+        th = thmin + dth*(ith-1)
+        thrad = th*pi/180.
+        cthna = cos(thrad)
+        qq = sqrt(2*k0*k0*(1-cthna))
+        ffcth(ith,ll,in)  = wxxi(qq,qdelta,rhoaux,ndel,ndel)
+       
+ 15     continue
+
+ 20     continue
+
+
+        allocate(rhoauxp(max(ndel,mdelta)))
+        do 30 ic=0,mll
+        do 30 ib=0,isnx
+        do 30 id=0,mll        
+        do 35 i=1,ndel
+        rhoaux(i) = dreal(rhoval(i,ib,ic,id,in))
+        rhoauxp(i) = dimag(rhoval(i,ib,ic,id,in))
+        qdelta(i) = (i-1)*stepdel
+ 35     continue 
+    
+        
+	do 40 iq=1,mdelta
+	q = radxisd(iq)
+        a1 = wxxi(q,qdelta,rhoaux,ndel,ndel)
+        a2 = wxxi(q,qdelta,rhoauxp,ndel,ndel)
+        ffval(iq,ic,ib,id,in) = a1 + zz * a2
+ 40	continue
+
+        do 45  ith = 1,nangles
+        th = thmin + dth*(ith-1)
+        thrad = th*pi/180.
+        cthna = cos(thrad)
+        qq = sqrt(2*k0*k0*(1-cthna))
+        a1 = wxxi(qq,qdelta,rhoaux,ndel,ndel)
+        a2 = wxxi(qq,qdelta,rhoauxp,ndel,ndel)
+        ffvth(ith,ic,ib,id,in)= a1 + zz * a2
+ 45     continue
+
+ 30     continue
+
+      else 
+        write(99,*)'irho gt 0'
+        stop
+      end if
+
+
+106	format(f8.3,9f8.3)
+155     format(f8.3,2f10.6)
+      deallocate(rhoauxp)
+      deallocate(rhoaux)
+      deallocate(qdelta)
+      return
+      end
+
+
+      subroutine test()
+c***********************************************************************
+
+      use parameters
+      use wfns
+      use scattering
+      use trdens
+      implicit real*8 (a-h,o-z)
+      complex*16 wxxi
+
+
+!***    write interpolated densities in q and th grid
+        write(40,*)'core interpolated in q grid'
+ 	do 140 iq=1,mdelta
+	q = radxisd(iq)       
+  	write(40,155) q,ffcore(iq,1,3), ffcore(iq,0,0)
+ 140    continue
+        write(40,*)'valence  interpolated in q grid'
+ 	do 145 iq=1,mdelta
+	q = radxisd(iq)       
+  	write(40,106) q,(    (dreal(ffval(iq,ic,1,id,2)),
+     X    id=0,2 ),  ic=0,2 )
+ 145  continue
+      
+        do 150  ith = 1,nangles
+        th = thmin + dth*(ith-1)
+	write(23,106) th,(    (dreal(ffvth(ith,ic,1,id,2)),
+     X    id=0,2 ),  ic=0,2 )
+        write (24,155)th,ffcth(ith,1,3), ffcth(ith,0,0)
+        aux1 = ffcth(ith,1,3)**2
+        aux2 = 1 - ffcth(ith,0,0)**2
+        write (25,155)th, aux1,aux2
+150     continue 
+
+106	format(f8.3,9f8.3)
+155     format(f8.3,2f10.6)
+
+
+      return
+      end
+
+
+
+       subroutine ptheta(in)
+!         subroutine ptheta(in,pleg)
+c************************************************************************
+       use wfns
+       use scattering
+       use lfac
+       implicit real*8(a-h,o-z)
+!       real*8::pl(mllmx+2,2*(mllmx+2)+1)
+       real*8, allocatable::aux(:,:)
+
+!       real*8 PL(20,40)
+!       real*8 aux(40,40)
+!       real*8 pleg(500)
+!       common/lfac/fact(21)
+       
+       allocate(pleg(nangles))
+       jnnp = TNQ(5,na(in+1),in+1)
+!      write(10,*)'jnnp=',jnnp
+       mnnt = 2*jnnp + 1
+       NJ = 2*jnnp
+       MJ = 2*NJ + 1
+
+       allocate(aux(nj,mj))
+!       NAMT = 20
+!       if (NAMT.lt.MJ) Stop 
+
+       do 50 nc = 0, 2*jnnp
+!      do 50 nc=0,0
+       nct = 2*nc + 1
+       do 55 l = 1, nct
+       ngama = - nc + (l-1)
+       sum1 = 0.d0 
+       do 100 i=1,mnnt
+       mnn = - jnnp + (i-1)
+       do 150 j=1,mnnt
+       mnnp = - jnnp + (j-1)
+       alg1 = cleb6(jnnp+z, -mnn+z, jnnp+z, mnnp+z, nc+z, ngama+z)
+       phase = - mnn - 2*mnnp + (2*jnnp)
+       alg1 = alg1 * (-1)**phase 
+       sum1 = sum1 + alg1
+ 150   continue
+ 100   continue
+       aux(nc,ngama) = sum1
+       faux = exp((fact(nc-ngama+1) -fact(nc +ngama+1))*0.5) 
+ 55    continue
+ 50    continue
+
+       do 200 ith = 1,nangles
+       th = thmin + dth*(ith-1)
+       thrad = th*pi/180.
+       cthna = cos(thrad)
+!       call PLM(cthna,NJ,MJ,NAMT,PL)
+       call PLM(cthna,NJ,MJ,NAMT)
+       sum2 = 0.d0
+       do 250 nc = 0, 2*jnnp
+!      do 250 nc=0,0
+       nct = 2*nc + 1
+       do 255 l = 1, nct
+       ngama = - nc + (l-1)
+       faux = exp((fact(nc-ngama+1) -fact(nc +ngama+1))*0.5)  
+       faux = faux  * (-1)**ngama 
+       alg2 = cleb6(jnnp+z, z, jnnp+z, z, nc+z, z)
+       if (ngama.lt.0) then
+       ngamapl = - ngama
+       plaux = PL(nc+1,ngamapl+1)*(-1)**ngamapl
+       plaux = plaux*exp((fact(nc-ngamapl+1)-fact(nc +ngamapl+1)))
+       else
+       plaux = PL(nc+1,ngama+1)
+       endif
+       sum2 = sum2 + alg2*aux(nc,ngama)*faux*plaux
+ 255   continue
+ 250   continue
+       pleg(ith) = sum2
+ 200   continue
+
+       do 400 ith = 1,nangles
+       th = thmin + dth*(ith-1)
+       thrad = th*pi/180.
+       cthna = cos(thrad)
+!       call PLM(cthna,NJ,MJ,NAMT,PL)
+        call PLM(cthna,NJ,MJ,NAMT)
+       do 450 nc = 0, 2*jnnp
+!      do 450 nc=0,0
+       nct = 2*nc + 1
+       do 455 l = 1, nct
+       ngama = - nc + (l-1)
+       if (ngama.lt.0) then
+       ngamapl = - ngama
+       plaux = PL(nc+1,ngamapl+1)*(-1)**ngamapl
+       else
+       plaux = PL(nc+1,ngama+1)
+       endif
+!      write(10,*)'plaux=', nc,ngama,plaux
+ 455   continue
+ 450   continue
+ 400   continue
+       deallocate(aux)
+       return
+       end
+
+
+
+
+       subroutine statescb(jnnp,lxp,lyp)
+c************************************************************************
+c      This subroutine verifies if a particular Jnn+ state will
+c      contribute to the scattering. Presently up to eight states
+
+       use scattering
+       implicit real*8(a-h,o-z)
+       integer parityf, parin
+
+       parityf = (-1)**(lxp+lyp)
+       jnncb = 1
+       eps = 0.1
+c      go to 60
+       write(*,*)'states',jnnp, parityf
+       do 50 j=1,nustates
+       parin = (-1)**(1+partyin(j))      
+       aux1 = abs(Jnnp-Jnnpin(j))
+       aux2 = abs(parityf - parin)
+       write(*,*)'states (j)',Jnnpin(j),parin
+       if(aux1.lt.eps.and.aux2.lt.eps)then
+       jnncb=istatcb(j)
+       write(*,*) 'jnncb=',jnncb
+       go to 60
+       endif
+ 50    continue
+c 60    write(*,*)'jnncb=',jnncb
+ 60    continue
+       return
+       end
+       
+
+
+
+
+       subroutine tncore(elab,type)
+****************************************************************************
+       use wfns
+       use scattering
+       use tatheta
+       use constants
+       
+       implicit real*8(a-h,o-z)
+       integer::type
+       real*8,allocatable::qcore(:)
+       real*8 :: e14
+       complex*16 ::wxxi
+       complex*16 ::tncchk
+       logical::ifmst=.true.
+       
+       zz = cmplx(0.d0,1.d0)
+       nang=nangles
+c **** calculates tNA (**SCATTERING AMPLITUDES**) from MST - U on-shell
+c ***  ( calls MSOamp program )
+c *** or reading S-matrix externally
+
+      write(*,*)'Cluster type=',type
+      select case(type)
+c--------------------------------------------------------------
+         case(0) !T-matrix calculated by lptps subroutine
+c--------------------------------------------------------------      
+       write(*,*)' - Calling MSO with e14=',elab
+       call lptps(elab,ifmst)
+       allocate(qcore(noangs))
+       do 100 i=1,noangs      
+!       read(80,*)theta(i),tncre,tncimag
+!       tnct(i) = tncre+zz*tncimag
+       tncre=real(tnct(i))
+       tncimag=dimag(tnct(i))
+       x = cos(theta(i)*pi/180.)
+       qcore(i) = kcore*sqrt(2 - 2*x)
+      
+       write(85,'(1i3,5g14.6)')i,qcore(i),tncre,tncimag !,tnct
+       call flush(85)
+ 100   continue
+       write(85,*)'-------------------------------------'
+       
+c **** interpolates to obtain the tmatrix on the **q** grid for MST - T
+       allocate(ssctna(mdelta))
+       do 200 iqrr = 1, mdelta
+       qrr = radxisd(iqrr)
+       ssctna(iqrr) = wxxi(qrr,qcore,tnct,noangs,noangs)
+       write(85,*)qrr, dreal(ssctna(iqrr)), dimag(ssctna(iqrr))
+ 200   continue
+       call flush(85)
+
+c **** interpolates to obtain the tmatrix on the **th** grid for MST - T
+       allocate(tnath(nangles),stat=istat)
+       if (istat>0) then
+          write(*,*) '!!!!!Allocating TNATH failed!.Aborting';stop
+       endif
+       do 300  ith = 1,nangles
+       th = thmin + dth*(ith-1)
+       thrad = th*pi/180.
+       cthna = cos(thrad)
+!!!       qq = sqrt(2*k0*k0*(1-cthna)) !!!WRONG??????????
+     
+       qq = sqrt(2*kcore*kcore*(1-cthna))
+101    format(7f12.6)
+       tnath(ith) = wxxi(qq,qcore,tnct,noangs,noangs)
+ 300   continue
+
+c------------------------------------------------------------
+       case default !T-matrix from S-matrix read externally
+c------------------------------------------------------------
+       ns=type
+       write(*,*)'!!!!!!!!!!!nangles=',nangles
+       if (allocated(tnath)) deallocate(tnath)
+       allocate(tnath(nangles),stat=istat)
+       call readsmat(ns,nangles,tnath)
+
+!       case default
+!          write(*,*)'ERROR: ttype',type,'not used. Aborting'
+!          stop
+       end select 
+
+c ***
+c ***  calculates cross section for the core as a check      
+       do 400 ith = 1,nangles
+       th = thmin + dth*(ith-1)
+       thrad = th*pi/180.
+       cthna = cos(thrad)
+       qq = sqrt(2*kcore*kcore*(1-cthna))
+       if (type.eq.0) then
+          tncchk = wxxi(qq,qcore,tnct,noangs,noangs)
+       else
+          tncchk = tnath(ith)
+       endif
+       xscore = tncchk * conjg(tncchk)*10
+       write(75,'(f8.5,2e12.3)')th,xscore
+ 400   continue
+       call flush(75)
+       return
+       end
+
+!===============================================================
+c ***  Calculates TNN tensor amplitudes by calling NNAMP program
+!===============================================================
+       subroutine tntensor(tcm,type)
+         use amps
+         use parameters
+         use wfns
+         use scattering
+         use nnamps
+         use j2
+         use constants
+          implicit real*8(a-h,o-z) 
+         logical:: ifmst=.true.
+         integer::ifkq=1,type
+         real*8::tcm
+         real*8:: ms1, ms1p,sqmax,bqmax
+         real*8,allocatable::th(:)!,xq(:)
+         real*8,pointer::xq(:)
+         complex*16,pointer:: tnaux(:)
+         complex*16,allocatable,target::mf(:,:,:,:,:)
+         complex*16 ::aux, taux, auxp,wxxi
+         dimension sred(0:1)!,th(nthin),xq(nthin),sred(0:1)
+         complex*16,allocatable::tabkq(:,:,:,:,:)
+        
+         hat(i) = sqrt(real(2*I+1))
+         namelist /amp/ ifkq,xkmax,xqmax,dk,dq,theta,nth,itype,icase
+         zz = cmplx(0.d0,1.d0)
+         sred(0) = 1.
+         sred(1) = sqrt(3.)
+         itkqopt = 1.
+         s1 = 0.5
+
+c We need to know nangles for allocatable variables
+         close(10) 
+         open(10,file='nnamp.in',status='old')         
+         read(10,nml=amp)
+         nthin=nth
+         close(10)
+         
+         write(99,*)'Allocating tabkq',isnx,isnx,1,ikqx,ikqx,nangles
+         
+         allocate(tabkq(0:isnx,0:isnx,0:ikqx,-ikqx:ikqx,nangles),
+     &           stat=istat)
+         if(istat>0) then 
+            write(*,*) 'Could not allocate memory for tabkq';stop
+         end if
+         allocate(tnnu(0:isnx,-isnx:isnx,0:1,0:1,nangles))
+         allocate(tauvv(nangles,0:mllmx,-mllmx:mllmx,0:isnx,0:isnx))  
+         allocate(tauvc(nangles,0:isnx,-isnx:isnx))
+
+         if (allocated(mf))deallocate(mf)
+         allocate(mf(0:isnx,0:isnx,0:ikqx,-ikqx:ikqx,nthin))  
+         mf=0 !initialize
+         write(99,*)'+ Allocating th,xq with',nthin,' angles'
+         allocate(th(nthin))
+!         allocate(xq(nthin))
+!         allocate(tnaux2(nthin))
+
+         if (tcm<1.e-5) then
+            write(*,*) '**ERROR*** Energy not specified!. Aborting'
+            stop
+         endif
+         write(*,fmt='(" - Calling ampnn with tcm=",f8.4)')tcm
+        
+
+c Type of S-matrix
+c type=0: calculate NN T-matrix calling ampnn
+c type>0: Reads S-matrix from unit type
+         select case(type)
+         case(0)
+         
+         sqmax=sqrt(2d0*k0*k0*(1d0-cos(nangles*pi/180)))
+         bqmax=k0
+         write(99,*)'-> tntensor: Entering ampnn'
+         call flush(99)
+         call ampnn(tcm,ifmst,sqmax,bqmax,ifkq)
+         write(99,*)'<- tntensor: Exiting ampnn'
+          call flush(99)
+         
+         xq=>xxq
+         
+
+         mfon(0,0,:,0,0,:)=mfon(0,0,:,0,0,:)*k0000
+         mfon(1,1,:,0,0,:)=mfon(1,1,:,0,0,:)*k1100
+         mfon(1,1,:,0,0,:)=mfon(1,1,:,0,0,:)*k1100
+         mfon(0,1,:,1,1,:)=mfon(0,1,:,1,1,:)*k0111
+         mfon(1,1,:,2,0,:)=mfon(1,1,:,2,0,:)*k1120
+         mfon(1,1,:,2,1,:)=mfon(1,1,:,2,1,:)*k1121
+         mfon(1,1,:,2,2,:)=mfon(1,1,:,2,2,:)*k1122
+
+         mfon(1,0,0,1,1,:) = mfon(0,1,0,1,1,:)
+         mfon(1,0,1,1,1,:) = mfon(0,1,1,1,1,:)
+
+
+         if (zp.eq.z2) then
+            mf=mfon(:,:,1,:,:,:) ! pp / nn
+            write(99,*)'-Tntensor for pp/nn'
+         else 
+            mf=(mfon(:,:,0,:,:,:)+mfon(:,:,1,:,:,:))/2. !pn
+            write(99,*)'-Tntensor for pn'
+         endif
+        
+         if (allocated(mfon)) then 
+            write(99,*)' - Deallocating mfon'
+            deallocate(mfon)
+         else
+            write(*,*)' ERROR (tntensor): mfon not allocated!'
+            stop
+         endif
+         call flush (99)
+         
+c Read S-matrix externally
+         case default !read nucleon-nucleus S-matrix
+         if (allocated(tnath)) deallocate(tnath)
+         allocate(tnath(nangles),stat=istat)
+         call readsmat(type,nangles,tmat)
+         end select
+         
+
+         
+         
+c--------------------------------------------------
+c **** interpolates to obtain the tmatrix on the required theta grid for MST 
+
+       do 191 iaj=0,isnx
+       do 191 ibj=0,isnx
+       do 191 ikj=abs(iaj-ibj),iaj+ibj 
+       do 191 iqj=0,ikj
+       if(iaj.eq.1.and.ibj.eq.1.and.ikj.eq.1)go to 191
+       ikq = ikj + iqj
+       if(ikq.eq.1)go to 191
+
+       tnaux=>mf(iaj,ibj,ikj,iqj,:)
+
+       do 200 iqrr = 1, nangles
+        thet = thmin + dth*(iqrr-1)
+        thrad = thet*pi/180.
+        cthna = cos(thrad)
+        qrr = sqrt(2*k0*k0*(1-cthna))
+        tabkq(iaj,ibj,ikj,iqj,iqrr)=wxxi(qrr,xq,tnaux,nthin,nthin)
+ 200   continue
+!        nullify(tnaux)
+ 191   continue
+
+
+       do 250 ibj = 0,isnx
+       do 250 ibjp = -ibj,ibj
+       do 280 i = 0,1
+       ms1 = - 0.5 + i
+       do 280 j = 0,1
+       ms1p = - 0.5 + j
+         do 300 iqrr = 1, nangles
+          aux = (0.d0,0.d0)
+          do 350 iaj=0,isnx
+          do 350 iajp = -iaj,iaj
+          do 350 ikj=abs(iaj-ibj),iaj+ibj 
+          do 350 iqj=-ikj,ikj
+          taux = tabkq(iaj,ibj,ikj,iqj,iqrr)
+          if (iqj.lt.0) taux = 
+     *    tabkq(iaj,ibj,ikj,-iqj,iqrr)*(-1)**(ikj-iqj)  
+          aux = aux + (-1)**iqj * sqrt(2*s2+1)/hat(ibj)*sred(iaj)
+     *    *cleb6(s1+zz,ms1+zz,iaj+zz,iajp+zz,s1+zz,ms1p+zz)*sred(ibj)
+     *    *cleb6(iaj+zz,iajp+zz,ibj+zz,ibjp+zz,ikj+zz,-iqj+zz)*taux    
+ 350   continue
+       
+       tnnu(ibj,ibjp,i,j,iqrr) = aux  
+ !      if (abs(aux)>1e-10) write(*,*) ibj,ibjp,i,j,iqrr,
+ !    %   tnnu(ibj,ibjp,i,j,iqrr)
+ 300   continue
+ 280   continue
+ 250   continue
+
+c***   Calculates the tensors to be used in the valence-valence and
+c***   valence-core contributions
+
+       do 390 iqrr = 1, nangles 
+       do 400 if = 0,mllmx
+       do 400 ifp = -if,if
+       do 400 ib1j = 0,isnx
+       do 400 ib2j = 0,isnx
+       tauvv(iqrr,if,ifp,ib1j,ib2j) = (0.d0,0.d0)
+       do 400 ib1jp = -ib1j,ib1j
+       do 400 ib2jp = -ib2j,ib2j
+       do 400 i = 0,1
+       ms1 = - 0.5 + i
+       do 400 j = 0,1
+       ms1p = - 0.5 + j
+       auxp = tnnu(ib2j,ib2jp,i,j,iqrr)
+       tauvv(iqrr,if,ifp,ib1j,ib2j) = tauvv(iqrr,if,ifp,ib1j,ib2j)
+     *     + (-1)**(ifp+ib1jp) * tnnu(ib1j,ib1jp,i,j,iqrr) 
+     *     * conjg(auxp)/(2*s1+1)
+     *     * cleb6(ib1j+zz,ib1jp+zz,ib2j+zz,-ib2jp+zz,if+zz,ifp+zz)
+ 400   continue
+
+       do 450 ib1j = 0,isnx
+       do 450 ib1jp = -ib1j,ib1j
+       tauvc(iqrr,ib1j,ib1jp)  = (0.d0, 0.d0)
+       do 450 i = 0,1
+       ms1 = - 0.5 + i
+       do 450 j = 0,1
+       ms1p = - 0.5 + j
+       tauvc(iqrr,ib1j,ib1jp) = tauvc(iqrr,ib1j,ib1jp) 
+     *              +  tnnu(ib1j,ib1jp,i,j,iqrr)/(2*s1+1)
+ 450   continue
+ 390   continue
+
+       do 500 iqrr = 1, nangles 
+       qrr = radxisd(iqrr) 
+       write(93,777)qrr,tauvv(iqrr,0,0,1,1) 
+       write(94,777)qrr,tauvv(iqrr,1,0,1,1),tauvv(iqrr,1,-1,1,1)
+       write(95,777)qrr,tauvc(iqrr,0,0), tauvc(iqrr,1,0)
+ 500   continue
+ 777   format(f7.3,4e12.4)
+
+ 1023  format('  ',f5.1,f8.4,4e14.6)
+         return
+       end subroutine tntensor
+         
+
+
+
+      subroutine shakeoff()
+*********************************************************************
+c     Calculates the inelstic cross section using the shakeoff
+c     mechanism
+
+       use wfns
+       use scattering
+       implicit real*8(a-h,o-z)
+       complex*16 tnct(181)
+       complex*16 wxxi
+       complex*16 tncchk
+       dimension theta(181),qcore(181)
+
+       zz = cmplx(0.d0,1.d0)
+
+       rewind 80
+c **** reads tNA (**SCATTERING AMPLITUDES**) from MST - U on-shell
+       read(80,*) noangs,kcore
+       do 100 i=1,noangs      
+       read(80,*)theta(i),tncre,tncimag
+       tnct(i) = tncre+zz*tncimag
+       x = cos(theta(i)*pi/180.)
+       qcore(i) = kcore*sqrt(2 - 2*x)
+ 100   continue
+       
+
+c **** interpolates to obtain the tmatrix on the **th** grid for MST - T
+       do 300  ith = 1,nangles
+       th = thmin + dth*(ith-1)
+       thrad = th*pi/180.
+       cthna = cos(thrad)
+       qq = sqrt(2*k0*k0*(1-cthna))
+       tnath(ith) = wxxi(qq,qcore,tnct,181,noangs)
+ 300   continue
+
+
+c ***  calculates cross section 
+
+       do 400 ith = 1,nangles
+       th = thmin + dth*(ith-1)
+       thrad = th*pi/180.
+       cthna = cos(thrad)
+       qq = sqrt(2*kcore*kcore*(1-cthna))
+       tncchk = wxxi(qq,qcore,tnct,181,noangs)
+       aux = 1 - ffcth(ith,0,0)**2
+       xsoff = tncchk * conjg(tncchk)*10*aux
+       write(73,*)th,xsoff, xsoff*0.5
+ 400   continue
+ 
+
+       return
+       end
+
+
+
+
+      subroutine xsecinel()
+c****************************************************************************
+c     This subroutine evaluates the single scattering inelastic cross section
+c*****************************************************************************
+       use parameters
+       use wfns
+       use scattering
+       use trdens
+       use nnamps
+       use constants
+!       implicit real*8(a-h,o-z)
+       implicit none
+       integer:: i,ic,if,im,ib,mif,mib,jnnp,ith,id,ibp,icp,in
+       integer :: llif,jnn
+       real*8 :: th,racah2,cleb6,factnn,factnc,factna,hat2
+       complex*16 wxxi
+       complex*16 aux,auxp
+
+!!$       complex*16 fstcore(mrho,0:mll,0:inel)
+!!$       complex*16 fstval(mrho,0:mll,0:mll,0:mll,0:inel)
+!!$       complex*16 fstcth(mthmx,0:mll,0:inel)
+!!$       complex*16 fstvth(mthmx,0:mll,0:mll,0:mll,0:inel)
+!!$       complex*16 fstxth(mthmx,0:mll,0:mll,0:mll,0:inel)
+
+!       complex*16 testval(200),testcore(200),testvc1(200)
+!       complex*16 testvc2(200)
+!       real*8   xscore(mthmx),xsval(mthmx),xsx(mthmx),xstot(mthmx)
+!       dimension  xscoreth(500),xsvalth(500) 
+
+       complex*16::doublex1,doublex2
+
+!       dimension cgeomc(0:mllmx,0:mll),
+!     *          cgeomv(0:mllmx,0:2,0:isnx,0:2,0:2,0:isnx),
+!     *           cgeomx(0:2,0:isnx,0:2)
+
+       complex*16,allocatable::fstcore(:,:,:),fstval(:,:,:,:,:)
+       complex*16,allocatable::fstcth(:,:,:),fstvth(:,:,:,:,:)!not used??
+       complex*16,allocatable::fstxth(:,:,:,:,:)
+       complex*16,allocatable::testval(:),testcore(:)
+       complex*16,allocatable::testvc1(:),testvc2(:)
+       real*8, allocatable::cgeomc(:,:)
+       real*8, allocatable::cgeomv(:,:,:,:,:,:),cgeomx(:,:,:)
+       real*8,allocatable::xscore(:),xsval(:),xsx(:),xstot(:)
+       hat2(i)=(2*i+1)
+       
+       allocate(fstcore(nangles,0:mll,0:nwf-1))
+       allocate(fstval(nangles,0:mll,0:mll,0:mll,0:nwf-1))
+       allocate(fstxth(nangles,0:mll,0:isnx,0:mll,0:nwf-1))
+       allocate(xscore(nangles))
+       allocate(xsval(nangles))
+       allocate(xsx(nangles))
+       allocate(xstot(nangles))
+       allocate(testval(nangles),testcore(nangles))
+       allocate(testvc1(nangles),testvc2(nangles))
+       
+       allocate (cgeomc(0:mllmx,0:mll))
+       allocate (cgeomv(0:mllmx,0:mll,0:isnx,0:dmax,0:mll,0:isnx))
+       allocate (cgeomx(0:mll,0:isnx,0:dmax))
+       
+       if ((hbarc<1e-10).or.(pi<1e-10)) then
+          write(*,*)'xsecinel: hbarc=0 or pi=0!'
+          stop
+       end if
+       factnn = -hbarc*hbarc/2/pi/pi/mn
+       factnc = -hbarc*hbarc*(m4+1)/4/pi/pi/mn/(m4*1.)
+       factna = -hbarc*hbarc*(m234+1)/4/pi/pi/mn/(m234)
+       jnn = TNQ(5,na(1),1)
+
+
+c ***  calculates the geometric coeficients: cgeomc(if,ic),
+c ***  cgeomv(if,ic,ib,id,ic',ib'), cgeomx(ic,ib,id)           
+       do 20 ic=0,mll
+       do 20 if=0,mllmx
+       cgeomc(if,ic) = 0.
+           do 25 im = -ic,ic
+	   cgeomc(if,ic) = cgeomc(if,ic) + 
+     *         cleb6(ic+zz,zz,ic+zz,zz,if+zz,zz) 
+     *         *(-1)**im * cleb6(ic+zz,-im+zz,ic+zz,im+zz,if+zz,zz)
+ 25        continue
+       do 30 ib=0,isnx
+       do 30 id=0,dmax
+       cgeomx(ic,ib,id)=(-1)**id *cleb6(ic+zz,zz,id+zz,zz,ib+zz,zz)
+     *                  *hat2(ic)/sqrt(hat2(ib)*hat2(id))
+       do 30 ibp=0,isnx
+       do 30 icp=0,mll
+       cgeomv(if,ic,ib,id,icp,ibp) = (-1)**(ibp+ic-if) 
+     *         * (-1)**( 2*(-ic+icp+id) ) 
+     *         * hat2(ic)/hat2(id) * sqrt(hat2(ic)*hat2(icp))
+     *         *cleb6(ic+zz,zz,icp+zz,zz,if+zz,zz)
+     *         *racah2(ib+zz,id+zz,if+zz,icp+zz,ic+zz,ibp+zz)        
+ 30    continue
+ 20    continue        
+
+      
+
+c ***  calls the wigner rotation function
+       call drotat() 
+
+     
+
+c ***  Calculates the cross section contributions in th space
+
+       do 40 ith = 1,nangles
+       th = thmin + dth*(ith-1)
+c ***  Calculates the cross section contribution: *core-core*,
+       xscore(ith) = 0.d0 
+       xsval(ith) = 0.d0 
+       testval(ith) = (0.d0,0d0)
+       xsx(ith) = 0.d0
+       testvc1(ith) = (0.d0,0.d0) 
+       testvc2(ith) = (0.d0,0.d0)
+c ***  loop over excited states 
+       do 50 in=1,NWF-1
+       doublec(ith,in) = 0.d0
+       doublev(ith,in) = 0.d0
+       doublex(ith,in) = 0.d0
+       jnnp = TNQ(5,na(in+1),in+1)         
+c ***  loop over quantum numbers
+       xscin(ith,in) = 0.d0
+
+
+      
+!       write(60,*) ith,in
+       
+       
+       do 60 ic=0,mll
+       fstcore(ith,ic,in) = 
+     *          tnath(ith)*ffcth(ith,ic,in)*factnc/factna
+!      write(60,*) fstcore(ith,ic,in)
+      write(60,*) ffcth(ith,ic,in)
+!        if (abs(fstcore(ith,ic,in))>1.e-10)
+!     &   write(60,'(1i4, 4g14.6,2i4)')  ith,tnath(ith),
+!     & ffcth(ith,ic,in),ic,in
+
+     
+        
+           
+       do 60 if=0,mllmx
+       llif = 0
+!       write(60,*) fstcore(ith,ic,in)
+       xscore(ith) = xscore(ith) +  dtheta(ith,if,llif)*cgeomc(if,ic)*
+     *    fstcore(ith,ic,in)*conjg(fstcore(ith,ic,in))*10.     
+
+       testcore(ith) = testcore(ith) + dtheta(ith,if,llif)*cgeomc(if,ic)
+     *    *fstcore(ith,ic,in)*conjg(fstcore(ith,ic,in))*10.
+       
+       xscin(ith,in)=xscin(ith,in) + dtheta(ith,if,llif)*cgeomc(if,ic)*
+     *    fstcore(ith,ic,in)*conjg(fstcore(ith,ic,in))*10.
+
+       doublec(ith,in)=doublec(ith,in)+dtheta(ith,if,llif)
+     *    * cgeomc(if,ic) *
+     *    fstcore(ith,ic,in)*conjg(fstcore(ith,ic,in))*10.
+ 60    continue
+c 50    continue
+
+        
+
+c ***  Calculates the cross section contribution: *valence-valence*,
+c       xsval(ith) = 0.d0 
+c       testval(ith) = (0.d0,0d0)
+c ***  loop over excited states 
+c      do 150 in=1,NWF-1
+       jnnp = TNQ(5,na(in+1),in+1)
+c ***  loop over quantum numbers
+       do 160 ic=0,mll
+       do 160 ib=0,isnx
+       do 160 id=0,dmax
+       do 160 if=0,mllmx
+       do 160 icp=0,mll
+       do 160 ibp=0,isnx 
+       do 160 mif =-if,if
+        aux = conjg(ffvth(ith,icp,ibp,id,in))
+     *        *cgeomv(if,ic,ib,id,icp,ibp)   
+        testval(ith) =  testval(ith) + aux*ffvth(ith,ic,ib,id,in)
+     *      *dtheta(ith,if,mif) * tauvv(ith,if,mif,ib,ibp)
+     *       *10.*2*(factnn/factna)**2
+        xsval(ith) = real( testval(ith) )
+        doublev(ith,in) = doublev(ith,in)+aux*ffvth(ith,ic,ib,id,in)
+     *      *dtheta(ith,if,mif) * tauvv(ith,if,mif,ib,ibp)
+     *       *10.*2*(factnn/factna)**2
+ 160   continue
+c 150   continue
+
+c ***  Calculates the cross section contribution: valence-core,
+c       xsx(ith) = 0.d0
+c       testvc1(ith) = (0.d0,0.d0) 
+c       testvc2(ith) = (0.d0,0.d0)
+       doublex1 = (0.d0,0.d0)
+       doublex2 = (0.d0,0.d0)
+c ***  loop over excited states 
+c       do 250 in=1,NWF-1
+       jnnp = TNQ(5,na(in+1),in+1)
+c ***  loop over quantum numbers
+       do 260 ib=0,isnx
+        aux = (0.d0,0.d0)      
+        do 265 mib = -ib,ib    
+        aux = aux + tauvc(ith,ib,mib)*
+     *        dtheta(ith,ib,mib)
+ 265   continue  
+       
+
+       do 260 ic=0,mll
+       do 260 id=0,dmax
+       fstxth(ith,ic,ib,id,in) = 
+     *  conjg(tnath(ith)*ffcth(ith,id,in))*
+     *  ffvth(ith,ic,ib,id,in)*factnc/factna*cgeomx(ic,ib,id)
+
+        testvc1(ith) =  testvc1(ith) +
+     *     fstxth(ith,ic,ib,id,in)*aux*10.
+     *     * 2*factnn/factna
+        testvc2(ith) =  testvc2(ith) + conjg(
+     *     fstxth(ith,ic,ib,id,in)*aux*10.
+     *     * 2*factnn/factna)
+!        xsx(ith) = real(  testvc1(ith) +  testvc2(ith)   )
+       doublex1 = doublex1 +  
+     *     fstxth(ith,ic,ib,id,in)*aux*10.
+     *     * 2*factnn/factna
+       doublex2 = doublex2 +  
+     *     conjg(fstxth(ith,ic,ib,id,in)*aux*10.
+     *     * 2*factnn/factna)
+ 260   continue
+!       doublex(ith,in) = real (doublex1 + doublex2)
+        doublex(ith,in) = doublex1*conjg(doublex1)
+c 250   continue
+        doublet(ith,in)= doublec(ith,in)+doublev(ith,in)
+     *   +       doublex(ith,in)
+ 50     continue
+        xsx(ith) =  testvc1(ith) + conjg(testvc1(ith)) 
+ !       xstot(ith) = xscore(ith)+ xsval(ith)+xsx(ith)
+ !       write(70,777)th,xstot(ith),xscore(ith)  
+ 40    continue
+
+        
+
+       do 300 ith = 1,nangles
+       th = thmin + dth*(ith-1)
+       xstot(ith) = 0.d0
+       xscore(ith) = 0.d0
+       do 350 in=1,NWF-1
+       xstot(ith) = xstot(ith) +  doublec(ith,in)+doublev(ith,in)
+     *   +       doublex(ith,in)
+       xscore(ith) = xscore(ith) +  doublec(ith,in)
+ 350   continue
+       write(70,777)th,xstot(ith),xscore(ith) 
+ 300   continue    
+
+
+ 555   format(i5, 10e12.3)
+ 777   format(f8.5,2e12.3)
+ 999   format(f8.5,5e12.3)
+       return
+       end
+
+
+       subroutine xsection(inelcb)
+c************************************************************************
+c      old subroutine adds final states incoherently
+       use wfns
+       use scattering
+       use bfst
+       use lfac
+
+      implicit real*8(a-h,o-z)
+       complex*16 tmat1,snd
+       complex*16 cx1q(150), cx2q(150)
+       complex*16 wxxi
+!       real*8 pleg(500)
+!       common/bfst/fst(0:mll,200)
+      
+       nangles = (thmax-thmin)/dth + 1
+!       call  ptheta(inelcb,pleg) 
+        call  ptheta(inelcb) 
+       do 100 iqrr = 1, mdelta
+       qrr = radxisd(iqrr)
+       qdelta(iqrr) = qrr
+       tcore(iqrr) = (0.d0,0.d0)
+       tvalence(iqrr) = (0.d0,0.d0)
+       snd = tcore(iqrr) + tvalence(iqrr)
+       if (ival.eq.1)  snd = tcore(iqrr)
+       xsect1 = fst(1,iqrr) * conjg(fst(1,iqrr)) * 10.
+       cx1q(iqrr) = xsect1
+       write(9,*)'old cx1q', cx1q(iqrr),fst(1,iqrr)
+       xsect2 = (fst(1,iqrr)+snd) * conjg(fst(1,iqrr)+snd) * 10.
+       cx2q(iqrr) = xsect2
+ 100   continue
+
+       do 150 ith = 1,nangles
+       th = thmin + dth*(ith-1)
+       thrad = th*pi/180.
+       cthna = cos(thrad)
+       qq = sqrt(2*k0*k0*(1-cthna))
+       xsect1 = wxxi(qq,qdelta,cx1q,200,mdelta)
+       xsect2 = wxxi(qq,qdelta,cx2q,200,mdelta)
+       xsect1 = pleg(ith)*xsect1
+       write(9,*)th,xsect1
+ 150   continue
+       return
+       end
+
+
+
+       subroutine sigex()
+******************************************************************************
+*     This subroutine calculates the integrated differential cross section for
+*      all the excited states from the core contribution.
+*******************************************************************************
+       use parameters
+       use wfns
+       use scattering
+       use trdens
+       use constants
+       implicit real*8(a-h,o-z)
+       real*8,allocatable:: bs(:) !(mthmx)
+       real*8,allocatable:: xsecex(:)
+
+       
+       write(99,*)' - In sigex:'
+       write(99,fmt='("+ Allocating",i4," angles for bs")'),nangles
+       allocate(bs(nangles))
+       allocate(xsecex(nwf))
+
+ 
+        dthrad = dth*pi/180.
+        icount = 0.
+        do 20 in=NWF-1,1,-1
+        icount = icount + 1
+        sum = 0.d0
+        do 40 ith = 1,nangles
+        th = thmin + dth*(ith-1)
+        thrad = th*pi/180.
+        sinth = sin(thrad)
+c       bs(ith) =  xscin(ith,in)*sinth
+        bs(ith) =  doublet(ith,in)*sinth
+        sum = sum + bs(ith)
+ 40     continue
+        call sim(bs,res,1,nangles,dthrad,mthmx)
+        xsecex(in) = res * 2 * pi
+        call sim(bs,res2,46,90,dthrad,mthmx)
+        xs2pth = res2 * 2 * pi
+        write(96,*) ens(in), xsecex(in),xs2pth
+c        write(96,*) ens(icount), xsecex(in),xs2pth
+ 20     continue
+
+c **    Write double cross section 
+        write(65,*)thmin,thmax,dth
+        write(65,*)NWF-1
+!        write(98,fmt='("#Double: 4i4)')thmin,thmax,dth,NWF-1
+        do 60 ith = 1,nangles
+        do 60 in=NWF-1,1,-1
+c       write(65,*)xscin(ith,in)
+        write(65,*)ens(in),doublet(ith,in)
+        th = thmin + dth*(ith-1)
+        write(66,*)ens(in),th,doublet(ith,in)
+ 60     continue
+
+!       write(98,*)'#differential cross section'
+        do 75 ith = 1,nangles
+        th = thmin + dth*(ith-1)
+        auxth = 0.d0
+        do 70 in=NWF-1,1,-1
+        auxth = auxth + doublet(ith,in)
+ 70     continue
+!        write(98,*)th,auxth
+ 75     continue
+        deallocate(xsecex)
+        return
+        end
+
+
+
+
+
+

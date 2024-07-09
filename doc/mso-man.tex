@@ -1,0 +1,542 @@
+%% LyX 1.1 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[12pt,english]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{babel}
+\usepackage{verbatim}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\providecommand{\LyX}{L\kern-.1667em\lower.25em\hbox{Y}\kern-.125emX\@}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+ \newcommand{\lyxaddress}[1]{
+   \par {\raggedright #1 
+   \vspace{1.4em}
+   \noindent\par}
+ }
+
+\makeatother
+\begin{document}
+
+\title{MSOamp: A computer code to evaluate the multiple scattering expansion
+of the optical potential for nucleon-nucleus scattering}
+
+
+\author{R. Crespo and A. M. Moro}
+
+\maketitle
+
+\lyxaddress{\centering Departamento de F\'isica, Instituto Superior T\'ecnico,
+1049-001 Lisboa, Portugal}
+
+Email: raquel@wotan.ist.utl.pt, moro@mary.ist.utl.pt
+
+\tableofcontents{}
+
+
+\section{Introduction}
+
+MSOamp is a computer code to evaluate the elastic scattering observables
+for proton-nucleus elastic scatering from an optical potential in
+the momentum space configuration. The optical potential is constructed
+as a multiple scattering expansion in terms of the free NN transition
+amplitude and the target densities\cite{Ker59,Wat53,Crespo92}. The
+free NN transition amplitude is calculated in the momentum space configuration
+from a realistic NN interaction such as Paris or Bonn \cite{Lacombe80,Machleidt87}. 
+
+The code is constructed in fortran 90. The inputs are given through
+a user friendly namelist.
+
+Details of the formalism and some applications can be found in \cite{Crespo02b}.
+
+
+\section{The formalism}
+
+
+\subsection{The Lippmann-Schwinger equation: method of solution}
+
+The Lippmann-Schwinger equation for the elastic scattering problem,
+for the potential U is \begin{equation}
+T'=U+UG_{0}T'
+\end{equation}
+with the Green's function \( G_{0}=(E-K_{0}+i\epsilon )^{-1} \)where
+\( K_{0} \) is the projectile kinetic energy operator. In order to
+solve this equation, we introduce the partial wave equation \begin{equation}
+|\vec{k}\rangle =\sqrt{\frac{2}{\pi }}\sum _{JLSM}i^{L}|k(LS)JM\rangle Y_{JL}^{M+}(\hat{k}),
+\end{equation}
+leading to \begin{equation}
+\label{eq:TL}
+T'_{L\pm }(k,k_{0})=U_{L\pm }(k,k_{0})+\frac{2}{\pi }\int ^{\infty }_{0}dpp^{2}U_{L\pm }(k,p)G_{0}(p)T'_{L\pm }(p,k_{0})
+\end{equation}
+where \( G_{0}(p) \) is the Gree's function in the momentum representation
+\begin{equation}
+G_{0}(p)=\frac{2\mu _{NA}}{\hbar ^{2}}\frac{1}{k^{2}_{0}-p^{2}+i\epsilon }
+\end{equation}
+ and  \( L_{\pm }=L\pm 1/2 \) denotes the eigenvalues of the total
+angular momentum J. It is more convenient to work with the principal
+value form of the Green's function, 
+
+\begin{equation}
+G_{0}(p)=G_{0}^{P}(p)-i\pi \frac{2\mu _{NA}}{\hbar ^{2}}\frac{\delta (k_{0}-p)}{k_{0}}
+\end{equation}
+where \( G_{0}^{P}(p) \) indicates the principal value. Substituting
+this eq into the partial wave expansion of the transition amplitude
+eq. (\ref{eq:TL}) we get\begin{equation}
+R_{L\pm }(k,k_{0})=U_{L\pm }(k,k_{0})+\frac{2}{\pi }\int ^{\infty }_{0}dpp^{2}U_{L\pm }(k,p)G^{p}_{0}(p)R_{L\pm }(p,k_{0})
+\end{equation}
+where the partial-wave R-matrix is related to the partial-wave T matrix
+by the Heitler equation\begin{equation}
+\label{eq:RL}
+R_{L\pm }(k,k_{0})=T'_{L\pm }(k,k_{0})\left[ 1-i\frac{2\mu _{NA}}{\hbar ^{2}}k_{0}T'_{L\pm }(k_{0},k_{0})\right] ^{-1}
+\end{equation}
+From this equation it follows immediately that the on-shell T-matrix
+\( T'_{L\pm }(k_{0},k_{0}) \) is given by\begin{equation}
+\label{eq:TL-RL}
+T'_{L\pm }(k_{0},k_{0})=\frac{R_{L\pm }(k_{0},k_{0})}{1+i\rho _{\epsilon }R_{L\pm }(k_{0},k_{0})}
+\end{equation}
+with \( \rho _{\epsilon }=2\mu _{NA}/\hbar ^{2} \). In the KMT multiple
+scattering formalism, the transition amplitude for elastic scattering,
+T, is related to the transition amplitude associated with the potential
+U, through the relation \( T=\frac{A}{A-1}T' \). Defining the normalized
+T-matrix and R-matrix according to \( \hat{T}_{L\pm }(k,k')=-\rho _{\epsilon }T_{L\pm }(k,k') \)
+and \( \hat{R}_{L\pm }(k,k')=-\rho _{\epsilon }R_{L\pm }(k,k') \)
+respectively we obtain \begin{equation}
+\hat{T}_{L\pm }(k_{0},k_{0})=\frac{\hat{R}_{L\pm }(k_{0},k_{0})}{1-i\rho _{\epsilon }\hat{R}_{L\pm }(k_{0},k_{0})}
+\end{equation}
+and thus from eq. (\ref{eq:RL}) and (\ref{eq:TL-RL}) the normalized
+half-off shell T matrix \( \hat{T}_{L\pm }(k,k_{0}) \), is given
+by\begin{equation}
+\hat{T}_{L\pm }(k,k_{0})=\hat{T}_{L\pm }(k,k_{0})\left[ \frac{A}{A-1}+i\hat{T}_{L\pm }(k,k_{0})\right] 
+\end{equation}
+These normalized on-shell transition matrix elements are related to
+the nuclear phase shifts according to\begin{equation}
+\hat{T}_{L\pm }(k_{0},k_{0})=\frac{\exp (2i\delta _{L\pm })-1}{2i}=\exp (i\delta _{L\pm })sin\delta _{L\pm }
+\end{equation}
+and the reflection coefficients are \( \eta _{L\pm }=|\exp (2i\delta _{L\pm })|=|2i\hat{T}_{L\pm }(k_{0},k_{0})+1| \).
+We shall omit, from now on, the partial wave labels in order to simplify
+the notation. 
+
+The numerical solution of the partial wave form of the LS equation,
+eq.(\ref{eq:TL}), involves the evaluation of the principal value
+of the integral together with a discretization and truncation of the
+range of the momentum variable p. We now briefly describe the method
+to solve the LS equation \cite{Landau82,Crespo92}.
+
+The principal value is calculated using the Haftel-Tabakin method
+. This consists of subtracting a smooth integrand whose contribution
+to the integral is zero, i.e.\begin{equation}
+\label{eq:R-Haftel-Tabakin}
+R(k,k_{0})=U(k,k_{0})+\frac{2}{\pi }\frac{2\mu _{NA}}{\hbar ^{2}}\int ^{\infty }_{0}dp\left[ \frac{p^{2}U(k,p)R(p,k_{0})-k^{2}_{0}U(k,k_{0})R(k_{0},k_{0})}{k^{2}_{0}-p^{2}}\right] 
+\end{equation}
+The discretization of the momentum integral is achieved by introducing
+N Gaussian quadrature points \( (k_{j};j=1,N) \) each weighted by
+\( w_{i} \). All N integration points, are required not to be equal
+to \( k_{0} \). The discretized version of the previous equation,
+eq.(\ref{eq:R-Haftel-Tabakin}) reduces to \begin{eqnarray*}
+R(k_{i},k_{0})= & U(k_{i},k_{0})+\frac{2}{\pi }\sum _{j=1}^{N}\frac{2\mu _{NA}}{\hbar ^{2}}w_{j}k_{j}^{2}\frac{U(k_{i},k_{j})R(k_{j},k_{0})}{k^{2}_{0}-k^{2}_{j}} & \nonumber \\
+ & -\frac{2}{\pi }\sum ^{N}_{j=1}\frac{2\mu _{NA}}{\hbar ^{2}}k^{2}_{0}\frac{w_{j}}{k^{2}_{0}-k^{2}_{j}}U(k_{i},k_{0})R(k_{0},k_{0}) & \nonumber 
+\end{eqnarray*}
+Calling \( k_{N+1}=k_{0} \), we obtain the following system of N+1
+equations:\begin{equation}
+\sum ^{N+1}_{j=1}F(k_{i},k_{j})R(k_{j},k_{m})=U(k_{i},k_{m})
+\end{equation}
+or simbolically \begin{equation}
+[F]_{(N+1)x(N+1)}[R]_{N+1}=[U]_{N+1}
+\end{equation}
+with\begin{equation}
+F(k_{i},k_{j})=\delta _{ij}+U(k_{i},k_{j})\hat{W}_{j}
+\end{equation}
+and\begin{equation}
+\hat{W}_{j}=\frac{2}{\pi }\frac{2\mu _{NA}}{\hbar ^{2}}k^{2}_{j}\frac{w_{j}}{k^{2}_{j}-k^{2}_{0}};j\leq N
+\end{equation}
+
+
+\begin{equation}
+\hat{W}_{j}=-\frac{2}{\pi }\frac{2\mu _{NA}}{\hbar ^{2}}k^{2}_{0}\sum ^{N}_{m=1}\frac{w_{m}}{k_{m}^{2}-k^{2}_{0}};j=N+1
+\end{equation}
+The coulomb interaction is included in an approximate way as described
+in \cite[and references therein]{Crespo90}
+
+
+\subsection{The optical potential}
+
+We assume that the target nucleus of number of mass A is well described
+by N clusters. Within the Multiple Scattering expansion of the Optical
+potential such as formalated by KMT\cite{Ker59,Crespo92}, the optical
+potential can be written as an expantion in terms of the free NN transition
+amplitude. Within the single scattering \( t\rho  \) approximation,
+the matrix elements of the potential are in the momentum space configuration:
+\begin{equation}
+\langle \vec{k}'|U|\vec{k}\rangle =\frac{A-1}{A}\sum \rho ^{i}_{p}(q)\bar{t}_{pp}(\omega ,q,Q/2,\phi )+\rho ^{i}_{n}\bar{t}_{nn}(\omega ,q,Q/2,\phi )
+\end{equation}
+where \( \rho ^{i}_{n} \)and \( \rho ^{i}_{p} \)are the nuclear
+matter density distributions for the protons and neutrons respectively
+for each cluster. Here, \( \bar{t}_{pp} \) and \( \bar{t}_{nn} \)
+are the spin averaged proton-proton and neutron-neutron respectively
+amplitudes evaluated at the appropriate energy \( \omega  \), \( \phi  \)
+is the angle between the vectors \( \vec{Q}=(\vec{k}'+\vec{k})/2 \)
+and \( \vec{q}=(\vec{k}'-\vec{k}) \) . In this eq. other spin components
+of the NN transition amplitude for the case of proton elastic scattering
+from non zero spin targets are not included. In this case, the potential
+can only have a central and a spin-orbit term\begin{equation}
+\langle \vec{k}'|U|\vec{k}\rangle =\langle \vec{k}'|U^{c}|\vec{k}\rangle +i\vec{\sigma }\cdot \vec{n}\langle \vec{k}'|U^{ls}|\vec{k}\rangle 
+\end{equation}
+with \( \sigma  \) the spin operator for the projectile and \( \vec{n}=\vec{\kappa }\times \vec{\kappa }' \).
+According to the last paragraph we need to know the partial wave decomposition
+of this potential \( U_{LJ}(k',k) \). It follows that, this can be
+written as:\begin{equation}
+\label{eq:ULJ}
+U_{LJ}(k',k)=U_{L}^{c}(k',k)+C_{LJ}U_{L}^{ls}(k',k)
+\end{equation}
+with the partial wave for the central component given by \begin{equation}
+U_{L}^{c}(k',k)=\pi ^{2}\int ^{+1}_{-1}d(cos\theta _{kk'})P_{L}(cos\theta _{kk'})U^{c}(\vec{k}',\vec{k})
+\end{equation}
+and for the spin-orbit \begin{equation}
+U_{L}^{ls}(k',k)=\frac{\pi ^{2}}{L(L+1)}\int ^{+1}_{-1}d(cos\theta _{kk'})sin^{2}\theta _{kk'}P^{1}_{L}(cos\theta _{kk'})U^{ls}(\vec{k}',\vec{k})
+\end{equation}
+The geometric coefficients in eq.(\ref{eq:ULJ}) are the matrix elements
+of the spin-orbit operator\begin{equation}
+C_{LJ}=\langle JL|\vec{L}\cdot \vec{\sigma }|JL\rangle =J(J+1)-L(L+1)-3/4
+\end{equation}
+
+
+
+\section{About the code}
+
+
+\subsection{Source files}
+
+
+\subsection{Source files and compilation}
+
+The source files of the MSOamp program are organized into two directories,
+\emph{nnsrc} and \emph{msosrc}. The former contains the NNamp source
+files, while the latter contains those files specific of the MSO formalism.
+Each one of these directories contains a Makefile. There exits also
+a Makefile in the top directory of the distribution. If needed, this
+can be edited and customized before compilation. Notice that the compiler
+name and options are included by means of {*}.def files. Presently,
+two of these files are included: \emph{fujitsu.def} and \emph{pgf90.def}.
+They contain the compilation specifications for the Fujitsu and PGF90
+compilers, respectively. If you have a different f90 compiler, you
+may want to create your own {*}.def file, with the appropriate options. 
+
+
+\subsection{Compilation}
+
+Once the top Makefile have been customized, the NNamp program can
+be compiled with:
+
+\begin{verbatim}prompt> cd nnsrc ; make\end{verbatim}
+
+Similarly, to compile the MSOamp program:
+
+\begin{verbatim}prompt> cd msosrc; make\end{verbatim}
+
+Alternatively, from the top directory to can compile the NNamp program
+typing:
+
+\begin{verbatim}prompt> make nnamp \end{verbatim} 
+
+\noindent and the MSOamp program with:
+
+\begin{verbatim}prompt> make msoamp \end{verbatim} 
+
+Notice that, whenever the MSO program is compiled, the NNamp program
+will also be compiled. 
+
+After compilation, you can delete the {*}.o files by typing: 
+
+\begin{verbatim}prompt> make clean \end{verbatim}
+
+To delete {*}.o as well as MSOamp / NNamp output files: 
+
+\begin{verbatim}prompt> make superclean \end{verbatim}
+
+To install the executables in the compilation (mso and nnamp) into
+the destination specified at the top Makefile, type:
+
+\begin{verbatim}prompt> make install \end{verbatim}
+
+
+\subsection{Compilation}
+
+
+\section{Description of namelists input variables}
+
+
+\subsection*{MSO namelist: }
+
+Genearal options:
+
+\begin{itemize}
+\item \textbf{tlab}: relative kinetic energy projectile-target in laboratory
+system.
+\item \textbf{offshell}: T/F
+\item \textbf{kmt}: KMT (kmt=T) or Watson (kmt=F) potential. The former
+contains the multiplying factor at/(at-1), with at the target atomic
+number.
+\item \textbf{igwf}: If T, calculates wavefunction up to lstore.
+\item \textbf{lstore}: max. partial wave for wf.
+\item \textbf{nr}: if nr is not 0, a relativistic correction is performed. 
+\item \textbf{ucnr, ucni}: central renormalization constants.
+\item \textbf{usnr, usni}: s.o. renormalization constants.
+\end{itemize}
+
+\subsection*{COUL namelist:}
+
+\begin{itemize}
+\item \textbf{coulomb}: Coulomb correction\\
+=0: no coulomb\\
+=1: coulomb amplitude and phase change included~\\
+=2: coulomb amplitude, but not phase change\\
+=3: realistic (HO shape) charge distribuion\\
+=3: uniform charge sphere distribution
+\item \textbf{rcut} :cut-off radius for subtracted momentum space method
+\cite{Crespo90}.
+\item \textbf{alfa, beta, gama}: parameters for the realistic charge distribution
+of the form:\begin{equation}
+\rho (q)=\left\{ 1-\gamma ^{2}q^{2}-\alpha q^{4}\right\} e^{-\beta q^{2}}
+\end{equation}
+
+\end{itemize}
+
+\subsection*{HIGHORDER namelist:}
+
+Specifications for high order calculations (second order onward)
+
+\begin{itemize}
+\item \textbf{second}:\\
+= 1 vopt1\\
+= 2 vopt1 + vopt2(local)\\
+= 3 vopt1 + vopt2 (non local) \\
+= 4 vopt1 + vopt2 (full nonlocal)
+\item \textbf{isflip}:
+\item \textbf{ich}: 
+\item \textbf{ion2}: 
+\item \textbf{lamx}:
+\item \textbf{lbmx}: 
+\item \textbf{l1mx}:
+\item \textbf{lfmx}:
+\item \textbf{rmaxr}: maximum radius
+\item \textbf{quin}: maximum radius for inner region
+\item \textbf{mquadi}: number of inner quad points (multiple of 6)
+\item \textbf{mquado}: number of outer quad points (multiple of 6)
+\end{itemize}
+
+\subsection*{PROJ namelist:}
+
+Projectile properties. Presently, the program only supports structureless
+projectiles. Thus, unlike the target, no clusters can be defined.
+
+\begin{itemize}
+\item \textbf{massp}: mass number (in a.m.u.)
+\item \textbf{zp}: charge
+\end{itemize}
+
+\subsection*{TARG namelist:}
+
+Target properties
+
+\begin{itemize}
+\item \textbf{masst}: mass number (in a.m.u.)
+\item \textbf{zt}: charge
+\item \textbf{at}: number of nucleons
+\item \textbf{ncluster}: number of clusters
+\end{itemize}
+
+\subsection*{CLUSTER namelist:}
+
+After the \textbf{targ} namelist, \emph{ncluster} namelists will be
+read. Each one contains the information required to construct the
+density for one the clusters. Notice that the different cluster do
+not neccesary have to use the same model density.
+
+\begin{itemize}
+\item \textbf{type}, \textbf{shape}: specify the kind of density. External
+densities (type=1, shape=5) are read from fortran unit 4. The first
+line contains the number of points (\emph{nramax}) and the step (\emph{drx}),
+in free format. Then, nramax density points will be read, assuming
+that the first one corresponds to the origin. \\
+\begin{tabular}{|cc|cl|}
+\hline 
+\multicolumn{2}{|c|}{type}&
+\multicolumn{2}{c|}{shape}\\
+\hline
+\hline 
+0&
+Numerical potential&
+0&
+Woods-Saxon\\
+&
+&
+1&
+Gauss\\
+&
+&
+2&
+Yukawa\\
+&
+&
+3&
+Hulthen\\
+&
+&
+4&
+cosh\\
+&
+&
+5&
+External\\
+\hline 
+1&
+Analytical potential&
+0&
+Harmonic-oscillator s.p.\\
+&
+&
+1&
+Three-parameter Fermi\\
+&
+&
+2&
+G3 distribution\\
+\hline
+\end{tabular}
+\item \textbf{nzclus}: number of protons within this cluster.
+\item \textbf{nnclus}: number of neutrons within this cluster.
+\end{itemize}
+
+\subsection*{BSPARM namelist:}
+
+For type=0, shape=0-4 the bsparm namelist is then read.
+
+\begin{itemize}
+\item \textbf{cmass, vmass}: core and bound particle masses.
+\item \textbf{zc, zv}: core and bound particle charges.
+\item \textbf{nramax}: number of integration steps.
+\item \textbf{drx}: radial step for numerical integration.
+\item \textbf{dmat}:fine tuning of interior-exterior matching. Usually input
+0. {*} If no state found try increase of dmat to of order 10.
+\item \textbf{nshell}: number of shells.
+\end{itemize}
+
+\subsection*{BSHELL namelist:}
+
+Parameters for this specific shell.
+
+\begin{itemize}
+\item \textbf{bengy}: binding energy.
+\item \textbf{vdepth}, \textbf{wr0, wal}: potential depth, radius and diffuseness.
+\item \textbf{wls}: spin-orbit strength.
+\item \textbf{is2}=2{*}valence particle spin \( s \).
+\item \textbf{lmoma}= orbital angular momentum \( \ell  \).
+\item \textbf{j2a} : 2{*}j, where \( j=\ell +s \).
+\item \textbf{nodd}=number of nodes.
+\item \textbf{norba}=occupation number of this shell.
+\end{itemize}
+
+\subsection*{BS3PF namelist:}
+
+If type=1, shape=5 density is defined, a \textbf{\&bs3pf/} namelist
+is then read. In configuration space, it obeys to the form:\begin{equation}
+\label{Eq:rho-fermi}
+\rho (r)=\rho _{0}\frac{1+w(r/c)^{2}}{\exp [(r-c)/z]}
+\end{equation}
+where \( \rho _{0} \) is a normalization constant and \( w,\, c,\, z \)
+are free parameters. 
+
+\begin{itemize}
+\item \textbf{w3p, z3p}, \textbf{c3p}: Fermi parameters for protons.
+\item \textbf{w3n, z3n, c3n}: Fermi parameters for neutrons.
+\item \textbf{nramax}: number of radial points to calculate the density.
+\item \textbf{drx}: step size (fm).
+\end{itemize}
+
+\subsection*{HOPARM namelist:}
+
+For type=1, shape=0 densities, harmonic oscillator parameters are
+read. First, a \textbf{hoparm} namelist is introduced, which currently
+only contains the number of shells that will be next read by means
+of \textbf{hoshell} namelists.
+
+\begin{itemize}
+\item \textbf{hoparm}: number of harmonic-oscillator shells to be read.
+\end{itemize}
+
+\subsection*{HOSHELL namelist: }
+
+Provides the HO parameters and occupations numbers for each shell.
+
+\begin{itemize}
+\item \textbf{aap, aan}: HO parameters for protons and neutrons, respectively.
+\item \textbf{zorba, norba}: occupation number (protons and neutrons) for
+this shell.
+\end{itemize}
+
+\section{Test examples}
+
+
+\subsection{p+\protect\( ^{16}\protect \)O with HO formactors}
+
+In describing \( ^{16} \)O we consider a shell model harmonic oscillator
+(HO) description where the center-of-mass corrections are neglected.
+Thus, the nucleus matter density distribution is directly evaluated
+from the HO single particle wave functions using the relative frequency
+obtained by Donnelly and Walker \cite{Donnelly69}. 
+
+\verbatiminput{examples/mso_o16_ho.in}
+
+
+\subsection{n+\protect\( ^{16}\protect \)Pb with 3-parameter Fermi formactor}
+
+In this example, the density distribution of the \( ^{208} \)Pb nucleus
+has been modeled with the three-parameter Fermi form, Eq.\ (\ref{Eq:rho-fermi}).
+The parameters where taken from \cite{Barrett79}.
+
+\verbatiminput{examples/mso_pb_g3.in}
+
+
+\subsection{p+\protect\( ^{9}\protect \)Li with external (Hartree-Fock) formfactors }
+
+In describing the \( ^{9} \)Li ground state, we use a shell model
+Hartree-Fock description as described in the work of \cite{Sagawa92}.
+This is read externally from fortran unit file 4. The first line of
+this line contains the number of points and radial step.
+
+\verbatiminput{examples/mso_li9_hf.in}
+
+
+\subsection{p+\protect\( ^{9}\protect \)Li with mixed (cluster) formfactors }
+
+As a check of of the dependence of the scattering observables on the
+model adopted for the matter density, we repeat in this example the
+calculation for p+\( ^{9} \)Li, with a different model for the \( ^{9} \)Li.
+Now we assume a cluster model for \( ^{9} \)Li as in \cite{Crespo96}
+consisting of an \( \alpha  \)-particle-like core, four neutrons
+in the \( p_{3/2} \) shell coupled to spin zero, and a proton in
+the \( p_{3/2} \) shell. We take a Gaussian distribution for the
+nucleons in the alpha core. For the other nucleons we consider two
+cases: an harmonic oscilator model (here called Cluster I) where the
+valence neutrons and protons are described within the harmonic oscillator
+single particle model. The ranges of the parameters correspond to
+the parameter set (a) found in \cite{Crespo96}. We also take the
+valence nucleons as bound to the core by a Woods-Saxon potential with
+parameters adjusted to obtain the valence neutron and proton separation
+energy (here called cluster II).
+
+\verbatiminput{examples/mso_li9_clus.in}
+
+Note that all these examples require, together with the MSOamp input
+file (typically mso.in), the NNamp input file. In these examples we
+have used:
+
+\verbatiminput{examples/nnamp.in}
+
+\bibliographystyle{unsrt}
+\bibliography{referRC}
+
+\end{document}

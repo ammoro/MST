@@ -1,0 +1,33 @@
+\select@language {english}
+\contentsline {section}{\numberline {1}Introduction}{3}
+\contentsline {section}{\numberline {2}Scattering framework}{4}
+\contentsline {section}{\numberline {3}Adopted conventions}{7}
+\contentsline {section}{\numberline {4}NN amplitudes}{8}
+\contentsline {subsection}{\numberline {4.1}The Wolfenstein representation}{9}
+\contentsline {subsection}{\numberline {4.2}The tensor representation}{11}
+\contentsline {subsection}{\numberline {4.3}Partial wave decomposition: solution method}{12}
+\contentsline {section}{\numberline {5}The MSO amplitudes}{13}
+\contentsline {subsection}{\numberline {5.1}The matrix elements of the optical potential }{13}
+\contentsline {subsubsection}{\numberline {5.1.1}The single scattering approximation}{13}
+\contentsline {subsubsection}{\numberline {5.1.2}The double scattering approximation}{14}
+\contentsline {section}{\numberline {6}The density distributions}{16}
+\contentsline {subsection}{\numberline {6.1}Harmonic oscilator}{16}
+\contentsline {subsection}{\numberline {6.2}Two-parameter fermi}{16}
+\contentsline {subsection}{\numberline {6.3}The Lippmann-Schwinger equation: solution method}{17}
+\contentsline {section}{\numberline {7}The MST amplitudes}{20}
+\contentsline {subsection}{\numberline {7.1}The scattering observables}{20}
+\contentsline {subsection}{\numberline {7.2}The target wave function}{21}
+\contentsline {subsection}{\numberline {7.3}The Factorized impulse approximation}{21}
+\contentsline {subsection}{\numberline {7.4}The matrix elements}{24}
+\contentsline {subsubsection}{\numberline {7.4.1}Scattering from the valence:}{25}
+\contentsline {subsubsection}{\numberline {7.4.2} Scattering from the core:}{27}
+\contentsline {subsection}{\numberline {7.5}Relativistic kinematics}{27}
+\contentsline {section}{\numberline {8}Running SAM}{30}
+\contentsline {subsection}{\numberline {8.1}Source files}{30}
+\contentsline {paragraph}{\emph {Utilities sources}}{37}
+\contentsline {subsection}{\numberline {8.2}Source files and compilation}{37}
+\contentsline {section}{\numberline {9}Description of namelists input variables}{38}
+\contentsline {subsection}{\numberline {9.1}NNamp.in}{38}
+\contentsline {subsection}{\numberline {9.2}MSO.in}{41}
+\contentsline {subsection}{\numberline {9.3}MST.in}{46}
+\contentsline {section}{\numberline {10}Test case and set up}{49}

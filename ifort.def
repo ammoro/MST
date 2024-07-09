@@ -1,0 +1,8 @@
+FC = ifort
+F90C = $(FC)
+#FORM = -Mnofree
+FFLAGS =  -g -cm -w  -FI
+#FFLAGS =  -cm -w -O2 -FI
+#FFLAGS = -g
+#FFLAGS1 = -O1  
+FORM = -g

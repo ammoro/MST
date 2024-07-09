@@ -1,0 +1,31 @@
+&system tcm=100 nnpot='paris' /
+#&system nnpot='paris' /
+&out dels=0 aeon=1 aeoff=0 mon=0 moff=0 xsec=1 /
+&kmat hw=0.5 b01=0. b34=30. 
+      n1=3 n2=6 n3=15 n4=6 
+      s=1.0
+      qlo=0.   qhi=1000. /
+
+&pw is=0 ll=0 jj=0 /
+&pw is=1 ll=1 jj=0 /
+&pw is=0 ll=1 jj=1 /
+&pw is=1 ll=1 jj=1 /
+&pw is=1 ll=0 jj=1 /
+&pw is=0 ll=2 jj=2 /
+&pw is=1 ll=2 jj=2 /
+&pw is=1 ll=1 jj=2 /
+&pw is=0 ll=3 jj=3 /
+&pw is=1 ll=3 jj=3 /
+&pw is=1 ll=2 jj=3 /
+&pw is=0 ll=4 jj=4 /
+&pw is=1 ll=4 jj=4 /
+&pw is=1 ll=3 jj=4 /
+&pw is=0 ll=5 jj=5 /
+&pw is=1 ll=5 jj=5 /
+&pw is=1 ll=4 jj=5 /
+&pw is=0 ll=6 jj=6 /
+&pw is=1 ll=6 jj=6 /
+&pw is=-1 ll=0 jj=0 /
+
+&amp ifkq=1 xkmax=3.0 xqmax=3. dk=0.2 dq=0.2 theta=90. nth=90 /
+     itype=2 icase=2 /

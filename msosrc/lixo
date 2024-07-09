@@ -1,0 +1,161 @@
+1898,1899c1898
+< !                     call ffactfermi(ncl,n1,n2,nzclus,nnclus)
+<                       call ffactfermi2(ncl,n1,n2,nzclus,nnclus)
+---
+>                      call ffactfermi(ncl,n1,n2,nzclus,nnclus)
+2474,2553d2472
+< 
+< c *** -----------------------------------------------------
+< c *** Calculates for 3 parameter Fermi density distribution 
+< c *** normalized to number of particles
+< c *** -----------------------------------------------------
+<       subroutine ffactfermi2(ncl,n1,n2,nzclus,nnclus)
+<         use params
+<         implicit real*8 (a-h,k,o-z)
+<        integer :: ncl,n1,n2,i,m,kout=16
+<        integer :: nramax,kin=13, nzclus,nnclus,norm
+<        real*8  :: w3pf,z3pf,c3pf
+<        real*8  :: drx,rnorm,densq,yyy,r
+<        real*8,allocatable,target ::bs(:,:),densr(:), bsr2(:,:)
+<        real*8, pointer :: bp(:),bpr2(:)
+< 
+<        namelist /bs3pf/ w3p,z3p,c3p,w3n,z3n,c3n,nramax,drx
+<        
+<        read(kin,nml=bs3pF)
+<        write(*,nml=bs3PF)
+<        allocate(densr(nramax))
+<        allocate(bs(nramax,2))
+<        allocate(bsr2(nramax,2))
+<        
+< 
+<        
+<        do 86 i=1,nramax
+<           r=(i-1.)*drx
+<           yyy = 1. + exp( (r-c3p)/z3p )
+<           bs(i,1)= (1. + w3p*(r/c3p)**2)/yyy !rho(r) protons 
+<           bsr2(i,1)=bs(i,1)*r*r ! rho(r)*r^2
+<           yyy = 1. + exp( (r-c3n)/z3n )
+<           bs(i,2)= (1. + w3n*(r/c3n)**2)/yyy !rho(r) neutrons
+<           bsr2(i,2)=bs(i,2)*r*r ! rho(r)*r^2
+<  86    continue
+< 
+<        do iso=1,2
+<           bp=>bs(:,iso)
+<           bpr2=>bsr2(:,iso)
+<                     
+<           if (iso.eq.1) then
+<              norm=nzclus
+<              write(*,80)"protons",nzclus
+<              write(8,*) '#Fermi: protons' 
+<           else
+<              norm=nnclus
+<              write(*,80)"neutrons",nnclus
+<              write(8,*) '&'
+<               write(14,*) '&'
+<              write(8,*) '#Fermi: neutrons'
+<           endif
+<           write(14,*) '#',nramax,drx
+< 80        format(a8,i3)
+<           call sim2(bpr2,rnorm,1,nramax,drx,nramax)
+< c          write(6,*) 'normalization =',rnorm
+<           bp=bp/rnorm
+<           densr=dble(norm)*bp
+<       
+<        do 95 i=1,nramax
+<           r=(i-1)*drx
+<           bp(i)=bp(i)*r**4     !rho*r^4
+< c          densr(i)= densr(i)/rnorm
+<           write(14,*) r,densr(i)
+<           
+< !          if (densr(i)<1e-10) densr(i)=0.       
+< 95     continue
+< 
+<           call sim2(bp,rms,1,nramax,drx,nramax)
+<           write(6,'(" rms=",f6.3)') sqrt(rms)
+<           
+< 
+< c *** transforms density to momentum space
+< c        write(8,*) '#3 parameter Fermi density'
+<        call rtoq(densr,nramax,drx,ncl,n1,n2,iso)
+<        enddo ! end loop p/n
+<        deallocate(densr,bs,bsr2)
+<        return
+<        end 
+< 
+< 
+< 
+2696a2616
+>          rho=0.
+2699a2620
+>             rho=1.
+2703d2623
+<                rho=1.
+2719d2638
+< !            write(*,*) isos,shname(ibs),rho
+2721c2640
+<          
+---
+> !         write(*,*) densr 
+2723c2642
+<       enddo !end loop p/n
+---
+>       enddo
+2728,2729c2647,2648
+<         qmax=5.
+<         dq=0.1
+---
+>         qmax=2.
+>         dq=0.05
+2794d2712
+<                   aa=aa1(ibs,isos) 
+2814,2817d2731
+< !                 if ((i1.eq.i2).and.(isos.eq.1).and.q<20) 
+< !     &            write(98,*) q,densq
+< !                 if ((i1.eq.i2).and.(isos.eq.2).and.q<20) 
+< !     &             write(97,*) q,densq
+2872,2874c2786,2787
+< !        implicit real*8 (a-h,k,o-z)
+<         implicit none
+<         integer:: xi,m,i1,i2,ncl,n1,n2,np,i,iq
+---
+>         implicit real*8 (a-h,k,o-z)
+>         integer:: xi,m,i1,i2,ncl,n1,n2
+2876,2878c2789,2791
+<         integer:: code,ncos,nramax
+<         real*8 :: densq,rho,x,rnorm,drx,r,qr,a,b
+<         real*8 :: k,kp,q2,q,cthnuc,theta
+---
+>         integer:: code,ncos
+>         real*8 :: densq,rho,densr(nramax),x,rnorm
+>         real*8 :: k,kp,q2,q
+2880,2881c2793
+<         real*8, allocatable :: dd(:)
+<         real*8, intent(in) :: densr(nramax) 
+---
+>         real*8, allocatable :: dd(:) 
+2883,2884c2795
+<         real*8 :: xis(ncos), ws(ncos) 
+<         allocate(dd(nramax))
+---
+>         real*8 :: xis(ncos)     
+2886c2797
+<         
+---
+>         allocate(dd(nramax))
+2895d2805
+< 
+2906d2815
+< !!!!             write(*,*)i,densr(i)
+2940,2947d2848
+< 
+< cc  TEST: print on-shell values at quadrature points
+< !                if ((i1.eq.i2).and.(np.eq.1).and.q<20) 
+< !     &            write(98,*) q,densq
+< !                 if ((i1.eq.i2).and.(np.eq.2).and.q<20) 
+< !     &             write(97,*) q,densq
+< 
+< 
+2950c2851
+<             if (np.eq.1) then
+---
+>             if (np==1) then

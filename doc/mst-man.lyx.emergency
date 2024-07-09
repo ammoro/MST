@@ -1,0 +1,231 @@
+#LyX 1.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 218
+\textclass article
+\language english
+\inputencoding auto
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing single 
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 0
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+
+\layout Title
+
+MSTamp: A computer code to evaluate the multiple scattering expansion of
+ the total transition amplitude for nucleon-nucleus scattering
+\layout Author
+
+R.
+ Crespo and A.
+ M.
+ Moro
+\layout Address
+\align center 
+Departamento de F
+\latex latex 
+
+\backslash 
+'i
+\latex default 
+sica, Instituto Superior T
+\latex latex 
+
+\backslash 
+'e
+\latex default 
+cnico, 1049-001 Lisboa, Portugal
+\layout Standard
+
+Email: raquel@wotan.ist.utl.pt, moro@mary.ist.utl.pt
+\layout Standard
+
+
+\begin_inset LatexCommand \tableofcontents{}
+
+\end_inset 
+
+
+\layout Section
+
+Formalism
+\layout Subsection
+
+The nuclear structure
+\layout Standard
+
+We describe in this section the scattering of a nucleus assumed to be well
+ described by a core and two valence particles (C+v
+\begin_inset Formula \( _{1} \)
+\end_inset 
+
++v
+\begin_inset Formula \( _{2} \)
+\end_inset 
+
+) originally in a 
+\begin_inset Formula \( |\Psi _{i}\rangle  \)
+\end_inset 
+
+, state to a final 
+\begin_inset Formula \( |\Psi _{f}\rangle  \)
+\end_inset 
+
+ state, by means of its interaction with a proton, with initial momentum
+ 
+\begin_inset Formula \( \vec{k}_{i} \)
+\end_inset 
+
+ and spin 
+\begin_inset Formula \( S\sigma  \)
+\end_inset 
+
+ (
+\begin_inset Formula \( S=1/2 \)
+\end_inset 
+
+) and final momentum 
+\begin_inset Formula \( \vec{k}_{f} \)
+\end_inset 
+
+ and spin 
+\begin_inset Formula \( S\sigma ' \)
+\end_inset 
+
+ in the nucleon-nucleus center-of-mass frame.
+ We describe the initial (final) state with angular momentum of the valence
+ pair 
+\begin_inset Formula \( J_{v_{1}v_{2}}^{\pi }(i) \)
+\end_inset 
+
+ 
+\begin_inset Formula \( \left (J_{v_{1}v_{2}}^{\pi }(f)\right ) \)
+\end_inset 
+
+ and energy 
+\begin_inset Formula \( E_{i} \)
+\end_inset 
+
+ (
+\begin_inset Formula \( E_{f} \)
+\end_inset 
+
+) as 
+\begin_inset Formula \( \phi _{i}=|J_{v_{1}v_{2}}^{\pi }(i),E_{i}\rangle  \)
+\end_inset 
+
+ 
+\begin_inset Formula \( \left (\phi _{f}=|J_{v_{1}v_{2}}^{\pi }(f),E_{f}\rangle \right ) \)
+\end_inset 
+
+, neglecting the spin of the core.
+ The wave function is then written as (
+\begin_inset Formula \( n=i,f) \)
+\end_inset 
+
+
+\begin_inset Formula \begin{equation}
+\Psi _{n}(\vec{r},\vec{R},R_{c})=\left [\phi _{n}(\vec{r},\vec{R})\otimes \Phi (\vec{R}_{c})\right ]
+\end{equation}
+
+\end_inset 
+
+where 
+\begin_inset Formula \( \Phi (\vec{R}_{c}) \)
+\end_inset 
+
+ is the core internal wave function and 
+\begin_inset Formula \( \phi _{n}(\vec{r},\vec{R}) \)
+\end_inset 
+
+ the two body wave function of the valence system relative to the core
+\layout Standard
+
+
+\begin_inset Formula \begin{equation}
+\phi _{n}(\vec{r},\vec{R})=\sum _{\ell \lambda LSJ}F_{\ell \lambda LSJ}(r,R)\left [\left [Y_{\ell }(\hat{r})\otimes Y_{\lambda }(\hat{R})\right ]_{L}\otimes \left [\chi _{S_{2}}\otimes \chi _{S_{3}}\right ]_{S}\right ]_{JM}
+\end{equation}
+
+\end_inset 
+
+
+\layout Standard
+
+In this equation 
+\begin_inset Formula \( \lambda  \)
+\end_inset 
+
+ is the orbital angular momentum between the core and the center of mass
+ of the valence pair and
+\begin_inset Formula \( \ell  \)
+\end_inset 
+
+ the relative angular momentum of the pair.
+ 
+\layout Subsection
+
+The transition amplitudes
+\layout Subsubsection
+
+Scattering from the core
+\layout Standard
+
+We proceed by evaluating the single scattering term from the core, and assume
+ only a central interaction in this case.
+ The transition amplitude is then given as
+\layout Standard
+
+
+\begin_inset Formula \begin{equation}
+\langle \vec{k}_{f}\Psi _{n'}|\hat{t}_{pC}|\vec{k}_{i}\Psi _{n}\rangle =\langle \Phi _{c}|\hat{t}_{pC}(\omega _{pC}\vec{\Delta })|\Phi _{c}\rangle \rho ^{fi}_{00}(0,\frac{M_{v}}{M}\vec{\Delta })
+\end{equation}
+
+\end_inset 
+
+where 
+\begin_inset Formula \( M_{v}=m_{v1}+m_{v2} \)
+\end_inset 
+
+ and 
+\begin_inset Formula \( M=M_{v}+M_{C} \)
+\end_inset 
+
+.
+ The formfactor 
+\begin_inset Formula \( \rho ^{fi}_{00} \)
+\end_inset 
+
+is evaluated from the 2-body halo transition density distribution
+\layout Standard
+
+
+\begin_inset Formula \[
+\rho ^{fi}_{00}(\]
+
+\end_inset 
+
+
+\layout Section
+
+Test examples
+\layout Standard
+
+
+\begin_inset LatexCommand \BibTeX[unsrt]{referRC}
+
+\end_inset 
+
+
+\the_end
