@@ -1,0 +1,28 @@
+#MST input file for 6He(p,p') @ 700 MeV (lab)
+&mst qmax=10  tlab=717 thmin=0 thmax=35 dth=0.5 dry=F onlyel=F
+kinem=0  rel=T ifrho=T coulmst=0 /
+
+# kinem=0 => MST
+# kinem=1 => Chew
+# Kinem=2 => Rihan: optimal approximation
+# Kinem=3 => KL: Kujawski & Lambert
+# Kinem=4 => FSA:fixed scatterer approximation
+
+&quad1 qmaxr=3 quin=1.5 mquadi=90 mquado=60 /
+&quad2 qmaxrd=3 quind=1.5 mquadid=90  mquadod=60 / 
+&quad3 rmaxr=30. rin=15. mrquadi=90 mrquado=60 /
+
+&proj massp=1.0072 zp=1 jp=0.5 /
+&targ masst=6.0188 zt=2 ncl=3 nustates=1 quais=1   irho=0 /
+
+&kapas k0000=1 k1100=1 k0111=1 k1120=1 k1121=1 k1122=1 /
+
+&tclus mtclus=1 spin=0.5 ztclus=0  /
+&tclus mtclus=1 spin=0.5 ztclus=0  /	
+&tclus mtclus=4 ttype=100 spin=0.0 ztclus=2  /
+
+&wfrho filewf="wf-j0-l11-n4-e10.dat"   dxy=0.2 / smallchan=0.1 /
+&wfrho  /
+      
+
+
