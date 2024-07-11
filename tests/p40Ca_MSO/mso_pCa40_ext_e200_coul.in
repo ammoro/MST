@@ -1,0 +1,13 @@
+# p + 40Ca scattering at Elab=200 MeV (no Coulomb)
+  &mso tlab=200 offshell=T kmt=T  lxmax=30 
+       ngp=40, kode=022 b=21000. nang=-1 ymin1=-7. ymin2=-2. nr=0/ 
+
+  &coul coulomb=1 rcut=10.  alfa=0.3916125 beta=3.1329 gama=0. /
+  &highorder second=1 closure=F rmaxr=10. quin=6. mquadi=120 mquado=48 /
+  &proj massp=1.0072 zp=1 /
+  &targ ncluster=1 masst=40. at=40 zt=20 /
+  &cluster type=0 shape=5 nzclus=20 nnclus=20 /
+
+
+
+

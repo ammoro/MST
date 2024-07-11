@@ -1,0 +1,5 @@
+ln -fs  densrCA40_ext.4       fort.4
+ln -fs densq_Ca40_ext         fort.8
+ln -fs xs_pCa40_ext-e200      xsec.out
+ln -fs mso_pCa40_ext_e200_coul.in  mso.in
+./mso

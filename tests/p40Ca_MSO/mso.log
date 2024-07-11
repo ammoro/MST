@@ -1,0 +1,1116 @@
+ getins:elab=   200.000000000000     
+ + Allocating fr,fi with          41          41
+ MSO: calculating factorials for l<=         100
+ logfac: calculating factorials for l<=         100
+           1 call to NNAMP
+ ampnn: tcm=   100.000000000000       ifmst= T
+ Entering k with ifmst= T
+ nnamin: bqmax=  0.000000000000000E+000
+qw:n1,n2,n3,n4,ic,kmax  3  6 15  6  0  0
++Allocating 31 points for qq and wq...
+ Exiting qw subroutine..
++Allocating   7x 465 elements for d01
++Allocating   7x  30 elements for dmm1
+ Entering klkkp subroutine...
++Allocating  31x 31 elements for cvl,ak,bk
++Allocating memory for  62x 62 elements in  v
+ Leaving potlsj...
+ Entering leq...
+ -Deallocating memory for a,b
+ Leaving leq...
+ -Deallocating memory for cvl,ak,bk
+ Entering kt...
+ +Allocating memory for ttl,tl,tkm,vm,tkh...
+ Leaving ktall...
+ Entering klkkp subroutine...
++Allocating  31x 31 elements for cvl,ak,bk
++Allocating memory for  62x 62 elements in  v
+ Leaving potlsj...
+ Entering leq...
+ -Deallocating memory for a,b
+ Leaving leq...
+ -Deallocating memory for cvl,ak,bk
+ Entering kt...
+ +Allocating memory for ttl,tl,tkm,vm,tkh...
+ Leaving ktall...
+ Entering klkkp subroutine...
++Allocating  31x 31 elements for cvl,ak,bk
++Allocating memory for  62x 62 elements in  v
+ Leaving potlsj...
+ Entering leq...
+ -Deallocating memory for a,b
+ Leaving leq...
+ -Deallocating memory for cvl,ak,bk
+ Entering kt...
+ +Allocating memory for ttl,tl,tkm,vm,tkh...
+ Leaving ktall...
+ Entering klkkp subroutine...
++Allocating  31x 31 elements for cvl,ak,bk
++Allocating memory for  62x 62 elements in  v
+ Leaving potlsj...
+ Entering leq...
+ -Deallocating memory for a,b
+ Leaving leq...
+ -Deallocating memory for cvl,ak,bk
+ Entering kt...
+ +Allocating memory for ttl,tl,tkm,vm,tkh...
+ Leaving ktall...
+ Entering klkkp subroutine...
++Allocating  62x 62 elements for cvl,ak,bk
++Allocating memory for  62x 62 elements in  v
+ Leaving potlsj...
+ Entering leq...
+ -Deallocating memory for a,b
+ Leaving leq...
+ -Deallocating memory for cvl,ak,bk
+ Entering kt...
+ +Allocating memory for ttl,tl,tkm,vm,tkh...
+ Leaving ktall...
+ Entering klkkp subroutine...
++Allocating  31x 31 elements for cvl,ak,bk
++Allocating memory for  62x 62 elements in  v
+ Leaving potlsj...
+ Entering leq...
+ -Deallocating memory for a,b
+ Leaving leq...
+ -Deallocating memory for cvl,ak,bk
+ Entering kt...
+ +Allocating memory for ttl,tl,tkm,vm,tkh...
+ Leaving ktall...
+ Entering klkkp subroutine...
++Allocating  31x 31 elements for cvl,ak,bk
++Allocating memory for  62x 62 elements in  v
+ Leaving potlsj...
+ Entering leq...
+ -Deallocating memory for a,b
+ Leaving leq...
+ -Deallocating memory for cvl,ak,bk
+ Entering kt...
+ +Allocating memory for ttl,tl,tkm,vm,tkh...
+ Leaving ktall...
+ Entering klkkp subroutine...
++Allocating  62x 62 elements for cvl,ak,bk
++Allocating memory for  62x 62 elements in  v
+ Leaving potlsj...
+ Entering leq...
+ -Deallocating memory for a,b
+ Leaving leq...
+ -Deallocating memory for cvl,ak,bk
+ Entering kt...
+ +Allocating memory for ttl,tl,tkm,vm,tkh...
+ Leaving ktall...
+ Entering klkkp subroutine...
++Allocating  31x 31 elements for cvl,ak,bk
++Allocating memory for  62x 62 elements in  v
+ Leaving potlsj...
+ Entering leq...
+ -Deallocating memory for a,b
+ Leaving leq...
+ -Deallocating memory for cvl,ak,bk
+ Entering kt...
+ +Allocating memory for ttl,tl,tkm,vm,tkh...
+ Leaving ktall...
+ Entering klkkp subroutine...
++Allocating  31x 31 elements for cvl,ak,bk
++Allocating memory for  62x 62 elements in  v
+ Leaving potlsj...
+ Entering leq...
+ -Deallocating memory for a,b
+ Leaving leq...
+ -Deallocating memory for cvl,ak,bk
+ Entering kt...
+ +Allocating memory for ttl,tl,tkm,vm,tkh...
+ Leaving ktall...
+ Entering klkkp subroutine...
++Allocating  62x 62 elements for cvl,ak,bk
++Allocating memory for  62x 62 elements in  v
+ Leaving potlsj...
+ Entering leq...
+ -Deallocating memory for a,b
+ Leaving leq...
+ -Deallocating memory for cvl,ak,bk
+ Entering kt...
+ +Allocating memory for ttl,tl,tkm,vm,tkh...
+ Leaving ktall...
+ Entering klkkp subroutine...
++Allocating  31x 31 elements for cvl,ak,bk
++Allocating memory for  62x 62 elements in  v
+ Leaving potlsj...
+ Entering leq...
+ -Deallocating memory for a,b
+ Leaving leq...
+ -Deallocating memory for cvl,ak,bk
+ Entering kt...
+ +Allocating memory for ttl,tl,tkm,vm,tkh...
+ Leaving ktall...
+ Entering klkkp subroutine...
++Allocating  31x 31 elements for cvl,ak,bk
++Allocating memory for  62x 62 elements in  v
+ Leaving potlsj...
+ Entering leq...
+ -Deallocating memory for a,b
+ Leaving leq...
+ -Deallocating memory for cvl,ak,bk
+ Entering kt...
+ +Allocating memory for ttl,tl,tkm,vm,tkh...
+ Leaving ktall...
+ Entering klkkp subroutine...
++Allocating  62x 62 elements for cvl,ak,bk
++Allocating memory for  62x 62 elements in  v
+ Leaving potlsj...
+ Entering leq...
+ -Deallocating memory for a,b
+ Leaving leq...
+ -Deallocating memory for cvl,ak,bk
+ Entering kt...
+ +Allocating memory for ttl,tl,tkm,vm,tkh...
+ Leaving ktall...
+ Entering klkkp subroutine...
++Allocating  31x 31 elements for cvl,ak,bk
++Allocating memory for  62x 62 elements in  v
+ Leaving potlsj...
+ Entering leq...
+ -Deallocating memory for a,b
+ Leaving leq...
+ -Deallocating memory for cvl,ak,bk
+ Entering kt...
+ +Allocating memory for ttl,tl,tkm,vm,tkh...
+ Leaving ktall...
+ Entering klkkp subroutine...
++Allocating  31x 31 elements for cvl,ak,bk
++Allocating memory for  62x 62 elements in  v
+ Leaving potlsj...
+ Entering leq...
+ -Deallocating memory for a,b
+ Leaving leq...
+ -Deallocating memory for cvl,ak,bk
+ Entering kt...
+ +Allocating memory for ttl,tl,tkm,vm,tkh...
+ Leaving ktall...
+ Entering klkkp subroutine...
++Allocating  62x 62 elements for cvl,ak,bk
++Allocating memory for  62x 62 elements in  v
+ Leaving potlsj...
+ Entering leq...
+ -Deallocating memory for a,b
+ Leaving leq...
+ -Deallocating memory for cvl,ak,bk
+ Entering kt...
+ +Allocating memory for ttl,tl,tkm,vm,tkh...
+ Leaving ktall...
+ Entering klkkp subroutine...
++Allocating  31x 31 elements for cvl,ak,bk
++Allocating memory for  62x 62 elements in  v
+ Leaving potlsj...
+ Entering leq...
+ -Deallocating memory for a,b
+ Leaving leq...
+ -Deallocating memory for cvl,ak,bk
+ Entering kt...
+ +Allocating memory for ttl,tl,tkm,vm,tkh...
+ Leaving ktall...
+ Entering klkkp subroutine...
++Allocating  31x 31 elements for cvl,ak,bk
++Allocating memory for  62x 62 elements in  v
+ Leaving potlsj...
+ Entering leq...
+ -Deallocating memory for a,b
+ Leaving leq...
+ -Deallocating memory for cvl,ak,bk
+ Entering kt...
+ +Allocating memory for ttl,tl,tkm,vm,tkh...
+ Leaving ktall...
+ Entering klkkp subroutine...
++Allocating  31x 31 elements for cvl,ak,bk
++Allocating memory for  62x 62 elements in  v
+ Leaving potlsj...
+ Entering leq...
+ -Deallocating memory for a,b
+ Leaving leq...
+ -Deallocating memory for cvl,ak,bk
+ Entering kt...
+ +Allocating memory for ttl,tl,tkm,vm,tkh...
+ bqmax=  0.000000000000000E+000
+ NN: ifkq=           1
+ Entering ampall with lmu=           7
+ theta,icase,nth=   90.0000000000000                0          91
++ mesh: allocating 51 elements for xxk, xxq
++ mesh: allocating 51 elements for xxk, xxq
+ +Allocating memory for aa,bb,...
+  kkmax,nqmax=          51          51
+ +Allocating memory for ampl,ampw,ampz...
+ +Allocating memory for xkm,xkmp,ctheta...
+ ampall: allocating memory for pol, cs
++Allocating  7 elements for d0
+ -Deallocating xkm,xkmp,ctheta,thpr
+ Writing amplitudes
+Allocating  51  51elmts for app,cpp...
+ Calculating coeficients in tensor representation
+ <-Leaving mabon...
+ denom: ngp=          40
+ + Allocating for fnoyes:          30           2
+ + Allocating ul  with          30          41          41
+ + Allocating           1          41          41          48 for ffp
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+ gauss2: ncos=          48
+  + Allocating         181 angles for theta,dnof,...
+ - Deallocating fr,fi,tr,ti
