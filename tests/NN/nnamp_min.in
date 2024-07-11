@@ -1,0 +1,12 @@
+&system  tcm=45 nnpot='paris' jmax=6 /
+&out dels=1 aeon=3 aeoff=0 mon=0 moff=0 /
+&kmat hw=0.5 b34=30. 
+      n1=3 n2=6 n3=15 n4=6 
+      s=1.0
+      qhi=100. /
+
+&amp ifkq=1 xkmax=5. xqmax=5. dk=0.2 dq=0.2 theta=90. nth=90 /
+     itype=2 icase=2 /
+&xsec  / 
+
+
